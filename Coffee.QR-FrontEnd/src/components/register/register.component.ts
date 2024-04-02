@@ -8,8 +8,4 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   constructor(private router: Router) {}
-
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
 }
