@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,4 +8,18 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   constructor(private router: Router) {}
+
+  backgroundImage: string = '';
+
+  ngOnInit() {
+    const backgrounds = [
+      './assets/landing1.jpg',
+      './assets/landing2.jpg',
+      './assets/landing3.jpg',
+    ];
+
+    // Select a random background image
+    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    this.backgroundImage = backgrounds[randomIndex];
+  }
 }
