@@ -18,17 +18,8 @@ export class LoginComponent {
       './assets/landing3.jpg',
     ];
 
-    // Shuffle the array
-    this.shuffleArray(backgrounds);
-
-    // Always select the first image after shuffling
-    this.backgroundImage = backgrounds[0];
-  }
-
-  shuffleArray(array: any[]): void {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-    }
+    // Select a random background image
+    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    this.backgroundImage = backgrounds[randomIndex];
   }
 }
