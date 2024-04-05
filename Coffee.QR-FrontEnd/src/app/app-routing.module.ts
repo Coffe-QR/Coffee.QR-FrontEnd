@@ -11,7 +11,8 @@ import { HomePageComponent } from '../components/Xuniversal/home-page/home-page.
 
 const routes: Routes = [
   // Home
-  { path: '', component: HomePageComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomePageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
