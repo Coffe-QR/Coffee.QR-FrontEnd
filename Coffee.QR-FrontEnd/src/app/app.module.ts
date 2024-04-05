@@ -10,6 +10,7 @@ import { ClientLandingPageComponent } from '../components/Client/client-landing-
 import { ManagerLandingPageComponent } from '../components/CofeeManager/manager-landing-page/manager-landing-page.component';
 import { ItSupportLandingPageComponent } from '../components/ITsupport/it-support-landing-page/it-support-landing-page.component';
 import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-page/waiter-landing-page.component';
+import { NavbarComponent } from '../components/Xuniversal/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-
     ManagerLandingPageComponent,
     ItSupportLandingPageComponent,
     WaiterLandingPageComponent,
+    NavbarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
