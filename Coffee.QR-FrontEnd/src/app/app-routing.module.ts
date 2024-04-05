@@ -7,9 +7,12 @@ import { ClientLandingPageComponent } from '../components/Client/client-landing-
 import { ManagerLandingPageComponent } from '../components/CofeeManager/manager-landing-page/manager-landing-page.component';
 import { ItSupportLandingPageComponent } from '../components/ITsupport/it-support-landing-page/it-support-landing-page.component';
 import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-page/waiter-landing-page.component';
+import { HomePageComponent } from '../components/Xuniversal/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent },
+  // Home
+  { path: '', component: HomePageComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
   // Bartender // canActivate: [BartenderGuard]

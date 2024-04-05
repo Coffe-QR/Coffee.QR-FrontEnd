@@ -1,3 +1,16 @@
-<app-navbar></app-navbar>
+<div *ngIf="!isMobileDevice">
+  <app-navbar></app-navbar>
 
-<router-outlet />
+  <router-outlet />
+</div>
+<div *ngIf="isMobileDevice">
+  <div
+    [style.backgroundImage]="'url(' + backgroundImage + ')'"
+    class="custom-bg flex justify-center items-center h-full"
+  >
+    <p class="text-2xl text-center text-white font-bold px-8">
+      We're sorry, but this application is still not available on mobile
+      devices.
+    </p>
+  </div>
+</div>

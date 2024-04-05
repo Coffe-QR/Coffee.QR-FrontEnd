@@ -4,7 +4,7 @@
       <div class="flex space-x-4">
         <!-- logo -->
         <div>
-          <a href="/" class="flex items-center py-5 px-2">
+          <a class="flex items-center py-5 px-2">
             <!-- Image logo -->
             <img
               src="../../../assets/logoWhite.png"
@@ -29,13 +29,15 @@
         <a [routerLink]="['/login']" class="py-2 px-3 rounded btn-custom-color"
           >Login</a
         >
-        <a [routerLink]="['']" class="py-2 px-3 custom-color">Sign Up</a>
+        <a [routerLink]="['/register']" class="py-2 px-3 custom-color"
+          >Sign Up</a
+        >
       </div>
     </div>
   </div>
 </nav>
 
-<button class="md:hidden flex items-center" (click)="toggleNavbar()">
+<!-- <button class="md:hidden flex items-center" (click)="toggleNavbar()">
   <svg
     class="w-6 h-6"
     fill="none"
@@ -50,4 +52,4 @@
       d="M4 6h16M4 12h16m-7 6h7"
     ></path>
   </svg>
-</button>
+</button> -->

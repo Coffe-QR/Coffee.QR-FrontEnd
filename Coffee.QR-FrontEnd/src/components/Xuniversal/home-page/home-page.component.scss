@@ -1,0 +1,17 @@
+.flex-container {
+  text-align: center;
+}
+
+/* welcome-page.component.css */
+.dynamic-text span {
+  transition: transform 0.3s ease;
+  display: inline-block; /* Allows the transform to affect inline elements */
+  opacity: 65%;
+}
+
+.dynamic-text span:hover {
+  transform: scale(1.5); /* Adjust scale factor as needed */
+  cursor: default;
+  color: rgb(182, 214, 240);
+  opacity: 110%;
+}
