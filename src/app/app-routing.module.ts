@@ -18,6 +18,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
+    //data: { animation: 'HomePage' },
   },
   {
     path: 'register',

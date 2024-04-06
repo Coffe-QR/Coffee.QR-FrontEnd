@@ -34,7 +34,7 @@ export const slideInAnimation = trigger('routeAnimations', [
   ]),
 ]);
 
-export const fadeInOutAnimation = trigger('routeAnimations', [
+export const fadeDownAnimation = trigger('routeAnimations', [
   transition('* <=> *', [
     query(
       ':enter, :leave',
@@ -43,64 +43,28 @@ export const fadeInOutAnimation = trigger('routeAnimations', [
           position: 'absolute',
           left: 0,
           width: '100%',
-          opacity: 0,
+          opacity: 0.7,
+          transform: 'translateY(0px)',
         }),
       ],
       { optional: true }
     ),
-    query(':enter', [animate('0.5s ease', style({ opacity: 1 }))], {
-      optional: true,
-    }),
-  ]),
-]);
-
-export const scaleAnimation = trigger('routeAnimations', [
-  transition('* <=> *', [
-    query(
-      ':enter',
-      [
-        style({ opacity: 0, transform: 'scale(0.5)' }),
-        animate(
-          '0.5s ease-in-out',
-          style({ opacity: 1, transform: 'scale(1)' })
-        ),
-      ],
-      { optional: true }
-    ),
     query(
       ':leave',
       [
-        style({ opacity: 1, transform: 'scale(1)' }),
         animate(
-          '0.5s ease-in-out',
-          style({ opacity: 0, transform: 'scale(0.5)' })
+          '300ms ease-out',
+          style({ opacity: 0.99, transform: 'translateY(0px)' })
         ),
       ],
       { optional: true }
     ),
-  ]),
-]);
-
-export const rotateAnimation = trigger('routeAnimations', [
-  transition('* <=> *', [
     query(
       ':enter',
       [
-        style({ opacity: 0, transform: 'rotate(-90deg)' }),
         animate(
-          '0.5s ease-in-out',
-          style({ opacity: 1, transform: 'rotate(0deg)' })
-        ),
-      ],
-      { optional: true }
-    ),
-    query(
-      ':leave',
-      [
-        style({ opacity: 1, transform: 'rotate(0deg)' }),
-        animate(
-          '0.5s ease-in-out',
-          style({ opacity: 0, transform: 'rotate(90deg)' })
+          '300ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
         ),
       ],
       { optional: true }

@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  slideInAnimation,
-  scaleAnimation,
-  fadeInOutAnimation,
-  rotateAnimation,
-} from './route-animations';
+import { slideInAnimation, fadeDownAnimation } from './route-animations';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  animations: [slideInAnimation],
+  animations: [fadeDownAnimation],
 })
 export class AppComponent implements OnInit {
   title = 'Coffee.QR';
