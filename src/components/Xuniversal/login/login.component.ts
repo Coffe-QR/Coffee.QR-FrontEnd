@@ -11,23 +11,23 @@ export class LoginComponent {
 
   backgroundImage: string = '';
 
-  ngOnInit() {
-    const backgrounds = [
-      './assets/landing1.jpg',
-      './assets/landing2.jpg',
-      './assets/landing3.jpg',
-    ];
+  // ngOnInit() {
+  //   const backgrounds = [
+  //     './assets/landing1.jpg',
+  //     './assets/landing2.jpg',
+  //     './assets/landing3.jpg',
+  //   ];
 
-    this.preloadImages(backgrounds);
-    // Select a random background image
-    const randomIndex = Math.floor(Math.random() * backgrounds.length);
-    this.backgroundImage = backgrounds[randomIndex];
-  }
+  //   this.preloadImages(backgrounds);
+  //   // Select a random background image
+  //   const randomIndex = Math.floor(Math.random() * backgrounds.length);
+  //   this.backgroundImage = backgrounds[randomIndex];
+  // }
 
-  preloadImages(imageArray: string[]) {
-    imageArray.forEach((image) => {
-      const img = new Image();
-      img.src = image;
-    });
-  }
+  // preloadImages(imageArray: string[]) {
+  //   imageArray.forEach((image) => {
+  //     const img = new Image();
+  //     img.src = image;
+  //   });
+  // }
 }
