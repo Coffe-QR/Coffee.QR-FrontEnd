@@ -9,27 +9,51 @@ import { ItSupportLandingPageComponent } from '../components/ITsupport/it-suppor
 import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-page/waiter-landing-page.component';
 import { HomePageComponent } from '../components/Xuniversal/home-page/home-page.component';
 
+// Placeholder for the guard imports
+// import { BartenderGuard } from 'path-to-guard';
+// Similar imports for other guards...
+
 const routes: Routes = [
-  // Home
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomePageComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-
-  // Bartender // canActivate: [BartenderGuard]
-  { path: 'bartender', component: BartenderLandingPageComponent },
-
-  // Client // canActivate: [ClientGuard]
-  { path: 'client', component: ClientLandingPageComponent },
-
-  // Manager // canActivate: [ManagerGuard]
-  { path: 'manager', component: ManagerLandingPageComponent },
-
-  // IT Support // canActivate: [ItSupportGuard]
-  { path: 'it-support', component: ItSupportLandingPageComponent },
-
-  // Waiter // canActivate: [WaiterGuard]
-  { path: 'waiter', component: WaiterLandingPageComponent },
+  {
+    path: 'home',
+    component: HomePageComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { animation: 'RegisterPage' },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { animation: 'LoginPage' },
+  },
+  {
+    path: 'bartender',
+    component: BartenderLandingPageComponent,
+    // canActivate: [BartenderGuard],
+  },
+  {
+    path: 'client',
+    component: ClientLandingPageComponent,
+    // canActivate: [ClientGuard],
+  },
+  {
+    path: 'manager',
+    component: ManagerLandingPageComponent,
+    // canActivate: [ManagerGuard],
+  },
+  {
+    path: 'it-support',
+    component: ItSupportLandingPageComponent,
+    // canActivate: [ItSupportGuard],
+  },
+  {
+    path: 'waiter',
+    component: WaiterLandingPageComponent,
+    // canActivate: [WaiterGuard],
+  },
 ];
 
 @NgModule({

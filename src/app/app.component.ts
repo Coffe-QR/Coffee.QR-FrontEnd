@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  slideInAnimation,
+  scaleAnimation,
+  fadeInOutAnimation,
+  rotateAnimation,
+} from './route-animations';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit {
   title = 'Coffee.QR';
@@ -15,5 +23,13 @@ export class AppComponent implements OnInit {
       // Option 1: Redirect
       this.isMobileDevice = true;
     }
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return (
+      outlet &&
+      outlet.activatedRouteData &&
+      outlet.activatedRouteData['animation']
+    );
   }
 }
