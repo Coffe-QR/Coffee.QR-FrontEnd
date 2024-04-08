@@ -1,27 +1,45 @@
 <!-- <div [style.backgroundImage]="'url(' + backgroundImage + ')'" class="custom-bg"> -->
-
-<form class="form animate-fade-down animate-delay-500">
+<form
+    [formGroup]="registrationForm"
+    (ngSubmit)="register()"
+    class="form animate-fade-down animate-delay-500"
+>
     <p class="login">Register on Coffe.QR</p>
     <div class="inputContainer">
         <input
+            formControlName="username"
             placeholder="Choose a username"
             type="text"
             class="fInput username"
         />
-        <input placeholder="Your Email" type="email" class="fInput email" />
-        <input placeholder="Phone Number" type="tel" class="fInput phone" />
+        <!-- <input placeholder="Your Email" type="email" class="fInput email" /> -->
+        <!-- <input placeholder="Phone Number" type="tel" class="fInput phone" /> -->
         <input
+            formControlName="password"
             placeholder="Create a password"
             type="password"
             class="fInput pass"
         />
-        <input
+        <select
+            formControlName="tags"
+            reqired
+            formControlName="role"
+            class="fInput"
+        >
+            <option [value]="0">Bartender</option>
+            <option [value]="1">Waiter</option>
+            <option [value]="2">Manager</option>
+            <option [value]="3">Client</option>
+            <option [value]="4">IT support</option>
+        </select>
+        <!-- <input
             placeholder="Confirm your password"
             type="password"
             class="fInput confirm-pass"
-        />
+        /> -->
     </div>
-    <button class="log">Register</button>
+    <button type="submit" [disabled]="isDisabled" class="log">Register</button>
+
     <div class="con">
         <p>Already have an account?&nbsp;</p>
         <a routerLink="/login">Log in</a>

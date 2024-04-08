@@ -39,7 +39,10 @@ export class AuthService {
 
     register(registration: Registration): Observable<AuthResponse> {
         return this.http
-            .post<AuthResponse>(environment.apiHost + 'users', registration)
+            .post<AuthResponse>(
+                environment.apiHost + 'users/register',
+                registration
+            )
             .pipe(
                 tap((authenticationResponse) => {
                     this.tokenStorage.saveAccessToken(

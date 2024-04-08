@@ -42,7 +42,6 @@ const routes: Routes = [
         path: 'about',
         component: AboutComponent,
         data: { animation: 'About' },
-        canActivate: [AuthGuard],
     },
     //--------------------ROLES--------------------
     {
