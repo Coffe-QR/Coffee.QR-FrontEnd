@@ -1,44 +1,77 @@
-<nav class="fixed w-full z-50 bg-inherit animate-fade-down">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex justify-between">
-      <div class="flex space-x-4">
-        <!-- logo -->
-        <div>
-          <a
-            class="flex items-center py-5 px-2 hover:animate-pulse hover:animate-once"
-          >
-            <!-- Image logo -->
-            <img
-              src="../../../assets/logoWhite.png"
-              alt="Coffe.QR Logo"
-              class="h-16 w-auto mr-2"
-            />
-            <!-- Adjust the h-8 (height) and w-auto (width auto) classes as needed -->
-            <span style="margin-left: -12px" class="font-bold text-white"
-              >Coffee.QR</span
-            >
-            <!-- Optional: Text next to the logo -->
-          </a>
+<nav class="fixed z-50 w-full animate-fade-down bg-inherit">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="flex justify-between">
+            <div class="flex space-x-4">
+                <!-- logo -->
+                <div>
+                    <a
+                        class="flex items-center px-2 py-5 hover:animate-pulse hover:animate-once"
+                    >
+                        <!-- Image logo -->
+                        <img
+                            src="../../../assets/logoWhite.png"
+                            alt="Coffe.QR Logo"
+                            class="mr-2 h-16 w-auto"
+                        />
+                        <span
+                            style="margin-left: -12px"
+                            class="font-bold text-white"
+                            >Coffee.QR</span
+                        >
+                    </a>
+                </div>
+                <!-- primary nav -->
+                <div class="hidden items-center space-x-1 md:flex">
+                    <a
+                        *ngIf="user && user.username == ''"
+                        href="#"
+                        class="custom-color px-3 py-5"
+                        >Home</a
+                    >
+                    <a
+                        *ngIf="user && user.username == ''"
+                        routerLink="/about"
+                        class="custom-color px-3 py-5"
+                        >About</a
+                    >
+                    <a
+                        *ngIf="user && user.username == ''"
+                        href="#"
+                        class="custom-color px-3 py-5"
+                        >Services</a
+                    >
+                    <a
+                        *ngIf="user && user.username == ''"
+                        href="#"
+                        class="custom-color px-3 py-5"
+                        >Contact</a
+                    >
+                </div>
+            </div>
+            <!-- secondary nav -->
+            <div class="hidden items-center space-x-1 md:flex">
+                <a
+                    *ngIf="user && user.username === ''"
+                    [routerLink]="['/login']"
+                    class="btn-custom-color rounded px-3 py-2"
+                    >Login</a
+                >
+                <a
+                    *ngIf="user && user.username === ''"
+                    [routerLink]="['/register']"
+                    class="custom-color px-3 py-2"
+                    >Sign Up</a
+                >
+                <button
+                    *ngIf="user && user.username !== ''"
+                    (click)="logout()"
+                    class="btn-custom-color rounded px-3 py-2"
+                >
+                    Logout
+                </button>
+            </div>
         </div>
-        <!-- primary nav -->
-        <div class="hidden md:flex items-center space-x-1">
-          <a href="#" class="py-5 px-3 custom-color">Home</a>
-          <a routerLink="/about" class="py-5 px-3 custom-color">About</a>
-          <a href="#" class="py-5 px-3 custom-color">Services</a>
-          <a href="#" class="py-5 px-3 custom-color">Contact</a>
-        </div>
-      </div>
-      <!-- secondary nav -->
-      <div class="hidden md:flex items-center space-x-1">
-        <a [routerLink]="['/login']" class="py-2 px-3 rounded btn-custom-color"
-          >Login</a
-        >
-        <a [routerLink]="['/register']" class="py-2 px-3 custom-color"
-          >Sign Up</a
-        >
-      </div>
     </div>
-  </div>
 </nav>
 
 <!-- <button class="md:hidden flex items-center" (click)="toggleNavbar()">
