@@ -1,24 +1,24 @@
 <!-- <div [style.backgroundImage]="'url(' + backgroundImage + ')'" class="custom-bg"> -->
 <div class="custom-bg">
-  <div class="flex items-center justify-center h-screen mx-auto text-center">
-    <div class="animate-jump-in animate-duration-700">
-      <h1 class="text-7xl uppercase text-white font-bold dynamic-text">
-        <span>W</span><span>E</span><span>L</span><span>C</span><span>O</span
-        ><span>M</span><span>E</span>&nbsp;<span>T</span
-        ><span>O</span>&nbsp;<span>C</span><span>O</span><span>F</span
-        ><span>F</span><span>E</span><span>E</span><span>.</span><span>Q</span
-        ><span>R</span>
-      </h1>
-      <p class="text-white mt-4 text-lg opacity-80">
-        The best application for improving the experience in coffee shops,
-        restaurants, and nightclubs.
-      </p>
-      <button
-        routerLink="/login"
-        class="mt-8 px-6 py-3 bg-orange-500 text-white font-bold uppercase rounded hover:bg-orange-700 transition duration-300 hover:scale-110"
-      >
-        Login to start
-      </button>
+    <div class="mx-auto flex h-screen items-center justify-center text-center">
+        <div class="animate-jump-in animate-duration-700">
+            <h1 class="dynamic-text text-7xl font-bold uppercase text-white">
+                <span>W</span><span>E</span><span>L</span><span>C</span
+                ><span>O</span><span>M</span><span>E</span>&nbsp;<span>T</span
+                ><span>O</span>&nbsp;<span>C</span><span>O</span><span>F</span
+                ><span>F</span><span>E</span><span>E</span><span>.</span
+                ><span>Q</span><span>R</span>
+            </h1>
+            <p class="mt-4 text-lg text-white opacity-80">
+                The best application for improving the experience in coffee
+                shops, restaurants, and nightclubs.
+            </p>
+            <button
+                (click)="login()"
+                class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+            >
+                Login to start
+            </button>
+        </div>
     </div>
-  </div>
 </div>

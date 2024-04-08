@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { LoginComponent } from '../components/Xuniversal/login/login.component'
-import { RegisterComponent } from '../components/Xuniversal/register/register.component'
+import { LoginComponent } from '../auth/login/login.component'
+import { RegisterComponent } from '../auth/register/register.component'
 import { BartenderLandingPageComponent } from '../components/Bartender/bartender-landing-page/bartender-landing-page.component'
 import { ClientLandingPageComponent } from '../components/Client/client-landing-page/client-landing-page.component'
 import { ManagerLandingPageComponent } from '../components/CofeeManager/manager-landing-page/manager-landing-page.component'
@@ -9,6 +9,7 @@ import { ItSupportLandingPageComponent } from '../components/ITsupport/it-suppor
 import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-page/waiter-landing-page.component'
 import { HomePageComponent } from '../components/Xuniversal/home-page/home-page.component'
 import { AboutComponent } from '../components/Xuniversal/about/about.component'
+import { AuthGuard } from '../auth/auth.guard'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -36,7 +37,7 @@ const routes: Routes = [
         path: 'about',
         component: AboutComponent,
         data: { animation: 'About' },
-        // canActivate: [WaiterGuard],
+        canActivate: [AuthGuard],
     },
     //--------------------ROLES--------------------
     {

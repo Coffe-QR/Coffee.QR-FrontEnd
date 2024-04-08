@@ -1,14 +1,20 @@
 <!-- <div [style.backgroundImage]="'url(' + backgroundImage + ')'" class="custom-bg"> -->
 
-<form class="form animate-fade-down animate-delay-500">
+<form
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+    class="form animate-fade-down animate-delay-500"
+>
     <p class="login">Log in to Coffe.QR</p>
     <div class="inputContainer">
         <input
+            formControlName="username"
             placeholder="Phone or Email or username"
             type="text"
             class="fInput email"
         />
         <input
+            formControlName="password"
             placeholder="Enter your password"
             type="text"
             class="fInput pass"
