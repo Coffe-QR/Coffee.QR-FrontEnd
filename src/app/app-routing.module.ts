@@ -10,6 +10,11 @@ import { WaiterLandingPageComponent } from '../components/Waiter/waiter-landing-
 import { HomePageComponent } from '../components/Xuniversal/home-page/home-page.component'
 import { AboutComponent } from '../components/Xuniversal/about/about.component'
 import { AuthGuard } from '../auth/auth.guard'
+import { WaiterGuard } from '../auth/waiter.guard'
+import { ItSupportGuard } from '../auth/itsupport.guard'
+import { ManagerGuard } from '../auth/manager.guard'
+import { ClientGuard } from '../auth/client.guard'
+import { BartenderGuard } from '../auth/bartender.guard'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -43,27 +48,27 @@ const routes: Routes = [
     {
         path: 'bartender',
         component: BartenderLandingPageComponent,
-        // canActivate: [BartenderGuard],
+        canActivate: [BartenderGuard],
     },
     {
         path: 'client',
         component: ClientLandingPageComponent,
-        // canActivate: [ClientGuard],
+        canActivate: [ClientGuard],
     },
     {
         path: 'manager',
         component: ManagerLandingPageComponent,
-        // canActivate: [ManagerGuard],
+        canActivate: [ManagerGuard],
     },
     {
         path: 'it-support',
         component: ItSupportLandingPageComponent,
-        // canActivate: [ItSupportGuard],
+        canActivate: [ItSupportGuard],
     },
     {
         path: 'waiter',
         component: WaiterLandingPageComponent,
-        // canActivate: [WaiterGuard],
+        canActivate: [WaiterGuard],
     },
 ]
 

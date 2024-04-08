@@ -36,6 +36,20 @@ export class LoginComponent {
                 next: () => {
                     if (this.authService.user$.value.role === 'client') {
                         this.router.navigate(['/client'])
+                    } else if (
+                        this.authService.user$.value.role === 'bartender'
+                    ) {
+                        this.router.navigate(['/bartender'])
+                    } else if (
+                        this.authService.user$.value.role === 'manager'
+                    ) {
+                        this.router.navigate(['/manager'])
+                    } else if (
+                        this.authService.user$.value.role === 'itsupport'
+                    ) {
+                        this.router.navigate(['/it-support'])
+                    } else if (this.authService.user$.value.role === 'waiter') {
+                        this.router.navigate(['/waiter'])
                     } else {
                         this.router.navigate(['/'])
                     }

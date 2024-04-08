@@ -1,1 +1,13 @@
-<p>bartender-landing-page works!</p>
+<div
+    class="to-brown-500 flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-cyan-500 to-black"
+>
+    <h1 class="text-6xl text-white">
+        Hello {{ user?.username }}, your role is {{ user?.role }}
+    </h1>
+    <button
+        (click)="onLogout()"
+        class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+    >
+        Logout
+    </button>
+</div>

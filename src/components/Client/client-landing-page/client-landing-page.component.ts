@@ -17,4 +17,8 @@ export class ClientLandingPageComponent implements OnInit {
             this.user = user
         })
     }
+
+    onLogout(): void {
+        this.authService.logout()
+    }
 }
