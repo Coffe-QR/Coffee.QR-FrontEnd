@@ -15,6 +15,7 @@ import { ItSupportGuard } from '../auth/itsupport.guard'
 import { ManagerGuard } from '../auth/manager.guard'
 import { ClientGuard } from '../auth/client.guard'
 import { BartenderGuard } from '../auth/bartender.guard'
+import { ContactComponent } from '../components/Xuniversal/contact/contact.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -41,7 +42,12 @@ const routes: Routes = [
     {
         path: 'about',
         component: AboutComponent,
-        data: { animation: 'About' },
+        //data: { animation: 'About' },
+    },
+    {
+        path: 'contact',
+        component: ContactComponent,
+        //data: { animation: 'Contact' },
     },
     //--------------------ROLES--------------------
     {
