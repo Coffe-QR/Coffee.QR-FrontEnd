@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { User } from '../../../auth/model/user.model'
 import { AuthService } from '../../../auth/auth.service'
+import { EventService } from '../event.service'
 
 @Component({
     selector: 'app-manager-landing-page',
@@ -9,12 +10,23 @@ import { AuthService } from '../../../auth/auth.service'
 })
 export class ManagerLandingPageComponent implements OnInit {
     user: User | undefined
+    events: any[] = []
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private eventService: EventService
+    ) {}
 
     ngOnInit(): void {
         this.authService.user$.subscribe((user) => {
             this.user = user
+        })
+
+        this.eventService.getAllEvents().subscribe({
+            next: (data) => {
+                this.events = data
+            },
+            error: (err) => console.error('Failed to load events:', err),
         })
     }
 
