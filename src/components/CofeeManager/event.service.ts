@@ -13,7 +13,12 @@ export class EventService {
     createEvent(eventData: any): Observable<any> {
         return this.http.post(this.apiUrl, eventData)
     }
+
     getAllEvents(): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAll`)
+    }
+
+    deleteEvent(eventId: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/${eventId}`)
     }
 }

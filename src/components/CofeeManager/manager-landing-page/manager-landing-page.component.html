@@ -13,7 +13,7 @@
 
     <h1 class="mt-20 text-center text-3xl font-bold text-blue-50">Events</h1>
     <div
-        class="scrollbar grid h-96 grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
+        class="scrollbar grid max-h-64 grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
     >
         <div
             *ngFor="let event of events"
@@ -24,17 +24,21 @@
             </div>
             <p class="mb-4 text-base text-gray-700">
                 {{ event.dateTime | date: 'medium' }}
-                <!-- Format date time appropriately -->
             </p>
             <p class="text-sm text-gray-600">
                 {{ event.description }}
-                <!-- Assuming you have a description -->
             </p>
-            <div class="flex items-center justify-center">
+            <div class="flex flex-col items-center justify-between">
                 <button
                     class="mt-4 rounded bg-lime-700 px-4 py-2 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black"
                 >
                     View Details
+                </button>
+                <button
+                    (click)="deleteEvent(event.id)"
+                    class="mt-4 rounded bg-red-500 px-4 py-2 font-bold text-white duration-300 hover:bg-red-700"
+                >
+                    Delete
                 </button>
             </div>
         </div>
