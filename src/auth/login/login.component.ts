@@ -67,6 +67,9 @@ export class LoginComponent {
         }
     }
 
+    navigateToRegister() {
+        this.router.navigate(['/register'])
+    }
     // ngOnInit() {
     //   const backgrounds = [
     //     './assets/landing1.jpg',

@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { AuthService } from '../auth.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Registration } from '../model/registration.model'
+import { last } from 'rxjs'
 
 @Component({
     selector: 'app-register',
@@ -21,14 +22,20 @@ export class RegisterComponent implements OnInit {
 
     registrationForm = new FormGroup({
         username: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
+        firstname: new FormControl('', [Validators.required]),
+        lastname: new FormControl('', [Validators.required]),
         role: new FormControl('', Validators.required),
     })
 
     register(): void {
         const registration: Registration = {
             username: this.registrationForm.value.username || '',
+            email: this.registrationForm.value.email || '',
             password: this.registrationForm.value.password || '',
+            firstname: this.registrationForm.value.firstname || '',
+            lastname: this.registrationForm.value.lastname || '',
             role: Number(this.registrationForm.value.role),
         }
 
@@ -49,6 +56,9 @@ export class RegisterComponent implements OnInit {
             alert('Invalid data')
             alert(registration.role)
         }
+    }
+    navigateToLogin() {
+        this.router.navigate(['/login'])
     }
 
     // ngOnInit() {
