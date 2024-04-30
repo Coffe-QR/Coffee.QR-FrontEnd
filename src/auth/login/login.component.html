@@ -9,7 +9,7 @@
     <div class="inputContainer">
         <input
             formControlName="username"
-            placeholder="Phone or Email or username"
+            placeholder="Enter your username"
             type="text"
             class="fInput email"
         />
@@ -24,6 +24,6 @@
     <button class="forget">Forget password?</button>
     <div class="con">
         <p>Don't have account?&nbsp;</p>
-        <a routerLink="/register"> Sign in</a>
+        <a class="cursor-pointer" (click)="navigateToRegister()"> Sign in</a>
     </div>
 </form>

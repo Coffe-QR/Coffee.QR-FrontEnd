@@ -8,12 +8,28 @@
     <div class="inputContainer">
         <input
             formControlName="username"
-            placeholder="Choose a username"
+            placeholder="Your username"
             type="text"
             class="fInput username"
         />
-        <!-- <input placeholder="Your Email" type="email" class="fInput email" /> -->
-        <!-- <input placeholder="Phone Number" type="tel" class="fInput phone" /> -->
+        <input
+            formControlName="email"
+            placeholder="Your Email"
+            type="email"
+            class="fInput email"
+        />
+        <input
+            formControlName="firstname"
+            placeholder="Your First Name"
+            type="text"
+            class="fInput firstname"
+        />
+        <input
+            formControlName="lastname"
+            placeholder="Your Last Name"
+            type="text"
+            class="fInput lastname"
+        />
         <input
             formControlName="password"
             placeholder="Create a password"
@@ -22,10 +38,11 @@
         />
         <select
             formControlName="tags"
-            reqired
+            required
             formControlName="role"
             class="fInput"
         >
+            <option value="" disabled selected>Select your role</option>
             <option [value]="0">Bartender</option>
             <option [value]="1">Waiter</option>
             <option [value]="2">Manager</option>
@@ -42,6 +59,6 @@
 
     <div class="con">
         <p>Already have an account?&nbsp;</p>
-        <a routerLink="/login">Log in</a>
+        <a class="cursor-pointer" (click)="navigateToLogin()">Log in</a>
     </div>
 </form>
