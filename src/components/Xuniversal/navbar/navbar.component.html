@@ -52,6 +52,12 @@
                         class="custom-color px-3 py-5"
                         >Create Event</a
                     >
+                    <a
+                        *ngIf="user && user.role === 'manager'"
+                        [routerLink]="['/supply-create']"
+                        class="custom-color px-3 py-5"
+                        >Create supply</a
+                    >
                 </div>
             </div>
             <!-- secondary nav -->
