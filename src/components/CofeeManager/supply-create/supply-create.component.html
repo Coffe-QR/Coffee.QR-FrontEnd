@@ -1,1 +1,136 @@
-<p>supply-create works!</p>
+<div
+    class="flex h-screen items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+>
+    <div
+        class="mb-4 flex h-3/4 w-3/4 rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+    >
+        <!-- New Category Buttons Column -->
+        <div class="scrollable max-h-300 w-1/6 overflow-y-auto bg-gray-50 p-4">
+            <button
+                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                (click)="filterCategory(0)"
+            >
+                Food
+            </button>
+            <button
+                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                (click)="filterCategory(1)"
+            >
+                Drink
+            </button>
+            <button
+                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                (click)="filterCategory(2)"
+            >
+                Ingredient
+            </button>
+            <button
+                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                (click)="filterCategory(3)"
+            >
+                All
+            </button>
+        </div>
+        <!-- Product List -->
+        <div class="max-h-300 w-1/6 flex-1 overflow-y-auto bg-white p-4">
+            <div class="flex items-center justify-center p-4">
+                <div class="flex rounded border-2">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchTerm"
+                        class="w-80 px-4 py-2"
+                        placeholder="Search..."
+                    />
+                    <button
+                        (click)="performSearch()"
+                        class="flex items-center justify-center border-l px-4"
+                    >
+                        <svg
+                            class="h-6 w-6 text-gray-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div
+                class="scrollable max-h-300 flex-1 overflow-y-auto bg-white p-4"
+            >
+                <h2 class="mb-4 text-lg font-bold">Products</h2>
+                <div
+                    *ngFor="let product of filteredProducts"
+                    class="border-b border-gray-300 p-2"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-bold">{{ product.name }}</p>
+                            <p class="text-sm">
+                                ${{ product.price.toFixed(2) }}
+                            </p>
+                        </div>
+                        <button
+                            class="rounded bg-blue-500 px-3 py-1 font-bold text-white hover:bg-blue-700"
+                            (click)="addToOrder(product)"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div
+            class="scrollable max-h-300 w-1/6 flex-1 overflow-y-auto bg-gray-100 p-4"
+        >
+            <h2 class="mb-4 text-lg font-bold">Order Summary</h2>
+            <div
+                *ngFor="let item of orderItems"
+                class="border-b border-gray-300 p-2"
+            >
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="font-bold">
+                            {{ item.product.name }} - x{{ item.quantity }}
+                        </p>
+                        <div class="flex items-center">
+                            <button
+                                class="mx-1 bg-red-500 px-3 py-1 text-white"
+                                (click)="decreaseQuantity(item)"
+                            >
+                                -
+                            </button>
+                            <button
+                                class="mx-1 bg-green-500 px-3 py-1 text-white"
+                                (click)="increaseQuantity(item)"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <p>
+                        ${{ (item.product.price * item.quantity).toFixed(2) }}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="text-lg font-bold">Total: ${{ total.toFixed(2) }}</p>
+                <button
+                    class="mt-2 w-full rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+                    (click)="checkout()"
+                >
+                    Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
