@@ -44,17 +44,13 @@ export class RegisterComponent implements OnInit {
             this.authService.register(registration).subscribe({
                 next: () => {
                     this.router.navigate(['/login'])
-                    alert('Registration successful')
                     this.isDisabled = false
                 },
                 error: (err) => {
-                    alert('Registration failed')
                     this.isDisabled = false
                 },
             })
         } else {
-            alert('Invalid data')
-            alert(registration.role)
         }
     }
     navigateToLogin() {

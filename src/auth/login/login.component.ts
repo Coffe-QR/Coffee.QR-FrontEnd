@@ -61,7 +61,7 @@ export class LoginComponent {
                         this.router.navigate(['/'])
                     }
 
-                    this.toastr.success('Login successful')
+                    //this.toastr.success('Login successful')
                     this.isDisabled = false
                 },
                 error: (err) => {
