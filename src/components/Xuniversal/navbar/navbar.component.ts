@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
     navbarOpen = false
     user: User | undefined
     isDropdownOpen: boolean = false
+    isOpenSupply: boolean = false
 
     constructor(private authService: AuthService) {}
 
@@ -31,5 +32,9 @@ export class NavbarComponent implements OnInit {
 
     logout() {
         this.authService.logout()
+    }
+
+    toggleDropdownSupply() {
+        this.isOpenSupply = !this.isOpenSupply
     }
 }
