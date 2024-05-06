@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module'
 import { ToastrModule } from 'ngx-toastr'
 import { FormsModule } from '@angular/forms'
 import { ManagerModule } from '../components/CofeeManager/manager.module'
+import { XUniversalModule } from '../components/Xuniversal/xuniversal.module'
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent],
@@ -30,6 +31,7 @@ import { ManagerModule } from '../components/CofeeManager/manager.module'
             timeOut: 3000,
         }),
         ManagerModule,
+        XUniversalModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

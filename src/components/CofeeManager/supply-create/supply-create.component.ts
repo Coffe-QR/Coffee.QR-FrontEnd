@@ -17,6 +17,7 @@ export class SupplyCreateComponent {
     filteredProducts: Item[] = []
     orderItems: any[] = []
     searchTerm: string = ''
+    supply: Supply | null = null
 
     constructor(
         private itemService: ItemService,
@@ -34,12 +35,32 @@ export class SupplyCreateComponent {
     ngOnInit() {
         this.itemService.getAllItems().subscribe({
             next: (response) => {
-                console.log(response)
+                //console.log(response)
                 this.products = response
                 this.filteredProducts = response
             },
             error: (error) => console.error('Error creating event:', error),
         })
+        const supplyId = localStorage.getItem('supply')
+        if (supplyId !== null) {
+            //
+            this.supplyItemService.getAllForSupply(Number(supplyId)).subscribe({
+                next: (response) => {
+                    response.forEach((element: any) => {
+                        this.orderItems.push({
+                            product: this.products.find(
+                                (p) => p.id === element.itemId
+                            ),
+                            quantity: element.quantity,
+                        })
+                    })
+
+                    localStorage.removeItem('supply')
+                    console.log(this.orderItems)
+                },
+                error: (error) => console.error('Error creating event:', error),
+            })
+        }
     }
 
     filterCategory(category: number) {
@@ -71,6 +92,7 @@ export class SupplyCreateComponent {
     }
 
     checkout() {
+        if (this.orderItems.length === 0) return
         // Implement checkout logic
         let supply: Supply = {
             id: 0,
@@ -107,8 +129,6 @@ export class SupplyCreateComponent {
             },
             error: (error) => console.error('Error creating supply:', error),
         })
-
-        console.log('Checking out', this.orderItems)
     }
     increaseQuantity(item: any) {
         item.quantity++
