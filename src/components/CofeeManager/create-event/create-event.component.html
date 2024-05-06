@@ -20,7 +20,7 @@
                 required
             />
         </div>
-        <div class="mb-6">
+        <div class="mb-4">
             <label
                 class="mb-2 block text-2xl font-bold text-gray-700"
                 for="datetime"
@@ -31,6 +31,36 @@
                 class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
                 type="datetime-local"
                 [(ngModel)]="eventDateTime"
+                name="datetime"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="datetime"
+            >
+                Description:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                [(ngModel)]="eventDescription"
+                name="datetime"
+                required
+            />
+        </div>
+        <div class="mb-6">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="datetime"
+            >
+                Image:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                [(ngModel)]="eventImage"
                 name="datetime"
                 required
             />
