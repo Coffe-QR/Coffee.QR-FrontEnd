@@ -11,13 +11,18 @@
         Logout
     </button>
 
-    <h1 class="mt-20 text-center text-3xl font-bold text-blue-50">Events</h1>
+    <h1
+        *ngIf="events.length > 0"
+        class="mt-20 text-center text-3xl font-bold text-blue-50"
+    >
+        Events
+    </h1>
     <div
-        class="scrollbar grid max-h-96 grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
+        class="scrollbar grid max-h-full grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
     >
         <div
             *ngFor="let event of events"
-            class="w-72 rounded-lg bg-white bg-opacity-85 p-4 shadow-lg duration-300 hover:scale-105"
+            class="w-72 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg duration-300 hover:scale-105"
         >
             <div class="mb-2 text-center text-xl font-bold">
                 {{ event.name }}
@@ -28,10 +33,16 @@
                 class="mb-4 h-40 w-full rounded object-cover"
                 alt="{{ event.name }}"
             />
-            <p class="mb-4 text-base text-gray-700">
+            <p
+                class="mb-4 flex flex-row items-center justify-center text-base text-gray-700"
+            >
                 {{ event.dateTime | date: 'medium' }}
             </p>
-            <p class="text-sm text-gray-600">{{ event.description }}</p>
+            <p
+                class="flex flex-row items-center justify-center text-sm text-gray-600"
+            >
+                {{ event.description }}
+            </p>
             <div class="flex flex-row items-center justify-center">
                 <button
                     class="mt-4 rounded bg-lime-700 px-4 py-2 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black"
