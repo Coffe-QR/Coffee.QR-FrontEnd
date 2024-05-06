@@ -52,6 +52,38 @@
                         class="custom-color px-3 py-5"
                         >Create Event</a
                     >
+                    <div *ngIf="user && user.role !== ''" class="relative">
+                        <button
+                            (click)="toggleDropdownSupply()"
+                            class="custom-color px-3 py-5"
+                        >
+                            Supply
+                        </button>
+                        <div
+                            *ngIf="isOpenSupply"
+                            class="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white shadow-lg"
+                        >
+                            <a
+                                (click)="toggleDropdownSupply()"
+                                href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Supply status</a
+                            >
+                            <a
+                                (click)="toggleDropdownSupply()"
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/supply-create']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create supply</a
+                            >
+                            <a
+                                (click)="toggleDropdownSupply()"
+                                href="#"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Recommended supply</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- secondary nav -->

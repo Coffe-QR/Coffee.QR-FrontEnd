@@ -17,6 +17,7 @@ import { ClientGuard } from '../auth/client.guard'
 import { BartenderGuard } from '../auth/bartender.guard'
 import { ContactComponent } from '../components/Xuniversal/contact/contact.component'
 import { CreateEventComponent } from '../components/CofeeManager/create-event/create-event.component'
+import { SupplyCreateComponent } from '../components/CofeeManager/supply-create/supply-create.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -69,6 +70,11 @@ const routes: Routes = [
     {
         path: 'create-event',
         component: CreateEventComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'supply-create',
+        component: SupplyCreateComponent,
         canActivate: [ManagerGuard],
     },
     {
