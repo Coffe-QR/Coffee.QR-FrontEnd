@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.authService.logout()
     }
-
+    //test
     toggleDropdownSupply() {
         this.isOpenSupply = !this.isOpenSupply
     }
