@@ -13,4 +13,12 @@ export class SupplyService {
     createSupply(supply: any): Observable<any> {
         return this.http.post(this.apiUrl, supply)
     }
+
+    getAllSupplies(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getAll`)
+    }
+
+    getById(supplyId: number): Observable<any> {
+        return this.http.get(this.apiUrl + '/getById/' + supplyId)
+    }
 }

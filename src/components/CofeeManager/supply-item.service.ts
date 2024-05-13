@@ -14,4 +14,8 @@ export class SupplyItemService {
     createSupplyItems(supplyItems: SupplyItem[]): Observable<any> {
         return this.http.post(this.apiUrl + '/create-list', supplyItems)
     }
+
+    getAllForSupply(supplyId: number): Observable<any> {
+        return this.http.get(this.apiUrl + '/for-supply/' + supplyId)
+    }
 }
