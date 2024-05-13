@@ -20,6 +20,7 @@ import { CreateEventComponent } from '../components/CofeeManager/create-event/cr
 import { SupplyCreateComponent } from '../components/CofeeManager/supply-create/supply-create.component'
 import { SupplyStatusComponent } from '../components/Xuniversal/supply-status/supply-status.component'
 import { SupplyDetailsComponent } from '../components/Xuniversal/supply-details/supply-details.component'
+import { EventsOverviewComponent } from '../components/CofeeManager/events-overview/events-overview.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -82,6 +83,11 @@ const routes: Routes = [
     {
         path: 'supply-status',
         component: SupplyStatusComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'events-overview',
+        component: EventsOverviewComponent,
         canActivate: [ManagerGuard],
     },
     {

@@ -6,6 +6,7 @@
                 <div>
                     <a
                         class="flex items-center px-2 py-5 hover:animate-pulse hover:animate-once"
+                        [routerLink]="getRouteBasedOnRole()"
                     >
                         <!-- Image logo -->
                         <img
@@ -46,39 +47,71 @@
                         class="custom-color px-3 py-5"
                         >Contact</a
                     >
-                    <a
+
+                    <div
                         *ngIf="user && user.role === 'manager'"
-                        [routerLink]="['/create-event']"
-                        class="custom-color px-3 py-5"
-                        >Create Event</a
+                        class="relative"
                     >
-                    <div *ngIf="user && user.role !== ''" class="relative">
                         <button
-                            (click)="toggleDropdownSupply()"
                             class="custom-color px-3 py-5"
+                            (mouseenter)="openDropdown('event')"
+                            (mouseleave)="startChecking('event')"
+                        >
+                            Event
+                        </button>
+                        <div
+                            *ngIf="dropdowns['event']"
+                            class="absolute right-3 top-12 z-10 w-32 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('event')"
+                            @dropdown
+                        >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/create-event']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create Event</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/events-overview']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Events overview</a
+                            >
+                        </div>
+                    </div>
+
+                    <div
+                        *ngIf="user && user.role === 'manager'"
+                        class="relative"
+                    >
+                        <button
+                            class="custom-color px-3 py-5"
+                            (mouseenter)="openDropdown('supply')"
+                            (mouseleave)="startChecking('supply')"
                         >
                             Supply
                         </button>
                         <div
-                            *ngIf="isOpenSupply"
-                            class="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white shadow-lg"
+                            *ngIf="dropdowns['supply']"
+                            class="absolute left-4 top-12 z-10 w-48 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('supply')"
+                            @dropdown
                         >
                             <a
-                                (click)="toggleDropdownSupply()"
                                 *ngIf="user && user.role === 'manager'"
                                 [routerLink]="['/supply-status']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Supply status</a
                             >
                             <a
-                                (click)="toggleDropdownSupply()"
                                 *ngIf="user && user.role === 'manager'"
                                 [routerLink]="['/supply-create']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Create supply</a
                             >
                             <a
-                                (click)="toggleDropdownSupply()"
                                 href="#"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Recommended supply</a

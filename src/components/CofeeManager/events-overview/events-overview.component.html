@@ -1,1 +1,51 @@
-<p>events-overview works!</p>
+<div
+    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+>
+    <input
+        type="text"
+        placeholder="Search..."
+        class="z-10 w-1/3 rounded-2xl border border-zinc-700 border-opacity-50 bg-zinc-800 bg-opacity-35 px-4 py-2 font-thin text-zinc-300 caret-zinc-500 duration-300 placeholder:text-zinc-400 hover:scale-105 focus:outline-none"
+    />
+
+    <div
+        class="scrollbar grid max-h-full grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
+    >
+        <div
+            *ngFor="let event of events"
+            class="w-72 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg duration-300 hover:scale-105"
+        >
+            <div class="mb-2 text-center text-xl font-bold">
+                {{ event.name }}
+            </div>
+            <img
+                *ngIf="event.image"
+                [src]="'https://localhost:44333/resources' + event.image"
+                class="mb-4 h-40 w-full rounded object-cover"
+                alt="{{ event.name }}"
+            />
+            <p
+                class="mb-4 flex flex-row items-center justify-center text-base text-gray-700"
+            >
+                {{ event.dateTime | date: 'medium' }}
+            </p>
+            <p
+                class="flex flex-row items-center justify-center text-sm text-gray-600"
+            >
+                {{ event.description }}
+            </p>
+            <div class="flex flex-row items-center justify-center">
+                <button
+                    class="mt-4 rounded bg-lime-700 px-4 py-2 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black"
+                >
+                    View Details
+                </button>
+                <button
+                    (click)="deleteEvent(event.id)"
+                    class="ml-4 mt-4 rounded bg-red-500 px-4 py-2 font-bold text-white duration-300 hover:bg-red-700"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ import { EventService } from '../event.service'
 export class ManagerLandingPageComponent implements OnInit {
     user: User | undefined
     events: any[] = []
+    userId: number = 0
 
     constructor(
         private authService: AuthService,
@@ -21,8 +22,9 @@ export class ManagerLandingPageComponent implements OnInit {
         this.authService.user$.subscribe((user) => {
             this.user = user
         })
+        this.userId = this.authService.user$.getValue().id
 
-        this.eventService.getAllEvents().subscribe({
+        this.eventService.getAllEventsByUserId(this.userId).subscribe({
             next: (data) => {
                 this.events = data
             },
@@ -35,7 +37,7 @@ export class ManagerLandingPageComponent implements OnInit {
     }
 
     loadEvents(): void {
-        this.eventService.getAllEvents().subscribe({
+        this.eventService.getAllEventsByUserId(this.userId).subscribe({
             next: (data) => {
                 this.events = data
             },
