@@ -19,6 +19,18 @@ export class LoginComponent {
         private toastr: ToastrService
     ) {}
 
+    ngOnInit() {
+        const jwt = localStorage.getItem('jwt')
+        if (jwt !== null) {
+            const decodeJwt = this.authService.decodeToken(jwt)
+            this.authService.user$.next({
+                username: decodeJwt.username,
+                id: Number(decodeJwt.id),
+                role: decodeJwt.role,
+            })
+        }
+    }
+
     loginForm = new FormGroup({
         username: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
@@ -40,7 +52,9 @@ export class LoginComponent {
         if (this.loginForm.valid) {
             //this.isDisabled = true
             this.authService.login(login).subscribe({
-                next: () => {
+                next: (response) => {
+                    localStorage.setItem('jwt', response.accessToken)
+
                     if (this.authService.user$.value.role === 'client') {
                         this.router.navigate(['/client'])
                     } else if (
@@ -57,7 +71,7 @@ export class LoginComponent {
                         this.router.navigate(['/it-support'])
                     } else if (this.authService.user$.value.role === 'waiter') {
                         this.router.navigate(['/waiter'])
-                    } else {
+                    } else if (this.authService.user$.value.role === '') {
                         this.router.navigate(['/'])
                     }
 

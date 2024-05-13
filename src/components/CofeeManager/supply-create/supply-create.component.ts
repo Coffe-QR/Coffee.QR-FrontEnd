@@ -35,7 +35,6 @@ export class SupplyCreateComponent {
     ngOnInit() {
         this.itemService.getAllItems().subscribe({
             next: (response) => {
-                //console.log(response)
                 this.products = response
                 this.filteredProducts = response
             },
