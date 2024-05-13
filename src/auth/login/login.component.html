@@ -20,8 +20,13 @@
             class="fInput pass"
         />
     </div>
-    <button class="log">Log in</button>
-    <button class="forget">Forget password?</button>
+
+    <button class="log" (click)="showSpinner()" [disabled]="isDisabled">
+        <span *ngIf="!isDisabled">Log in</span>
+        <div class="spinner" *ngIf="isDisabled"></div>
+    </button>
+
+    <button class="forget" (click)="forgetPassword()">Forget password?</button>
     <div class="con">
         <p>Don't have account?&nbsp;</p>
         <a class="cursor-pointer" (click)="navigateToRegister()"> Sign in</a>

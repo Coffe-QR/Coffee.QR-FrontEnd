@@ -20,7 +20,7 @@
                 required
             />
         </div>
-        <div class="mb-6">
+        <div class="mb-4">
             <label
                 class="mb-2 block text-2xl font-bold text-gray-700"
                 for="datetime"
@@ -35,6 +35,38 @@
                 required
             />
         </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="datetime"
+            >
+                Description:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                [(ngModel)]="eventDescription"
+                name="datetime"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="file"
+            >
+                Event Image:
+            </label>
+            <input
+                type="file"
+                (change)="onFileSelected($event)"
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                name="file"
+                required
+            />
+        </div>
+
         <div class="flex items-center justify-center">
             <button
                 class="focus:shadow-outline rounded bg-lime-700 px-6 py-3 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black focus:outline-none"

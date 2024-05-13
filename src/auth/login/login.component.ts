@@ -24,6 +24,13 @@ export class LoginComponent {
         password: new FormControl('', [Validators.required]),
     })
 
+    showSpinner(): void {
+        this.isDisabled = true
+        setTimeout(() => {
+            this.login()
+        }, 700)
+    }
+
     login(): void {
         const login: Login = {
             username: this.loginForm.value.username || '',
@@ -31,7 +38,7 @@ export class LoginComponent {
         }
 
         if (this.loginForm.valid) {
-            this.isDisabled = true
+            //this.isDisabled = true
             this.authService.login(login).subscribe({
                 next: () => {
                     if (this.authService.user$.value.role === 'client') {
@@ -54,7 +61,7 @@ export class LoginComponent {
                         this.router.navigate(['/'])
                     }
 
-                    this.toastr.success('Login successful')
+                    //this.toastr.success('Login successful')
                     this.isDisabled = false
                 },
                 error: (err) => {
@@ -64,12 +71,16 @@ export class LoginComponent {
             })
         } else {
             this.toastr.error('Please enter username and password')
+            this.isDisabled = false
         }
     }
 
     navigateToRegister() {
         this.router.navigate(['/register'])
     }
+
+    forgetPassword() {}
+
     // ngOnInit() {
     //   const backgrounds = [
     //     './assets/landing1.jpg',
