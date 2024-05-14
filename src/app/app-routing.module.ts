@@ -21,6 +21,10 @@ import { SupplyCreateComponent } from '../components/CofeeManager/supply-create/
 import { SupplyStatusComponent } from '../components/Xuniversal/supply-status/supply-status.component'
 import { SupplyDetailsComponent } from '../components/Xuniversal/supply-details/supply-details.component'
 import { JobApplicationFormComponent } from '../components/Xuniversal/job-application-form/job-application-form.component'
+import { EventsOverviewComponent } from '../components/CofeeManager/events-overview/events-overview.component'
+import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/menu-overview.component'
+import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
+import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -54,6 +58,12 @@ const routes: Routes = [
         component: ContactComponent,
         //data: { animation: 'Contact' },
     },
+    {
+        path: 'menu-overview/:localId/:tableId',
+        component: MenuOverviewComponent,
+        //data: { animation: 'Menu' },
+    },
+
     //--------------------ROLES--------------------
     {
         path: 'bartender',
@@ -86,6 +96,16 @@ const routes: Routes = [
         canActivate: [ManagerGuard],
     },
     {
+        path: 'events-overview',
+        component: EventsOverviewComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-table',
+        component: CreateTableComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
         path: 'supply-details/:supplyId',
         component: SupplyDetailsComponent,
     },
@@ -103,7 +123,12 @@ const routes: Routes = [
         path: 'job-application-form',
         component: JobApplicationFormComponent,
 
-    }
+    },
+    {
+        path: 'notifications-overview',
+        component: NotificationOverviewComponent,
+        canActivate: [WaiterGuard],
+    },
 ]
 
 @NgModule({

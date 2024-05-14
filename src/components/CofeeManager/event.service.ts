@@ -21,4 +21,8 @@ export class EventService {
     deleteEvent(eventId: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${eventId}`)
     }
+
+    getAllEventsByUserId(userId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/byUser/${userId}`)
+    }
 }

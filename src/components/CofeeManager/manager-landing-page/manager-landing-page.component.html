@@ -1,61 +1,20 @@
 <div
     class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black"
 >
-    <h1 class="text-6xl text-white">
+    <h1 class="animate-fade-down text-6xl text-white">
         Hello {{ user?.username }}, your role is {{ user?.role }}
     </h1>
     <button
         (click)="onLogout()"
-        class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+        class="mt-8 animate-fade-down rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
     >
         Logout
     </button>
 
-    <h1
+    <!-- <h1
         *ngIf="events.length > 0"
         class="mt-20 text-center text-3xl font-bold text-blue-50"
     >
         Events
-    </h1>
-    <div
-        class="scrollbar grid max-h-full grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3"
-    >
-        <div
-            *ngFor="let event of events"
-            class="w-72 rounded-lg bg-white bg-opacity-80 p-4 shadow-lg duration-300 hover:scale-105"
-        >
-            <div class="mb-2 text-center text-xl font-bold">
-                {{ event.name }}
-            </div>
-            <img
-                *ngIf="event.image"
-                [src]="'https://localhost:44333/resources' + event.image"
-                class="mb-4 h-40 w-full rounded object-cover"
-                alt="{{ event.name }}"
-            />
-            <p
-                class="mb-4 flex flex-row items-center justify-center text-base text-gray-700"
-            >
-                {{ event.dateTime | date: 'medium' }}
-            </p>
-            <p
-                class="flex flex-row items-center justify-center text-sm text-gray-600"
-            >
-                {{ event.description }}
-            </p>
-            <div class="flex flex-row items-center justify-center">
-                <button
-                    class="mt-4 rounded bg-lime-700 px-4 py-2 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black"
-                >
-                    View Details
-                </button>
-                <button
-                    (click)="deleteEvent(event.id)"
-                    class="ml-4 mt-4 rounded bg-red-500 px-4 py-2 font-bold text-white duration-300 hover:bg-red-700"
-                >
-                    Delete
-                </button>
-            </div>
-        </div>
-    </div>
+    </h1> -->
 </div>
