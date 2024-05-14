@@ -5,6 +5,7 @@ import { ManagerLandingPageComponent } from './manager-landing-page/manager-land
 import { FormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
+import { FilterPipe } from '../../shared/filter-pipe'
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import { EventsOverviewComponent } from './events-overview/events-overview.compo
         ManagerLandingPageComponent,
         SupplyCreateComponent,
         EventsOverviewComponent,
+        FilterPipe,
     ],
     imports: [CommonModule, FormsModule],
     exports: [

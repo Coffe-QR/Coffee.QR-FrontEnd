@@ -11,6 +11,7 @@ import { User } from '../../../auth/model/user.model'
 export class EventsOverviewComponent implements OnInit {
     user: User | undefined
     events: any[] = []
+    searchTerm: string = ''
     userId: number = 0
 
     constructor(
