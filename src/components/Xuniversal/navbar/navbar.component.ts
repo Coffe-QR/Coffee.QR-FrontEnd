@@ -30,21 +30,29 @@ export class NavbarComponent implements OnInit {
 
     openDropdown(dropdownId: string): void {
         this.dropdowns[dropdownId] = true
-        clearTimeout(this.closeTimer)
+        this.cancelTimer()
     }
 
     startChecking(dropdownId: string): void {
+        this.cancelTimer() // Make sure to cancel existing timer if moving within dropdowns
         this.closeTimer = setTimeout(() => {
-            this.dropdowns[dropdownId] = false
-        }, 10)
+            this.closeDropdown(dropdownId)
+        }, 0) // Delay before closing dropdown
     }
 
     stopChecking(): void {
-        clearTimeout(this.closeTimer)
+        this.cancelTimer() // Cancel any running timer when mouse enters any dropdown
     }
 
     closeDropdown(dropdownId: string): void {
-        this.startChecking(dropdownId)
+        this.dropdowns[dropdownId] = false
+    }
+
+    private cancelTimer(): void {
+        if (this.closeTimer) {
+            clearTimeout(this.closeTimer)
+            this.closeTimer = null
+        }
     }
 
     constructor(private authService: AuthService) {}
