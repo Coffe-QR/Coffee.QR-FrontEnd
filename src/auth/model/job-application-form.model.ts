@@ -9,5 +9,6 @@ export interface JobApplicationForm {
     applicationDate: Date
     localId: number
     applicantDescription: string
+    position: number
     
 }

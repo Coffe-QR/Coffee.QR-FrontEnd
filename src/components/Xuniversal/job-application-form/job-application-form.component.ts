@@ -18,7 +18,7 @@ export class JobApplicationFormComponent implements OnInit {
     dateOfBirth: string = '';
     address: string = '';
     applicationDate: string =  Date.now().toString();
-    localId: string = '';
+    localId: number = 1;
     applicantDescription: string = '';
 
 
@@ -29,11 +29,11 @@ export class JobApplicationFormComponent implements OnInit {
     private jobApplicationService: JobApplicationService,
     private router: Router
   ) {}
-
+  
   ngOnInit(): void {
-    this.fetchLocals();  // Simulate fetching locals from a service
+    //this.fetchLocals();  // Simulate fetching locals from a service
   }
-
+ 
   fetchLocals() {
     // Simulate fetching data from backend
     this.locals = [
@@ -52,6 +52,29 @@ export class JobApplicationFormComponent implements OnInit {
     }
   }
   */
+
+  onSubmit(): void {
+    alert("radi");
+    const jobData = {
+        id: -1,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        phone: this.phone,
+        dateOfBirth: this.dateOfBirth,
+        address: this.address,
+        localId: this.localId,
+        position: this.position,
+        applicantDescription: this.applicantDescription,
+        applicationDate: "2024-05-14",
+
+    }
+
+    this.jobApplicationService.createJobApplication(jobData).subscribe({
+        next: (response) => alert("uspeo sam"),
+        error: (error) => console.error('Error creating jobApplication:', error),
+    })
+}
   getPosition(position: number): string {
     switch (position) {
         case 0:
