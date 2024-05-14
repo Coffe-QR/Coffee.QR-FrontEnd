@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr'
 import { FormsModule } from '@angular/forms'
 import { ManagerModule } from '../components/CofeeManager/manager.module'
 import { XUniversalModule } from '../components/Xuniversal/xuniversal.module'
+import { WaiterModule } from '../components/Waiter/waiter.module'
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent],
@@ -32,6 +33,7 @@ import { XUniversalModule } from '../components/Xuniversal/xuniversal.module'
         }),
         ManagerModule,
         XUniversalModule,
+        WaiterModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

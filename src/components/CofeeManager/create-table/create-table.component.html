@@ -1,0 +1,68 @@
+<div
+    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+>
+    <form
+        class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        (ngSubmit)="onSubmit()"
+    >
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="name"
+            >
+                Table Name:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                name="name"
+                [(ngModel)]="tableName"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="capacity"
+            >
+                Table Capacity:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                [class.border-red-500]="submitAttempted && tableCapacity <= 0"
+                min="1"
+                type="number"
+                name="capacity"
+                [(ngModel)]="tableCapacity"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-gray-700"
+                for="isSmokingArea"
+            >
+                Smoking Area:
+            </label>
+            <div class="mt-2">
+                <input
+                    type="checkbox"
+                    id="isSmokingArea"
+                    name="isSmokingArea"
+                    required
+                    [(ngModel)]="tableIsSmokingArea"
+                    class="h-7 w-7 rounded-xl border-gray-300 text-blue-600 focus:ring-indigo-500"
+                />
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center">
+            <button
+                class="focus:shadow-outline rounded bg-lime-700 px-6 py-3 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black focus:outline-none"
+                type="submit"
+            >
+                Create Table
+            </button>
+        </div>
+    </form>
+</div>
