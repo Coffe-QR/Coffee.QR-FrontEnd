@@ -1,0 +1,104 @@
+<div
+    class="mx-auto mt-24 flex w-11/12 flex-col items-center justify-center px-4 py-8 lg:px-0"
+>
+    <h1
+        class="mb-8 animate-flip-down cursor-default text-center text-4xl font-bold text-zinc-100 transition duration-500 animate-delay-300 hover:scale-110 hover:text-cyan-300 sm:text-3xl"
+    >
+        We are hiring
+    </h1>
+
+    <div
+        class="grid w-11/12 grid-cols-1 gap-2 sm:grid-cols-2 lg:w-7/12 lg:grid-cols-3"
+    >
+      
+        <div
+            class="col-span-1 flex min-h-[300px] animate-flip-down flex-col rounded bg-slate-400 bg-opacity-70 p-4 duration-500 animate-delay-500 hover:bg-orange-700 hover:bg-opacity-70 sm:col-span-2 lg:col-span-3"
+        >
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm text-zinc-200"
+                        >Name</label
+                    >
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
+                        required
+                    />
+                </div>
+                <div class="mb-4">
+                  <label for="name" class="block text-sm text-zinc-200"
+                      >Surname</label
+                  >
+                  <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
+                      required
+                  />
+              </div>
+              <div class="mb-4">
+                <label for="name" class="block text-sm text-zinc-200"
+                    >Email</label
+                >
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
+                    required
+                />
+            </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm text-zinc-200"
+                        >Phone</label
+                    >
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
+                        required
+                    />
+                </div>
+                <div class="mb-4">
+                  <label
+                      class="mb-2 block text-2xl font-bold text-gray-700"
+                      for="datetime"
+                  >
+                      Date of birth:
+                  </label>
+                  <input
+                      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                      type="text"
+                      [(ngModel)]="dateOfBirth"
+                      name="datetime"
+                      required
+                  />
+              </div>
+                <div class="mb-4">
+                    <label for="message" class="block text-sm text-zinc-200"
+                        >Message</label
+                    >
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
+                        required
+                    ></textarea>
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        type="submit"
+                        class="rounded bg-cyan-300 px-4 py-2 text-lg text-gray-800 hover:bg-cyan-400"
+                    >
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

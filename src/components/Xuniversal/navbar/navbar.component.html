@@ -47,6 +47,12 @@
                         >Contact</a
                     >
                     <a
+                        *ngIf="user && user.username == ''"
+                        [routerLink]="['/job-application-form']"
+                        class="custom-color px-3 py-5"
+                        >Hiring</a
+                    >
+                    <a
                         *ngIf="user && user.role === 'manager'"
                         [routerLink]="['/create-event']"
                         class="custom-color px-3 py-5"
