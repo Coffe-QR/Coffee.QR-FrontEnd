@@ -1,5 +1,5 @@
 <div
-    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
     <form
         class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
@@ -7,7 +7,7 @@
     >
         <div class="mb-4">
             <label
-                class="mb-2 block text-2xl font-bold text-gray-700"
+                class="mb-2 block text-2xl font-bold text-stone-50"
                 for="name"
             >
                 Event Name:
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-4">
             <label
-                class="mb-2 block text-2xl font-bold text-gray-700"
+                class="mb-2 block text-2xl font-bold text-stone-50"
                 for="datetime"
             >
                 Event Date and Time:
@@ -37,7 +37,7 @@
         </div>
         <div class="mb-4">
             <label
-                class="mb-2 block text-2xl font-bold text-gray-700"
+                class="mb-2 block text-2xl font-bold text-stone-50"
                 for="datetime"
             >
                 Description:
@@ -53,7 +53,7 @@
 
         <div class="mb-4">
             <label
-                class="mb-2 block text-2xl font-bold text-gray-700"
+                class="mb-2 block text-2xl font-bold text-stone-50"
                 for="file"
             >
                 Event Image:
@@ -61,7 +61,8 @@
             <input
                 type="file"
                 (change)="onFileSelected($event)"
-                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-700 shadow focus:outline-none"
+                style="text-align: center; padding-left: 35%; padding-right: 0"
                 name="file"
                 required
             />
@@ -69,7 +70,7 @@
 
         <div class="flex items-center justify-center">
             <button
-                class="focus:shadow-outline rounded bg-lime-700 px-6 py-3 font-bold text-white duration-300 hover:bg-lime-300 hover:text-black focus:outline-none"
+                class="focus:shadow-outline rounded bg-stone-700 px-6 py-3 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black focus:outline-none"
                 type="submit"
             >
                 Create Event

@@ -1,11 +1,11 @@
 <div
-    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
     <input
         type="text"
         [(ngModel)]="searchTerm"
         placeholder="Search..."
-        class="mb-12 w-1/3 rounded-2xl border border-zinc-700 border-opacity-50 bg-zinc-800 bg-opacity-35 px-4 py-2 font-thin text-zinc-300 caret-zinc-500 placeholder:text-zinc-400 hover:scale-105 focus:outline-none"
+        class="mb-12 w-1/3 rounded-2xl border border-zinc-700 border-opacity-70 bg-zinc-300 bg-opacity-35 px-4 py-2 font-thin text-zinc-900 caret-zinc-500 placeholder:text-zinc-900 hover:scale-105 focus:outline-none"
         style="transition: transform 0.3s ease-in-out"
     />
 
@@ -31,7 +31,7 @@
                 <p class="text-white">{{ event.description }}</p>
                 <p class="text-white">{{ event.dateTime | date: 'medium' }}</p>
                 <button
-                    class="mt-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
+                    class="mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
                     (click)="deleteEvent(event.id)"
                 >
                     Delete

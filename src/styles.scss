@@ -11,8 +11,16 @@
     height: 100vh;
     overflow: auto;
 
+    &-manager {
+        background-image: url('assets/landing_manager.jpg');
+    }
+
     &-it-support {
         background-image: url('assets/landing_it_support.jpg');
+    }
+
+    &-waiter {
+        background-image: url('assets/landing_waiter.jpg');
     }
 }
 
