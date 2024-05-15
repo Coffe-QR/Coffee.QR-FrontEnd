@@ -4,6 +4,7 @@ import { UploadService } from '../../../shared/upload.service'
 import { Router } from '@angular/router'
 import { AuthService } from '../../../auth/auth.service'
 import { User } from '../../../auth/model/user.model'
+import { LocalUserService } from '../../Xuniversal/local-user.service'
 
 @Component({
     selector: 'app-create-event',
@@ -17,16 +18,25 @@ export class CreateEventComponent implements OnInit {
     eventDateTime: string = ''
     eventDescription: string = ''
     eventImage: string = ''
+    eventLocalId: number = 0
 
     constructor(
         private authService: AuthService,
         private eventService: EventService,
-        private uploadService: UploadService, // Inject UploadService
+        private uploadService: UploadService,
+        private localuserService: LocalUserService,
         private router: Router
     ) {}
 
     ngOnInit(): void {
         this.userId = this.authService.user$.getValue().id
+
+        this.localuserService.getLocalUserByUserId(this.userId).subscribe({
+            next: (response) => {
+                this.eventLocalId = response.localId
+            },
+            error: (error) => console.error('Error getting local user:', error),
+        })
     }
 
     onSubmit(): void {
@@ -38,6 +48,7 @@ export class CreateEventComponent implements OnInit {
             description: this.eventDescription,
             image: this.eventImage,
             userId: this.userId,
+            localId: this.eventLocalId,
         }
 
         this.eventService.createEvent(eventData).subscribe({

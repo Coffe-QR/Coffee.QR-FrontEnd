@@ -5,4 +5,5 @@ export interface Event {
     description: string
     image: string
     userId: number
+    localId: number
 }
