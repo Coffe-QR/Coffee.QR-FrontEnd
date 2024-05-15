@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms'
 import { ManagerModule } from '../components/CofeeManager/manager.module'
 import { XUniversalModule } from '../components/Xuniversal/xuniversal.module'
 import { WaiterModule } from '../components/Waiter/waiter.module'
+import { ITSupportModule } from '../components/ITsupport/it-support.module'
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent],
@@ -34,6 +35,7 @@ import { WaiterModule } from '../components/Waiter/waiter.module'
         ManagerModule,
         XUniversalModule,
         WaiterModule,
+        ITSupportModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

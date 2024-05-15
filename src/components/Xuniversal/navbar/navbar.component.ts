@@ -84,7 +84,7 @@ export class NavbarComponent implements OnInit {
                     return '/client'
                 case 'bartender':
                     return '/bartender'
-                case 'it-support':
+                case 'itsupport':
                     return '/it-support'
                 case 'waiter':
                     return '/waiter'

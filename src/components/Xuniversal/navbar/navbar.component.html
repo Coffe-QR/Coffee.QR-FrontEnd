@@ -53,7 +53,6 @@
                         class="custom-color px-3 py-5"
                         >Hiring</a
                     >
-                    
 
                     <div
                         *ngIf="user && user.role === 'manager'"
@@ -130,7 +129,15 @@
                             >Create Table</a
                         >
                     </div>
+
+                    <a
+                        *ngIf="user && user.role === 'itsupport'"
+                        [routerLink]="['/create-local']"
+                        class="custom-color px-3 py-5"
+                        >Create local</a
+                    >
                 </div>
+                <!--primary nav end -->
             </div>
             <!-- secondary nav -->
             <div class="hidden items-center space-x-1 md:flex">

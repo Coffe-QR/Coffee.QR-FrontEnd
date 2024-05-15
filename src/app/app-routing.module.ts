@@ -25,6 +25,7 @@ import { EventsOverviewComponent } from '../components/CofeeManager/events-overv
 import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/menu-overview.component'
 import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
 import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
+import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -115,6 +116,11 @@ const routes: Routes = [
         canActivate: [ItSupportGuard],
     },
     {
+        path: 'create-local',
+        component: CreateLocalComponent,
+        canActivate: [ItSupportGuard],
+    },
+    {
         path: 'waiter',
         component: WaiterLandingPageComponent,
         canActivate: [WaiterGuard],
@@ -122,7 +128,6 @@ const routes: Routes = [
     {
         path: 'job-application-form',
         component: JobApplicationFormComponent,
-
     },
     {
         path: 'notifications-overview',
