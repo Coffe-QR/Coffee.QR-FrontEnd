@@ -136,6 +136,12 @@
                         class="custom-color px-3 py-5"
                         >Create local</a
                     >
+                    <a
+                        *ngIf="user && user.role === 'waiter'"
+                        [routerLink]="['/supply-status']"
+                        class="custom-color px-3 py-5"
+                        >Supply status</a
+                    >
                 </div>
                 <!--primary nav end -->
             </div>
