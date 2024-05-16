@@ -20,6 +20,13 @@ import { CreateEventComponent } from '../components/CofeeManager/create-event/cr
 import { SupplyCreateComponent } from '../components/CofeeManager/supply-create/supply-create.component'
 import { SupplyStatusComponent } from '../components/Xuniversal/supply-status/supply-status.component'
 import { SupplyDetailsComponent } from '../components/Xuniversal/supply-details/supply-details.component'
+import { JobApplicationFormComponent } from '../components/Xuniversal/job-application-form/job-application-form.component'
+import { EventsOverviewComponent } from '../components/CofeeManager/events-overview/events-overview.component'
+import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/menu-overview.component'
+import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
+import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
+import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
+import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-overview/all-events-overview.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -53,6 +60,17 @@ const routes: Routes = [
         component: ContactComponent,
         //data: { animation: 'Contact' },
     },
+    {
+        path: 'menu-overview/:localId/:tableId',
+        component: MenuOverviewComponent,
+        //data: { animation: 'Menu' },
+    },
+    {
+        path: 'all-events-overview',
+        component: AllEventsOverviewComponent,
+        data: { animation: 'AllEvents' },
+    },
+
     //--------------------ROLES--------------------
     {
         path: 'bartender',
@@ -85,6 +103,16 @@ const routes: Routes = [
         canActivate: [ManagerGuard],
     },
     {
+        path: 'events-overview',
+        component: EventsOverviewComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-table',
+        component: CreateTableComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
         path: 'supply-details/:supplyId',
         component: SupplyDetailsComponent,
     },
@@ -94,8 +122,22 @@ const routes: Routes = [
         canActivate: [ItSupportGuard],
     },
     {
+        path: 'create-local',
+        component: CreateLocalComponent,
+        canActivate: [ItSupportGuard],
+    },
+    {
         path: 'waiter',
         component: WaiterLandingPageComponent,
+        canActivate: [WaiterGuard],
+    },
+    {
+        path: 'job-application-form',
+        component: JobApplicationFormComponent,
+    },
+    {
+        path: 'notifications-overview',
+        component: NotificationOverviewComponent,
         canActivate: [WaiterGuard],
     },
 ]

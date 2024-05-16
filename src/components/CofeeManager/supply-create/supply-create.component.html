@@ -1,39 +1,48 @@
 <div
-    class="flex h-screen items-center justify-center bg-gradient-to-tr from-green-300 to-black"
+    class="custom-bg-manager flex h-screen items-center justify-center bg-gradient-to-tr"
 >
     <div
-        class="mb-4 flex h-3/4 w-3/4 rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        class="mb-4 flex h-3/4 w-3/4 animate-fade-right rounded bg-white bg-opacity-0 px-16 py-8 text-center"
     >
         <!-- New Category Buttons Column -->
-        <div class="scrollable max-h-300 w-1/6 overflow-y-auto bg-gray-50 p-4">
+        <div
+            class="scrollable max-h-300 w-1/6 overflow-y-auto rounded-l-md bg-gray-50 bg-opacity-70 p-4"
+        >
             <button
-                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
                 (click)="filterCategory(0)"
             >
                 Food
             </button>
             <button
-                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
                 (click)="filterCategory(1)"
             >
                 Drink
             </button>
             <button
-                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
                 (click)="filterCategory(2)"
             >
                 Ingredient
             </button>
             <button
-                class="mb-2 w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
                 (click)="filterCategory(3)"
             >
                 All
             </button>
         </div>
         <!-- Product List -->
+<<<<<<< HEAD
         <div class="max-h-300 w-1/6 flex-1 overflow-y-auto bg-white p-4">
             <div class="fixed flex flex-col items-center justify-center p-4">
+=======
+        <div
+            class="max-h-300 w-1/6 flex-1 overflow-y-auto bg-white bg-opacity-50 p-4"
+        >
+            <div class="flex items-center justify-center p-4">
+>>>>>>> ac64efc5a6c9f80b59e164b634eff91412a6c981
                 <div class="flex rounded border-2">
                     <input
                         type="text"
@@ -103,7 +112,7 @@
         </div>
         <!-- Order Summary -->
         <div
-            class="scrollable max-h-300 w-1/6 flex-1 overflow-y-auto bg-gray-100 p-4"
+            class="scrollable max-h-300 w-1/6 flex-1 overflow-y-auto rounded-r-md bg-gray-100 bg-opacity-70 p-4"
         >
             <h2 class="mb-4 text-lg font-bold">Order Summary</h2>
             <div

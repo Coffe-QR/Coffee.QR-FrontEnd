@@ -1,12 +1,12 @@
 <div
-    class="to-brown-500 flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-purple-300 to-black"
+    class="custom-bg-it-support flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
-    <h1 class="text-6xl text-white">
+    <h1 class="animate-fade-down text-6xl text-white">
         Hello {{ user?.username }}, your role is {{ user?.role }}
     </h1>
     <button
         (click)="onLogout()"
-        class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+        class="mt-8 animate-fade-down rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
     >
         Logout
     </button>

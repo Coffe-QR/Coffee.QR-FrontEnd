@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { ItemService } from '../item.service'
-import { Item } from '../../../auth/model/item-model'
+import { Item } from '../../../auth/model/item.model'
 import { Supply } from '../../../auth/model/supply.model'
 import { SupplyService } from '../supply.service'
 import { SupplyItemService } from '../supply-item.service'
