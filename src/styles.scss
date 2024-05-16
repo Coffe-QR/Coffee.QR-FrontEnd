@@ -11,6 +11,13 @@
     height: 100vh;
     overflow: auto;
 
+    &-events {
+        //background-image: url('assets/landing2.jpg');
+        background-color: rgba(1, 1, 24, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
     &-manager {
         background-image: url('assets/landing_manager.jpg');
     }
