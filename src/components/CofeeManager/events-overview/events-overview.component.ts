@@ -25,12 +25,7 @@ export class EventsOverviewComponent implements OnInit {
         })
         this.userId = this.authService.user$.getValue().id
 
-        this.eventService.getAllEventsByUserId(this.userId).subscribe({
-            next: (data) => {
-                this.events = data
-            },
-            error: (err) => console.error('Failed to load events:', err),
-        })
+        this.loadEvents()
     }
 
     loadEvents(): void {

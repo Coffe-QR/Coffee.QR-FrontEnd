@@ -10,7 +10,8 @@
     />
 
     <div
-        class="scrollbar grid max-h-full animate-jump-in grid-cols-1 gap-16 overflow-auto p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-3"
+        class="scrollbar grid animate-jump-in grid-cols-1 gap-16 overflow-auto p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-3"
+        style="max-height: 31rem"
     >
         <div
             *ngFor="let event of events | filter: searchTerm : 'name'"

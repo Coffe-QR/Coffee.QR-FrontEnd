@@ -26,6 +26,7 @@ import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/me
 import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
 import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
 import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
+import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-overview/all-events-overview.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -63,6 +64,11 @@ const routes: Routes = [
         path: 'menu-overview/:localId/:tableId',
         component: MenuOverviewComponent,
         //data: { animation: 'Menu' },
+    },
+    {
+        path: 'all-events-overview',
+        component: AllEventsOverviewComponent,
+        data: { animation: 'AllEvents' },
     },
 
     //--------------------ROLES--------------------

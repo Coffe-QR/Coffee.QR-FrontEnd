@@ -1,4 +1,7 @@
-<nav class="fixed z-50 w-full animate-fade-down bg-inherit">
+<!-- <nav
+    class="fixed z-50 w-full animate-fade-down bg-opacity-70 backdrop-blur-md backdrop-filter"
+> -->
+<nav class="fixed z-50 w-full animate-fade-down bg-opacity-70">
     <div class="mx-auto max-w-6xl px-4">
         <div class="flex justify-between">
             <div class="flex space-x-4">
@@ -52,6 +55,12 @@
                         [routerLink]="['/job-application-form']"
                         class="custom-color px-3 py-5"
                         >Hiring</a
+                    >
+                    <a
+                        *ngIf="user && user.username == ''"
+                        [routerLink]="['/all-events-overview']"
+                        class="custom-color px-3 py-5"
+                        >Events</a
                     >
 
                     <div

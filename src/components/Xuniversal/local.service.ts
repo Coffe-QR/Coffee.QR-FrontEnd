@@ -21,4 +21,8 @@ export class LocalService {
     deleteLocal(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`)
     }
+
+    getLocalById(id: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/${id}`)
+    }
 }
