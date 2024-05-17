@@ -6,10 +6,17 @@ import { TicketUser } from '../../auth/model/ticket-user.model'
 @Injectable({
     providedIn: 'root',
 })
-export class CardUserService {
+export class TicketUserService {
     private apiUrl = 'https://localhost:44333/api/CardUser'
 
     constructor(private http: HttpClient) {}
+
+    createCheckoutSession(ticketId: string): Observable<{ sessionId: string }> {
+        return this.http.post<{ sessionId: string }>(
+            this.apiUrl + '/create-checkout-session',
+            { ticketId }
+        )
+    }
 
     getAllCardUsers(): Observable<TicketUser[]> {
         return this.http.get<TicketUser[]>(this.apiUrl, this.getHttpOptions())

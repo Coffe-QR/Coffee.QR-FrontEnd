@@ -8,6 +8,9 @@ import { AuthService } from '../../../auth/auth.service'
 import { Router } from '@angular/router'
 import { TicketService } from '../ticket.service'
 import { Ticket } from '../../../auth/model/ticket.model'
+import { TicketUserService } from '../ticket-user.service'
+import { StripeCardElement, StripeElements } from '@stripe/stripe-js'
+import { StripePaymentService } from '../../../shared/stripe-payment.service'
 
 @Component({
     selector: 'app-tickets-select',
@@ -29,6 +32,7 @@ export class TicketsSelectComponent implements OnInit {
         private localService: LocalService,
         private authService: AuthService,
         private ticketService: TicketService,
+        private ticketUserService: TicketUserService,
         private router: Router,
         private route: ActivatedRoute
     ) {}
@@ -63,7 +67,29 @@ export class TicketsSelectComponent implements OnInit {
             this.router.navigate(['/login'])
             return
         } else {
-            console.log('Continue to payment')
+            const ticket = this.tickets.find(
+                (t) =>
+                    +t.eventId === +this.eventId && t.type === this.selectedType
+            )
+
+            const ticketUser = {
+                cardId: ticket?.id || 0,
+                userId: this.userId,
+                quantity: this.quantity,
+                amount: this.totalPrice,
+                currency: 'usd',
+                paymentStatus: 'pending',
+                stripePaymentIntentId: '',
+                paymentMethod: 'card',
+            }
+
+            this.ticketUserService.createCardUser(ticketUser).subscribe({
+                next: (response) => {
+                    alert('Ticket user created successfully')
+                },
+                error: (error) =>
+                    console.error('Error creating ticket user:', error),
+            })
         }
     }
 
