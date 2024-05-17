@@ -9,8 +9,6 @@ import { Router } from '@angular/router'
 import { TicketService } from '../ticket.service'
 import { Ticket } from '../../../auth/model/ticket.model'
 import { TicketUserService } from '../ticket-user.service'
-import { StripeCardElement, StripeElements } from '@stripe/stripe-js'
-import { StripePaymentService } from '../../../shared/stripe-payment.service'
 
 @Component({
     selector: 'app-tickets-select',

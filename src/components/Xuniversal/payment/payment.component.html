@@ -1,0 +1,16 @@
+<div
+    class="paypal-container items container mx-auto mt-56 w-7/12 flex-col justify-center bg-white p-16"
+>
+    <div class="amount mb-10 flex-col justify-center">
+        Total to pay : ${{ amount }}
+    </div>
+
+    <div class="info mb-10 flex-col justify-center">
+        Do not refresh while transaction is processing
+    </div>
+
+    <div #paymentRef></div>
+    <button class="back rounded bg-zinc-500 p-5 text-black" (click)="(cancel)">
+        Cancel
+    </button>
+</div>

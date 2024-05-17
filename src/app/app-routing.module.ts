@@ -28,6 +28,7 @@ import { NotificationOverviewComponent } from '../components/Waiter/notification
 import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
 import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-overview/all-events-overview.component'
 import { TicketsSelectComponent } from '../components/Xuniversal/tickets-select/tickets-select.component'
+import { PaymentComponent } from '../components/Xuniversal/payment/payment.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -75,6 +76,11 @@ const routes: Routes = [
         path: 'tickets-select/:eventId',
         component: TicketsSelectComponent,
         data: { animation: 'TicketsSelect' },
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent,
+        //data: { animation: 'Payment' },
     },
 
     //--------------------ROLES--------------------

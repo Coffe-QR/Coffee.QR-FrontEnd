@@ -7,7 +7,8 @@ import { MenuOverviewComponent } from './menu-overview/menu-overview.component'
 import { JobApplicationFormComponent } from './job-application-form/job-application-form.component'
 import { AllEventsOverviewComponent } from './all-events-overview/all-events-overview.component'
 import { RouterModule } from '@angular/router'
-import { TicketsSelectComponent } from './tickets-select/tickets-select.component'
+import { TicketsSelectComponent } from './tickets-select/tickets-select.component';
+import { PaymentComponent } from './payment/payment.component'
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { TicketsSelectComponent } from './tickets-select/tickets-select.componen
         JobApplicationFormComponent,
         AllEventsOverviewComponent,
         TicketsSelectComponent,
+        PaymentComponent,
     ],
     imports: [CommonModule, FormsModule, RouterModule],
     exports: [
