@@ -80,13 +80,8 @@ export class TicketsSelectComponent implements OnInit {
                 stripePaymentIntentId: '',
                 paymentMethod: 'card',
             }
-
-            this.ticketUserService.createCardUser(ticketUser).subscribe({
-                next: (response) => {
-                    alert('Ticket user created successfully')
-                },
-                error: (error) =>
-                    console.error('Error creating ticket user:', error),
+            this.router.navigate(['/payment'], {
+                state: { ticketUser: ticketUser },
             })
         }
     }

@@ -8,7 +8,8 @@ import { JobApplicationFormComponent } from './job-application-form/job-applicat
 import { AllEventsOverviewComponent } from './all-events-overview/all-events-overview.component'
 import { RouterModule } from '@angular/router'
 import { TicketsSelectComponent } from './tickets-select/tickets-select.component';
-import { PaymentComponent } from './payment/payment.component'
+import { PaymentComponent } from './payment/payment.component';
+import { PaymentCompletedComponent } from './payment-completed/payment-completed.component'
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { PaymentComponent } from './payment/payment.component'
         AllEventsOverviewComponent,
         TicketsSelectComponent,
         PaymentComponent,
+        PaymentCompletedComponent,
     ],
     imports: [CommonModule, FormsModule, RouterModule],
     exports: [

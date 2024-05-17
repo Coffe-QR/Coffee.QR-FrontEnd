@@ -46,7 +46,6 @@ export class AllEventsOverviewComponent implements OnInit {
             )
             .subscribe(
                 (eventsWithLocals: Event[]) => {
-                    console.log('Events with locals:', eventsWithLocals)
                     this.events = eventsWithLocals
                 },
                 (err) => console.error('Failed to load events:', err)

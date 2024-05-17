@@ -5,6 +5,5 @@ export interface TicketUser {
     amount: number
     currency: string
     paymentStatus: string
-    stripePaymentIntentId: string
-    paymentMethod: string
+    payPalPaymentIntentId: string
 }
