@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router'
 import { Local } from '../../../auth/model/local.model'
 import { AuthService } from '../../../auth/auth.service'
 import { Router } from '@angular/router'
+import { TicketService } from '../ticket.service'
+import { Ticket } from '../../../auth/model/ticket.model'
 
 @Component({
     selector: 'app-tickets-select',
@@ -14,13 +16,19 @@ import { Router } from '@angular/router'
 })
 export class TicketsSelectComponent implements OnInit {
     event: Event | undefined
+    eventId: number = 0
     local: Local | undefined
     userId: number = 0
+    tickets: Ticket[] = []
+    selectedType: string = ''
+    quantity: number = 1
+    totalPrice: number = 0
 
     constructor(
         private eventService: EventService,
         private localService: LocalService,
         private authService: AuthService,
+        private ticketService: TicketService,
         private router: Router,
         private route: ActivatedRoute
     ) {}
@@ -28,10 +36,9 @@ export class TicketsSelectComponent implements OnInit {
     ngOnInit(): void {
         this.userId = this.authService.user$.getValue().id
 
-        const eventId = this.route.snapshot.params['eventId']
+        this.eventId = this.route.snapshot.params['eventId']
 
-        this.eventService.getEventById(eventId).subscribe((event) => {
-            console.log('Event:', event)
+        this.eventService.getEventById(this.eventId).subscribe((event) => {
             this.event = event
 
             if (this.event) {
@@ -42,6 +49,12 @@ export class TicketsSelectComponent implements OnInit {
                     })
             }
         })
+
+        this.ticketService
+            .getAllByEventId(this.eventId)
+            .subscribe((tickets) => {
+                this.tickets = tickets
+            })
     }
 
     onContinueToPayment(): void {
@@ -51,6 +64,24 @@ export class TicketsSelectComponent implements OnInit {
             return
         } else {
             console.log('Continue to payment')
+        }
+    }
+
+    getTotalPrice(): void {
+        if (!this.selectedType || !this.eventId) {
+            this.totalPrice = 0
+            return
+        }
+
+        const ticket = this.tickets.find(
+            (t) => +t.eventId === +this.eventId && t.type === this.selectedType
+        )
+
+        if (ticket) {
+            this.totalPrice = ticket.price * this.quantity
+        } else {
+            console.error('No ticket found for the selected type and event')
+            this.totalPrice = 0
         }
     }
 }

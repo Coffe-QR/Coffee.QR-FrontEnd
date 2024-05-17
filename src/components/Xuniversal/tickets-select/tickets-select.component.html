@@ -58,25 +58,31 @@
 
         <!-- RIGHT SIDE -->
         <div class="flex w-full flex-col items-center justify-center">
-            <h2 class="text-xl text-zinc-200">Price of the cards:</h2>
+            <h2 class="mb-3 text-xl text-zinc-200">Price of the cards:</h2>
 
-            <h3
-                class="row-span-3 flex flex-col justify-center gap-2 text-center text-2xl text-zinc-200"
-            >
-                Classic: <span class="font-semibold">1000 RSD</span> Mid:
-                <span class="font-semibold">2000 RSD</span> Vip:<span
-                    class="font-semibold"
-                    >3000 RSD</span
+            <div *ngFor="let ticket of tickets; let isLast = last">
+                <h3
+                    class="row-span-3 flex flex-col justify-center text-center text-2xl text-zinc-200"
+                    [class.mb-5]="!isLast"
                 >
-            </h3>
+                    {{ ticket.type }}
+                    <span class="font-semibold">{{ ticket.price }} USD</span>
+                </h3>
+            </div>
             <span class="mb-5 ml-2 text-zinc-200">per card</span>
-            <select class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center">
-                <option disabled selected>Select your type of card</option>
-                <option>Classic</option>
-                <option>Mid</option>
-                <option>Vip</option>
+            <select
+                [(ngModel)]="selectedType"
+                (change)="getTotalPrice()"
+                class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center"
+            >
+                <option value="" disabled selected>Select a type</option>
+                <option *ngFor="let ticket of tickets" [value]="ticket.type">
+                    {{ ticket.type }}
+                </option>
             </select>
             <input
+                [(ngModel)]="quantity"
+                (change)="getTotalPrice()"
                 type="number"
                 min="1"
                 class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center text-zinc-900 placeholder:text-zinc-900"
@@ -84,7 +90,8 @@
             />
 
             <h3 class="text-zinc-200">
-                Total price: <span class="font-semibold">1000 RSD</span>
+                Total price:
+                <span class="font-semibold">{{ totalPrice }} USD</span>
             </h3>
             <button
                 (click)="onContinueToPayment()"
