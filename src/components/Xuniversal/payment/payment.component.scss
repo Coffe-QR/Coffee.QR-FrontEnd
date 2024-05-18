@@ -6,3 +6,11 @@
 .custom-color-close:hover {
     background-color: #353738;
 }
+
+.fixed-content {
+    max-height: calc(
+        100vh - 190px
+    ); /* 100% of the viewport height minus 50px */
+    overflow: auto; /* Adds scrollbar if content exceeds max-height */
+    top: 50px; /* Ensures the top position is 50px from the top of the viewport */
+}

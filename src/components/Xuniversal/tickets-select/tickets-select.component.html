@@ -6,10 +6,17 @@
         <!-- LEFT SIDE -->
         <div class="mt-0 flex w-full flex-col items-center justify-start">
             <img
+                *ngIf="event?.image"
                 [src]="'https://localhost:44333/resources' + event?.image"
                 class="w-96 rounded-md object-cover shadow-black drop-shadow-lg"
                 alt="..."
             />
+            <div
+                *ngIf="!event?.image"
+                class="flex h-48 w-full items-center justify-center bg-gray-300"
+            >
+                <span class="text-lg text-gray-700">No Image Available</span>
+            </div>
             <h1 class="mt-2 text-3xl font-semibold uppercase text-zinc-200">
                 {{ event?.name }}
             </h1>

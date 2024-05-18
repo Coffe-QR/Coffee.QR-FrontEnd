@@ -9,12 +9,21 @@
                     class="h-full w-full overflow-hidden rounded-lg bg-white bg-opacity-55 shadow-sm duration-300 hover:scale-105"
                 >
                     <img
+                        *ngIf="event.image"
                         [src]="
                             'https://localhost:44333/resources' + event.image
                         "
                         class="h-48 w-full object-cover"
                         alt="..."
                     />
+                    <div
+                        *ngIf="!event.image"
+                        class="flex h-48 w-full items-center justify-center bg-gray-300"
+                    >
+                        <span class="text-lg text-gray-700"
+                            >No Image Available</span
+                        >
+                    </div>
                     <div class="p-4">
                         <h1 class="mb-6 text-2xl font-semibold uppercase">
                             {{ event.name }}
