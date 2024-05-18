@@ -1,0 +1,77 @@
+<div
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <form
+        class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        (ngSubmit)="onSubmit()"
+    >
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="name"
+            >
+                Ticket type:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                name="name"
+                [(ngModel)]="ticketType"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="price"
+            >
+                Ticket price:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                [class.border-red-500]="submitAttempted && ticketPrice <= 0"
+                min="1"
+                type="number"
+                name="price"
+                [(ngModel)]="ticketPrice"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="note"
+            >
+                Ticket note:
+            </label>
+            <input
+                class="focus:shadow-outline mb-3 w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                name="note"
+                [(ngModel)]="ticketNote"
+                required
+            />
+        </div>
+        <label class="mb-2 block text-2xl font-bold text-stone-50" for="note">
+            For event:
+        </label>
+        <select
+            name="ticketEventId"
+            [(ngModel)]="ticketEventId"
+            class="focus:shadow-outline mb-10 w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+        >
+            <option *ngFor="let event of events" [value]="event.id">
+                {{ event.name }}
+            </option>
+        </select>
+
+        <div class="flex items-center justify-center">
+            <button
+                class="focus:shadow-outline rounded bg-stone-700 px-6 py-3 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black focus:outline-none"
+                type="submit"
+            >
+                Create Ticket
+            </button>
+        </div>
+    </form>
+</div>

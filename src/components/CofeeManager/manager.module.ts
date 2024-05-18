@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
 import { FilterPipe } from '../../shared/filter-pipe';
-import { CreateTableComponent } from './create-table/create-table.component'
+import { CreateTableComponent } from './create-table/create-table.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component'
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { CreateTableComponent } from './create-table/create-table.component'
         EventsOverviewComponent,
         FilterPipe,
         CreateTableComponent,
+        CreateTicketComponent,
     ],
     imports: [CommonModule, FormsModule],
     exports: [

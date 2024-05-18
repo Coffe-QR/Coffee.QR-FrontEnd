@@ -96,6 +96,12 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Events overview</a
                             >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/create-ticket']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create ticket</a
+                            >
                         </div>
                     </div>
 

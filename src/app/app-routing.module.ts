@@ -30,6 +30,7 @@ import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-
 import { TicketsSelectComponent } from '../components/Xuniversal/tickets-select/tickets-select.component'
 import { PaymentComponent } from '../components/Xuniversal/payment/payment.component'
 import { PaymentCompletedComponent } from '../components/Xuniversal/payment-completed/payment-completed.component'
+import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/create-ticket.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -128,6 +129,11 @@ const routes: Routes = [
     {
         path: 'create-table',
         component: CreateTableComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-ticket',
+        component: CreateTicketComponent,
         canActivate: [ManagerGuard],
     },
     {
