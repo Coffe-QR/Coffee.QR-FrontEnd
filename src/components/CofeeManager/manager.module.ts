@@ -5,9 +5,12 @@ import { ManagerLandingPageComponent } from './manager-landing-page/manager-land
 import { FormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
-import { FilterPipe } from '../../shared/filter-pipe';
-import { CreateTableComponent } from './create-table/create-table.component';
+import { FilterPipe } from '../../shared/filter-pipe'
+import { CreateTableComponent } from './create-table/create-table.component'
 import { CreateTicketComponent } from './create-ticket/create-ticket.component'
+import { MatDialogModule } from '@angular/material/dialog'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EventDescriptionDialogComponent } from './event-description-dialog/event-description-dialog.component' // Needed for animations
 
 @NgModule({
     declarations: [
@@ -18,8 +21,14 @@ import { CreateTicketComponent } from './create-ticket/create-ticket.component'
         FilterPipe,
         CreateTableComponent,
         CreateTicketComponent,
+        EventDescriptionDialogComponent,
     ],
-    imports: [CommonModule, FormsModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+    ],
     exports: [
         CreateEventComponent,
         ManagerLandingPageComponent,
