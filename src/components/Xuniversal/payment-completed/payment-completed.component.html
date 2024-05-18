@@ -1,7 +1,29 @@
-<div class="custom-bg-event">
-    <h1
-        class="m-auto mt-96 flex animate-fade-down justify-center text-center text-5xl font-semibold text-white"
+<div class="flex h-screen text-white">
+    <div
+        class="min scrollbar fixed-content m-auto h-auto w-6/12 animate-flip-down rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
     >
-        COMPLETED PAYMENT
-    </h1>
+        <div class="amount mx-auto mb-10 flex items-center justify-center">
+            <h2 class="text-4xl font-bold uppercase">
+                transaction completed successfully
+            </h2>
+        </div>
+
+        <div class="info mb-10 flex flex-col items-center justify-center gap-8">
+            <h3 class="text-lg">
+                Total price: <span class="font-semibold"> {{ amount }}$ </span>
+            </h3>
+            <h3 class="text-lg">
+                Number of cards:
+                <span class="font-semibold"> {{ quantity }} </span>
+            </h3>
+            <h3 class="text-lg">
+                Currency:
+                <span class="font-semibold uppercase"> {{ currency }} </span>
+            </h3>
+            <h3 class="text-lg">
+                Transaction ID:
+                <span class="font-semibold"> {{ payPalPaymentIntentId }} </span>
+            </h3>
+        </div>
+    </div>
 </div>

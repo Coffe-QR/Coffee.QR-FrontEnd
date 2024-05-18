@@ -70,9 +70,14 @@ export class PaymentComponent implements OnInit {
                                 .createCardUser(ticketUser)
                                 .subscribe({
                                     next: (response) => {
-                                        this.router.navigate([
-                                            '/payment-completed',
-                                        ])
+                                        this.router.navigate(
+                                            ['/payment-completed'],
+                                            {
+                                                state: {
+                                                    ticketUser: ticketUser,
+                                                },
+                                            }
+                                        )
                                     },
                                     error: (error) =>
                                         console.error(
