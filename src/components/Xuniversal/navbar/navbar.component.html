@@ -1,4 +1,7 @@
-<nav class="fixed z-50 w-full animate-fade-down bg-inherit">
+<!-- <nav
+    class="fixed z-50 w-full animate-fade-down bg-opacity-70 backdrop-blur-md backdrop-filter"
+> -->
+<nav class="fixed z-50 w-full animate-fade-down bg-opacity-70">
     <div class="mx-auto max-w-6xl px-4">
         <div class="flex justify-between">
             <div class="flex space-x-4">
@@ -53,6 +56,15 @@
                         class="custom-color px-3 py-5"
                         >Hiring</a
                     >
+                    <a
+                        *ngIf="
+                            user &&
+                            (user.username == '' || user.role === 'client')
+                        "
+                        [routerLink]="['/all-events-overview']"
+                        class="custom-color px-3 py-5"
+                        >Events</a
+                    >
 
                     <div
                         *ngIf="user && user.role === 'manager'"
@@ -83,6 +95,12 @@
                                 [routerLink]="['/events-overview']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Events overview</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/create-ticket']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create ticket</a
                             >
                         </div>
                     </div>
@@ -133,8 +151,19 @@
                             [routerLink]="['/jobs-overview']"
                             >Job Applications</a
                         >
-
+                        <a
+                            class="custom-color px-3 py-5"
+                            [routerLink]="['/create-menu']"
+                            >Menus</a
+                        >
+                        <a
+                            class="custom-color px-3 py-5"
+                            [routerLink]="['/create-item']"
+                            >Create item</a
+                        >
                     </div>
+
+                    
                     
                     <a
                         *ngIf="user && user.username !== ''"
@@ -148,6 +177,12 @@
                         [routerLink]="['/create-local']"
                         class="custom-color px-3 py-5"
                         >Create local</a
+                    >
+                    <a
+                        *ngIf="user && user.role === 'waiter'"
+                        [routerLink]="['/supply-status']"
+                        class="custom-color px-3 py-5"
+                        >Supply status</a
                     >
                 </div>
                 <!--primary nav end -->

@@ -1,0 +1,97 @@
+<div
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center text-white"
+>
+    <div
+        *ngIf="Foods.length > 0 || Drinks.length > 0"
+        class="scrollbar grid w-7/12 animate-jump-in grid-cols-2 gap-16 overflow-auto bg-white bg-opacity-20 p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+        style="max-height: 50rem"
+    >
+        <div class="mt-0 flex w-full flex-col items-center justify-start">
+            <h2 class="mb-3 text-2xl text-zinc-200">Drinks</h2>
+            <hr class="mb-5 w-full bg-black" />
+            <div
+                class="scrollbar overflow-autop-4 grid w-full animate-fade-down grid-cols-1 gap-16 animate-duration-700 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1"
+                style="max-height: 20rem"
+            >
+                <div
+                    *ngFor="let drink of Drinks"
+                    class="ml-14 w-96 rounded-lg bg-transparent bg-white bg-opacity-25 p-2 text-center duration-300 hover:scale-105"
+                >
+                    <h2 class="text-lg font-semibold">{{ drink.name }}</h2>
+                    <h2 class="text-lg font-semibold">
+                        {{ drink.description }}
+                    </h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {{ drink.price }}$
+                    </h2>
+                    <button
+                        (click)="deleteItemFromMenu(drink.id)"
+                        class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex w-full flex-col justify-center text-center">
+            <h2 class="mb-3 text-2xl text-zinc-200">Food</h2>
+            <hr class="mb-5 w-full bg-black" />
+            <div
+                class="scrollbar overflow-autop-4 grid w-full animate-fade-down grid-cols-1 gap-16 animate-duration-700 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1"
+                style="max-height: 20rem"
+            >
+                <div
+                    *ngFor="let food of Foods"
+                    class="ml-14 w-96 rounded-lg bg-transparent bg-white bg-opacity-25 p-2 text-center duration-300 hover:scale-105"
+                >
+                    <h2 class="text-lg font-semibold">{{ food.name }}</h2>
+                    <h2 class="text-lg font-semibold">
+                        {{ food.description }}
+                    </h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {{ food.price }}$
+                    </h2>
+                    <button
+                        (click)="deleteItemFromMenu(food.id)"
+                        class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        *ngIf="Foods.length === 0 && Drinks.length === 0"
+        class="text-center text-2xl"
+    >
+        No items in the menu
+    </div>
+
+    <!-- SUGGESTED ITEMS -->
+    <div
+        class="scrollbar mt-10 grid w-7/12 animate-jump-in grid-cols-2 gap-16 overflow-auto bg-stone-900 bg-opacity-20 p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+        style="max-height: 15rem"
+    >
+        <h1 class="col-span-2 flex justify-center text-2xl font-semibold">
+            Items Available to add to menu
+        </h1>
+        <div
+            *ngFor="let item of ItemsNotInMenu"
+            class="ml-14 w-96 rounded-lg bg-transparent bg-white bg-opacity-25 p-2 text-center duration-300 hover:scale-105"
+        >
+            <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+            <h2 class="text-lg font-semibold">
+                {{ item.description }}
+            </h2>
+            <h2 class="mb-2 text-lg font-semibold">{{ item.price }}$</h2>
+            <button
+                (click)="addItemToMenu(item.id)"
+                class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+            >
+                Add to menu
+            </button>
+        </div>
+    </div>
+</div>

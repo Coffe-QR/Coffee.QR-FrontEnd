@@ -1,5 +1,5 @@
 <div
-    class="to-brown-500 flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-slate-400 to-black"
+    class="to-brown-500 custom-bg-waiter flex h-screen flex-col items-center justify-center"
 >
     <h1 class="animate-fade-down text-6xl text-white">
         Hello {{ user?.username }}, your role is {{ user?.role }}
@@ -7,13 +7,13 @@
     <div class="mt-8 animate-fade-down space-x-4">
         <button
             (click)="onLogout()"
-            class="rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+            class="rounded bg-slate-600 bg-opacity-80 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-slate-700"
         >
             Logout
         </button>
         <button
             (click)="onNotifications()"
-            class="relative rounded bg-green-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-green-700"
+            class="relative rounded bg-stone-700 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-stone-800"
         >
             Notifications
             <span

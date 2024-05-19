@@ -1,0 +1,101 @@
+<div
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <form
+        class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        (ngSubmit)="onSubmit()"
+    >
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="name"
+            >
+                Item Name:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                [(ngModel)]="itemName"
+                name="name"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="name"
+            >
+                Item Type:
+            </label>
+            <select
+                name="ticketEventId"
+                [(ngModel)]="itemType"
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+            >
+                <option [value]="0">Food</option>
+                <option [value]="1">Drink</option>
+                <option [value]="2">Ingredient</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="datetime"
+            >
+                Item Description:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                [(ngModel)]="itemDescription"
+                name="datetime"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="price"
+            >
+                Item price:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                [class.border-red-500]="submitAttempted && itemPrice <= 0"
+                min="1"
+                type="number"
+                name="price"
+                [(ngModel)]="itemPrice"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="file"
+            >
+                Item Picture:
+            </label>
+            <input
+                type="file"
+                (change)="onFileSelected($event)"
+                class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-700 shadow focus:outline-none"
+                style="text-align: center; padding-left: 35%; padding-right: 0"
+                name="file"
+                required
+            />
+        </div>
+
+        <div class="flex items-center justify-center">
+            <button
+                class="focus:shadow-outline rounded bg-stone-700 px-6 py-3 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black focus:outline-none"
+                type="submit"
+            >
+                Create Item
+            </button>
+        </div>
+    </form>
+</div>

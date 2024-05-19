@@ -1,0 +1,11 @@
+/* Assuming this CSS is in event-description-dialog.component.scss or a global stylesheet */
+.dialog-actions {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    padding: 1rem; /* Add some padding around the button */
+}
+
+.dialog-actions {
+    text-align: center; /* Center the contents */
+    padding: 1rem; /* Add some padding */
+}

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { EventService } from '../event.service'
 import { AuthService } from '../../../auth/auth.service'
 import { User } from '../../../auth/model/user.model'
+import { MatDialog } from '@angular/material/dialog'
+import { EventDescriptionDialogComponent } from '../event-description-dialog/event-description-dialog.component'
+import { AUTO_STYLE } from '@angular/animations'
 
 @Component({
     selector: 'app-events-overview',
@@ -16,7 +19,8 @@ export class EventsOverviewComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private eventService: EventService
+        private eventService: EventService,
+        private dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -25,11 +29,13 @@ export class EventsOverviewComponent implements OnInit {
         })
         this.userId = this.authService.user$.getValue().id
 
-        this.eventService.getAllEventsByUserId(this.userId).subscribe({
-            next: (data) => {
-                this.events = data
-            },
-            error: (err) => console.error('Failed to load events:', err),
+        this.loadEvents()
+    }
+
+    openDescriptionDialog(description: string): void {
+        this.dialog.open(EventDescriptionDialogComponent, {
+            panelClass: 'custom-dialog',
+            data: { description: description },
         })
     }
 

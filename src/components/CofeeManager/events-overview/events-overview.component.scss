@@ -1,0 +1,16 @@
+.custom-dialog {
+    width: 95%;
+    max-width: none;
+}
+
+@media (min-width: 600px) {
+    .custom-dialog {
+        width: 50%;
+    }
+}
+
+@media (min-width: 900px) {
+    .custom-dialog {
+        width: 30%;
+    }
+}

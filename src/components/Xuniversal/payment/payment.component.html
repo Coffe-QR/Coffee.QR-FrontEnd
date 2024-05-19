@@ -1,0 +1,28 @@
+<div class="flex h-screen">
+    <div
+        class="min scrollbar fixed-content m-auto h-auto w-6/12 animate-flip-down rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
+    >
+        <div class="amount mx-auto mb-10 flex items-center justify-center">
+            <h2 class="text-3xl">
+                Total to pay : <span class="font-semibold">${{ amount }}</span>
+            </h2>
+        </div>
+
+        <div class="info mb-10 flex items-center justify-center">
+            <h3 class="text-lg">
+                Do not refresh while transaction is processing
+            </h3>
+        </div>
+
+        <div style="margin-left: 4.3rem">
+            <div #paymentRef div></div>
+        </div>
+        <button
+            class="back custom-color-close mt-12 h-14 rounded p-2 text-xl font-semibold text-white"
+            style="margin-left: 4.3rem; width: 47rem"
+            (click)="cancel()"
+        >
+            Cancel
+        </button>
+    </div>
+</div>

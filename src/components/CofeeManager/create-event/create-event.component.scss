@@ -1,0 +1,11 @@
+// styles.scss
+input[type='file'] {
+    // Overriding the Tailwind classes for specific styling:
+    @apply w-full rounded border px-4 py-2 text-stone-200;
+
+    // Custom styling for file input
+    &::file-selector-button {
+        @apply rounded border-0  bg-stone-700  font-thin text-white duration-300 hover:bg-stone-400 hover:text-black; // Style the button part
+        margin-right: 1rem; // Space between the text and the button
+    }
+}

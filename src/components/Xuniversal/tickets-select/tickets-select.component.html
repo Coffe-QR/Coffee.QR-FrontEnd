@@ -1,0 +1,114 @@
+<div class="custom-bg-events flex h-screen">
+    <div
+        class="m-auto grid w-6/12 animate-flip-down grid-cols-2 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
+        style="height: 75vh"
+    >
+        <!-- LEFT SIDE -->
+        <div class="mt-0 flex w-full flex-col items-center justify-start">
+            <img
+                *ngIf="event?.image"
+                [src]="'https://localhost:44333/resources' + event?.image"
+                class="w-96 rounded-md object-cover shadow-black drop-shadow-lg"
+                alt="..."
+            />
+            <div
+                *ngIf="!event?.image"
+                class="flex h-48 w-full items-center justify-center bg-gray-300"
+            >
+                <span class="text-lg text-gray-700">No Image Available</span>
+            </div>
+            <h1 class="mt-2 text-3xl font-semibold uppercase text-zinc-200">
+                {{ event?.name }}
+            </h1>
+            <h2 class="ml-2 mt-5 flex items-center text-lg text-zinc-200">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-geo-alt mr-2"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"
+                    ></path>
+                    <path
+                        d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                    ></path>
+                </svg>
+                <span>{{ local?.name }}</span>
+            </h2>
+            <h3 class="mt-2 flex items-center text-lg text-zinc-200">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-calendar-event mr-2"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"
+                    ></path>
+                    <path
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+                    ></path>
+                </svg>
+                {{ event?.dateTime | date: 'dd.MM.yyyy. HH:mm' }}
+            </h3>
+
+            <p class="mt-4 w-96 text-center text-zinc-200">
+                {{ event?.description }}
+            </p>
+        </div>
+        <!-- END OF LEFT SIDE -->
+
+        <!-- RIGHT SIDE -->
+        <div class="flex w-full flex-col items-center justify-center">
+            <h2 class="mb-3 text-xl text-zinc-200">Price of the cards:</h2>
+
+            <div *ngFor="let ticket of tickets; let isLast = last">
+                <h3
+                    class="row-span-3 flex flex-col justify-center text-center text-2xl text-zinc-200"
+                    [class.mb-5]="!isLast"
+                >
+                    {{ ticket.type }}
+                    <span class="font-semibold">{{ ticket.price }} USD</span>
+                </h3>
+            </div>
+            <span class="mb-5 ml-2 text-zinc-200">per card</span>
+            <div #cardInfo></div>
+            <select
+                [(ngModel)]="selectedType"
+                (change)="getTotalPrice()"
+                class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center"
+            >
+                <option value="" disabled selected>Select a type</option>
+                <option *ngFor="let ticket of tickets" [value]="ticket.type">
+                    {{ ticket.type }}
+                </option>
+            </select>
+            <input
+                [(ngModel)]="quantity"
+                (change)="getTotalPrice()"
+                type="number"
+                min="1"
+                class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center text-zinc-900 placeholder:text-zinc-900"
+                placeholder="Number of cards"
+            />
+
+            <h3 class="text-zinc-200">
+                Total price:
+                <span class="font-semibold">{{ totalPrice }} USD</span>
+            </h3>
+            <button
+                (click)="onContinueToPayment()"
+                class="mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+            >
+                Continue to payment
+            </button>
+        </div>
+
+        <!-- END OF RIGHT SIDE -->
+    </div>
+</div>

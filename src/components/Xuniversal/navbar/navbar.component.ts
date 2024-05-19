@@ -67,6 +67,18 @@ export class NavbarComponent implements OnInit {
         }
     }
 
+    getNavbarClass() {
+        if (this.user && this.user.role === 'manager') {
+            return 'inherit'
+        } else if (this.user && this.user.role === 'itsupport') {
+            return 'inherit'
+        } else if (this.user && this.user.role === 'waiter') {
+            return 'inherit'
+        } else {
+            return 'inherit'
+        }
+    }
+
     toggleNavbar() {
         this.navbarOpen = !this.navbarOpen
     }
