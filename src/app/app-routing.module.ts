@@ -68,7 +68,7 @@ const routes: Routes = [
         //data: { animation: 'Contact' },
     },
     {
-        path: 'menu-overview/:localId/:tableId',
+        path: 'menu-overview/:localId/:tableId/:menuId',
         component: MenuOverviewComponent,
         //data: { animation: 'Menu' },
     },
