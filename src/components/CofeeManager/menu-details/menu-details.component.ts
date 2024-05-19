@@ -11,6 +11,7 @@ export class MenuDetailsComponent implements OnInit {
     menuId: number = 0
     Drinks: any[] = []
     Foods: any[] = []
+    ItemsNotInMenu: any[] = []
 
     constructor(
         private menuItemService: MenuItemService,
@@ -34,6 +35,13 @@ export class MenuDetailsComponent implements OnInit {
             },
             error: (err) => console.error('Failed to load food:', err),
         })
+
+        this.menuItemService.getAllNotOnMenu(this.menuId).subscribe({
+            next: (data) => {
+                this.ItemsNotInMenu = data
+            },
+            error: (err) => console.error('Failed to load items:', err),
+        })
     }
 
     deleteItemFromMenu(itemId: number): void {
@@ -46,5 +54,20 @@ export class MenuDetailsComponent implements OnInit {
                 },
                 error: (err) => this.ngOnInit(),
             })
+    }
+
+    addItemToMenu(itemId: number): void {
+        const itemData = {
+            menuId: this.menuId,
+            itemId: itemId,
+        }
+
+        this.menuItemService.createMenuItem(itemData).subscribe({
+            next: () => {
+                console.log('Item added successfully')
+                this.ngOnInit()
+            },
+            error: (err) => this.ngOnInit(),
+        })
     }
 }
