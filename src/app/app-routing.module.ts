@@ -30,6 +30,14 @@ import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-
 import { StorageComponent } from '../components/Xuniversal/storage/storage.component'
 import { EmployeeGuard } from '../auth/employee.guard'
 import { ReportListComponent } from '../components/CofeeManager/report-list/report-list.component'
+import { TicketsSelectComponent } from '../components/Xuniversal/tickets-select/tickets-select.component'
+import { PaymentComponent } from '../components/Xuniversal/payment/payment.component'
+import { PaymentCompletedComponent } from '../components/Xuniversal/payment-completed/payment-completed.component'
+import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/create-ticket.component'
+import { CreateMenuComponent } from '../components/CofeeManager/create-menu/create-menu.component'
+import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
+import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
+
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -72,6 +80,21 @@ const routes: Routes = [
         component: AllEventsOverviewComponent,
         data: { animation: 'AllEvents' },
     },
+    {
+        path: 'tickets-select/:eventId',
+        component: TicketsSelectComponent,
+        data: { animation: 'TicketsSelect' },
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent,
+        //data: { animation: 'Payment' },
+    },
+    {
+        path: 'payment-completed',
+        component: PaymentCompletedComponent,
+        //data: { animation: 'CompletedPayment' },
+    },
 
     //--------------------ROLES--------------------
     {
@@ -112,6 +135,26 @@ const routes: Routes = [
     {
         path: 'create-table',
         component: CreateTableComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-ticket',
+        component: CreateTicketComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-menu',
+        component: CreateMenuComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'menu-details/:menuId',
+        component: MenuDetailsComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-item',
+        component: CreateItemComponent,
         canActivate: [ManagerGuard],
     },
     {
