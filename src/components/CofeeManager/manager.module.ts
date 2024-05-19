@@ -10,7 +10,9 @@ import { CreateTableComponent } from './create-table/create-table.component'
 import { CreateTicketComponent } from './create-ticket/create-ticket.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EventDescriptionDialogComponent } from './event-description-dialog/event-description-dialog.component' // Needed for animations
+import { EventDescriptionDialogComponent } from './event-description-dialog/event-description-dialog.component';
+import { CreateMenuComponent } from './create-menu/create-menu.component';
+import { MenuDetailsComponent } from './menu-details/menu-details.component' // Needed for animations
 
 @NgModule({
     declarations: [
@@ -22,6 +24,8 @@ import { EventDescriptionDialogComponent } from './event-description-dialog/even
         CreateTableComponent,
         CreateTicketComponent,
         EventDescriptionDialogComponent,
+        CreateMenuComponent,
+        MenuDetailsComponent,
     ],
     imports: [
         CommonModule,

@@ -31,6 +31,8 @@ import { TicketsSelectComponent } from '../components/Xuniversal/tickets-select/
 import { PaymentComponent } from '../components/Xuniversal/payment/payment.component'
 import { PaymentCompletedComponent } from '../components/Xuniversal/payment-completed/payment-completed.component'
 import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/create-ticket.component'
+import { CreateMenuComponent } from '../components/CofeeManager/create-menu/create-menu.component'
+import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -134,6 +136,16 @@ const routes: Routes = [
     {
         path: 'create-ticket',
         component: CreateTicketComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-menu',
+        component: CreateMenuComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'menu-details/:menuId',
+        component: MenuDetailsComponent,
         canActivate: [ManagerGuard],
     },
     {
