@@ -3,7 +3,7 @@
 >
     <div
         *ngIf="notifications.length != 0"
-        class="notification-container w-full max-w-4xl animate-fade-down rounded-lg bg-white bg-opacity-65 p-6 shadow-lg"
+        class="notification-container w-full max-w-4xl animate-fade-down rounded-lg bg-white bg-opacity-65 p-6 shadow-lg mb-8"
     >
         <h1 class="text-center text-2xl font-bold text-gray-800">
             Notifications
@@ -33,6 +33,40 @@
     >
         <h1 class="text-center text-2xl font-medium text-gray-800">
             You don't have new notifications
+        </h1>
+    </div>
+    <div
+        *ngIf="orders.length != 0"
+        class="order-container w-full max-w-4xl animate-fade-down rounded-lg bg-white bg-opacity-65 p-6 shadow-lg mb-8"
+    >
+        <h1 class="text-center text-2xl font-bold text-gray-800">
+            Orders
+        </h1>
+        <div class="mt-4 max-h-96 overflow-auto">
+            <ul class="divide-y divide-gray-200">
+                <li
+                    *ngFor="let order of orders"
+                    class="flex items-center justify-between py-4"
+                >
+                    <span class="text-gray-600">{{
+                        order.description
+                    }}</span>
+                    <button
+                        (click)="seeOrder(order.id)"
+                        class="ml-4 mr-10 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
+                    >
+                        See order
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div
+        *ngIf="orders.length === 0"
+        class="ordern-container w-full max-w-lg animate-fade-down rounded-lg bg-white bg-opacity-70 p-6 shadow-lg"
+    >
+        <h1 class="text-center text-2xl font-medium text-gray-800">
+            You don't have new orders
         </h1>
     </div>
 </div>

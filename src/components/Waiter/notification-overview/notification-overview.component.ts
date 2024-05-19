@@ -4,6 +4,7 @@ import { NotificationService } from '../../Xuniversal/notification.service'
 import { User } from '../../../auth/model/user.model'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
 import { ToastrService } from 'ngx-toastr'
+import { OrderService } from '../../Xuniversal/order.service'
 
 @Component({
     selector: 'app-notification-overview',
@@ -16,11 +17,13 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     notificationLocalId: number = 0
     notifications: any[] = []
     private refreshIntervalId: any
+    orders: any[] = []
 
     constructor(
         private authService: AuthService,
         private localuserService: LocalUserService,
         private notificationService: NotificationService,
+        private orderService: OrderService,
         private toastr: ToastrService
     ) {}
 
@@ -34,6 +37,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
             next: (response) => {
                 this.notificationLocalId = response.localId
                 this.loadActiveNotifications(this.notificationLocalId)
+                this.loadOrdersByLocalIdAndIsActive(this.notificationLocalId)
             },
             error: (error) => console.error('Error getting local user:', error),
         })
@@ -41,6 +45,11 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
         this.loadActiveNotifications(this.notificationLocalId)
         this.refreshIntervalId = setInterval(() => {
             this.loadActiveNotifications(this.notificationLocalId)
+        }, 15000)
+
+        this.loadOrdersByLocalIdAndIsActive(this.notificationLocalId)
+        this.refreshIntervalId = setInterval(() => {
+            this.loadOrdersByLocalIdAndIsActive(this.notificationLocalId)
         }, 15000)
     }
 
@@ -68,6 +77,24 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
         })
     }
 
+    loadOrdersByLocalIdAndIsActive(localId: number) {
+        this.orderService.getOrdersByLocalIdAndIsActive(localId).subscribe({
+            next: (data) => {
+                console.log('Orders:', data)
+                if (
+                    this.orders &&
+                    data.length > this.orders.length
+                ) {
+                    this.toastr.info('You have new orders')
+                }
+                this.orders = data
+            },
+            error: (error) => {
+                console.error('Failed to fetch orders:', error)
+            },
+        })
+    }
+
     markAsRead(notificationId: number) {
         this.notificationService
             .deactivateNotification(notificationId)
@@ -80,5 +107,8 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
                     console.error('Failed to deactivate notification:', error)
                 },
             })
+    }
+    seeOrder(orderId: number) {
+        
     }
 }
