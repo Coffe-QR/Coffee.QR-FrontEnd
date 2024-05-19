@@ -5,9 +5,10 @@ import { SupplyStatusComponent } from './supply-status/supply-status.component'
 import { SupplyDetailsComponent } from './supply-details/supply-details.component';
 import { MenuOverviewComponent } from './menu-overview/menu-overview.component'
 import { JobApplicationFormComponent } from './job-application-form/job-application-form.component';
+import { GoogleFormComponent } from './google-form/google-form.component';
 
 @NgModule({
-    declarations: [SupplyStatusComponent, SupplyDetailsComponent, MenuOverviewComponent, JobApplicationFormComponent],
+    declarations: [SupplyStatusComponent, SupplyDetailsComponent, MenuOverviewComponent, JobApplicationFormComponent, GoogleFormComponent],
     imports: [CommonModule, FormsModule],
     exports: [SupplyStatusComponent, SupplyDetailsComponent],
 })

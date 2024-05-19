@@ -26,6 +26,9 @@ import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/me
 import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
 import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
 import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
+import { JobsOverview } from '../components/CofeeManager/jobs-overview/jobs-overview.component'
+import { GoogleFormComponent } from '../components/Xuniversal/google-form/google-form.component'
+
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -130,9 +133,17 @@ const routes: Routes = [
         component: JobApplicationFormComponent,
     },
     {
+        path: 'jobs-overview',
+        component: JobsOverview,
+    },
+    {
         path: 'notifications-overview',
         component: NotificationOverviewComponent,
         canActivate: [WaiterGuard],
+    },
+    {
+        path: 'google-form',
+        component: GoogleFormComponent,
     },
 ]
 

@@ -1,0 +1,40 @@
+<div class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black">
+  <!-- Manager's View -->
+  <div class="form-container" [hidden]="!isManager">
+    <h2 class="text-4xl font-bold text-center mb-8 text-black">Manager: Post a Voting Form</h2>
+    <div class="mb-4">
+      <label for="googleFormUrl" class="block text-black mb-2">Google Form URL:</label>
+      <input
+        type="text"
+        id="googleFormUrl"
+        [value]="googleFormUrl"
+        (input)="updateGoogleFormUrl($event)"
+        class="w-full p-2 border border-gray-300 rounded"
+        placeholder="Enter Google Form URL"
+      />
+      <button
+        (click)="postGoogleFormUrl()"
+        class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      >
+        Post Form
+      </button>
+    </div>
+  </div>
+
+  <!-- Worker's View -->
+  <div class="form-container" [hidden]="isManager">
+    <h2 class="text-4xl font-bold text-center mb-8 text-black">Worker: Submit Your Vote</h2>
+    <div class="mb-4">
+      <!-- Embed the Google Form URL -->
+      <iframe
+        *ngIf="safeGoogleFormUrl"
+        [src]="safeGoogleFormUrl"
+        frameborder="0"
+        class="form-iframe"
+      >
+        Loading…
+      </iframe>
+      <div *ngIf="!safeGoogleFormUrl" class="text-black">No Google Form URL provided.</div>
+    </div>
+  </div>
+</div>

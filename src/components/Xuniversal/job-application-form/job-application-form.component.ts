@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobApplicationService } from '../job-application-form.service';
 import { AuthService } from '../../../auth/auth.service';
+import { LocalService } from '../local.service';
 
 @Component({
   selector: 'app-job-application-form',
@@ -17,31 +18,39 @@ export class JobApplicationFormComponent implements OnInit {
     position: number = 0;
     dateOfBirth: string = '';
     address: string = '';
-    applicationDate: string =  Date.now().toString();
-    localId: number = 1;
+    applicationDate: string = '';
+    localId: number = 0;
     applicantDescription: string = '';
+    locals: { id: number, name: string }[] = [];
 
 
-  locals: any[] = [];  // Array to store locals data
+  
 
   constructor(
     private authService: AuthService,
     private jobApplicationService: JobApplicationService,
-    private router: Router
+    private router: Router,
+    private localService: LocalService
   ) {}
   
   ngOnInit(): void {
-    //this.fetchLocals();  // Simulate fetching locals from a service
+    this.fetchLocals();  // Simulate fetching locals from a service
   }
  
   fetchLocals() {
-    // Simulate fetching data from backend
-    this.locals = [
-      { id: 1, name: 'Local 1' },
-      { id: 2, name: 'Local 2' },
-      // More locals can be added here
-    ];
-  }
+  this.localService.getAllLocals().subscribe({
+    next: (locals) => {
+      console.log('Fetched locals:', locals); // Log fetched data
+      this.locals = locals;
+      // Set default localId to the first local's id if it's not set
+      if (this.locals.length > 0 && this.localId === 0) {
+        this.localId = this.locals[0].id; // Update the localId property
+      }
+    },
+    error: (error) => console.error('Error fetching locals:', error)
+  });
+}
+
 /*
   onSubmit(): void {
     if (this.jobApplicationForm.valid) {
@@ -66,7 +75,7 @@ export class JobApplicationFormComponent implements OnInit {
         localId: this.localId,
         position: this.position,
         applicantDescription: this.applicantDescription,
-        applicationDate: "2024-05-14",
+        applicationDate: this.getCurrentDate(),
 
     }
 
@@ -89,8 +98,21 @@ export class JobApplicationFormComponent implements OnInit {
             return 'Unknown'
     }
 }
+  getCurrentDate(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  getLocalNameById(id: number): string {
+    const local = this.locals.find(l => l.id === id);
+    return local ? local.name : 'Unknown';
+  }
+}
 
 //   submitApplication(): void {
 //     this.onSubmit();  // This can be an alias to onSubmit or can contain additional logic if needed
 //   }
-}
+

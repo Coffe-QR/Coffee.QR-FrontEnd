@@ -17,4 +17,8 @@ export class JobApplicationService {
     getAllJobApplications(): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAll`);
     }
+
+    getJobApplicationsByLocal(localId: number): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}?localId=${localId}`);
+      }
 }

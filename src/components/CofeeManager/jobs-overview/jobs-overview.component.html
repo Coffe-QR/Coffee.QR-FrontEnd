@@ -1,0 +1,35 @@
+<div class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-green-300 to-black">
+    <h1 class="text-4xl font-bold text-center mb-8">Job Applications for Your Local</h1>
+    <div *ngIf="jobApplications.length === 0" class="text-center text-gray-600">
+      No job applications found.
+    </div>
+    <div *ngIf="jobApplications.length > 0">
+      <table class="table-auto w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Surname</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Phone</th>
+            <th class="border px-4 py-2">Position</th>
+            <th class="border px-4 py-2">Date of Birth</th>
+            <th class="border px-4 py-2">Address</th>
+            <th class="border px-4 py-2">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let application of jobApplications" class="hover:bg-gray-100">
+            <td class="border px-4 py-2">{{ application.firstName }}</td>
+            <td class="border px-4 py-2">{{ application.lastName }}</td>
+            <td class="border px-4 py-2">{{ application.email }}</td>
+            <td class="border px-4 py-2">{{ application.phone }}</td>
+            <td class="border px-4 py-2">{{ application.position }}</td>
+            <td class="border px-4 py-2">{{ application.dateOfBirth }}</td>
+            <td class="border px-4 py-2">{{ application.address }}</td>
+            <td class="border px-4 py-2">{{ application.applicantDescription }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

@@ -66,18 +66,17 @@
                     />
                 </div>
                 <div class="mb-4">
-                    <label for="dateOfBirth" class="block text-sm text-zinc-200"
-                        >Date of birth:</label
-                    >
-                    <input
-                        type="date-local"
-                        id="dateOfBirth"
-                        name="datetime"
-                        [(ngModel)]="dateOfBirth"
-                        class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
-                        required
+                    <label for="dateOfBirth" class="block text-sm text-zinc-200">Date of birth:</label>
+                    <input 
+                      type="date" 
+                      id="dateOfBirth" 
+                      name="dateOfBirth" 
+                      [(ngModel)]="dateOfBirth" 
+                      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none" 
+                      required 
                     />
-                </div>
+                  </div>
+                  
                 <div class="mb-4">
                     <label for="address" class="block text-sm text-zinc-200"
                         >Address</label
@@ -92,18 +91,11 @@
                     />
                 </div>
                 <div class="mb-4">
-                    <label for="localId" class="block text-sm text-zinc-200"
-                        >Local ID</label
-                    >
-                    <input
-                        type="number"
-                        id="localId"
-                        name="localId"
-                        [(ngModel)]="localId"
-                        class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300"
-                        required
-                    />
-                </div>
+                    <label for="localId" class="block text-sm text-zinc-200">Local</label>
+                    <select id="localId" name="localId" [(ngModel)]="localId" class="w-full rounded border bg-zinc-300 p-2 text-gray-700 focus:border-cyan-300" required>
+                      <option *ngFor="let local of locals" [value]="local.id">{{ local.name }}</option>
+                    </select>
+                  </div>
                 <div class="mb-4">
                     <label for="position" class="block text-sm text-zinc-200"
                         >Position</label
