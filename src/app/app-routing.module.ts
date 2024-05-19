@@ -33,6 +33,7 @@ import { PaymentCompletedComponent } from '../components/Xuniversal/payment-comp
 import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/create-ticket.component'
 import { CreateMenuComponent } from '../components/CofeeManager/create-menu/create-menu.component'
 import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
+import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -146,6 +147,11 @@ const routes: Routes = [
     {
         path: 'menu-details/:menuId',
         component: MenuDetailsComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-item',
+        component: CreateItemComponent,
         canActivate: [ManagerGuard],
     },
     {
