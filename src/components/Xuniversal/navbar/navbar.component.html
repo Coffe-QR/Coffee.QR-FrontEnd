@@ -148,6 +148,11 @@
                         >
                         <a
                             class="custom-color px-3 py-5"
+                            [routerLink]="['/jobs-overview']"
+                            >Job Applications</a
+                        >
+                        <a
+                            class="custom-color px-3 py-5"
                             [routerLink]="['/create-menu']"
                             >Menus</a
                         >
@@ -158,6 +163,15 @@
                         >
                     </div>
 
+                    
+                    
+                    <a
+                        *ngIf="user && user.username !== ''"
+                        class="custom-color px-3 py-5"
+                        [routerLink]="['/google-form']"
+                        >Survey</a
+                    >
+                    
                     <a
                         *ngIf="user && user.role === 'itsupport'"
                         [routerLink]="['/create-local']"

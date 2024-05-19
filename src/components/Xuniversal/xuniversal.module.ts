@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router'
 import { TicketsSelectComponent } from './tickets-select/tickets-select.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentCompletedComponent } from './payment-completed/payment-completed.component'
+import { GoogleFormComponent } from './google-form/google-form.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { PaymentCompletedComponent } from './payment-completed/payment-completed
         TicketsSelectComponent,
         PaymentComponent,
         PaymentCompletedComponent,
+        GoogleFormComponent,
     ],
     imports: [CommonModule, FormsModule, RouterModule],
     exports: [
