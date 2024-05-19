@@ -15,6 +15,22 @@ export class ItemService {
         return this.http.get(`${this.apiUrl}/getAll`)
     }
 
+    createItem(itemData: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}`, itemData)
+    }
+
+    deleteItem(id: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/${id}`)
+    }
+
+    getItemById(id: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getById/${id}`)
+    }
+
+    updateItem(itemData: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/UpdateMenu`, itemData)
+    }
+
     getAllItemForStorage(storageId: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAllStorage/` + storageId)
     }

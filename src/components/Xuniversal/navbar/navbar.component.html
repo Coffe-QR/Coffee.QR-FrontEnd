@@ -57,7 +57,10 @@
                         >Hiring</a
                     >
                     <a
-                        *ngIf="user && user.username == ''"
+                        *ngIf="
+                            user &&
+                            (user.username == '' || user.role === 'client')
+                        "
                         [routerLink]="['/all-events-overview']"
                         class="custom-color px-3 py-5"
                         >Events</a
@@ -92,6 +95,12 @@
                                 [routerLink]="['/events-overview']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Events overview</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/create-ticket']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create ticket</a
                             >
                         </div>
                     </div>
@@ -136,6 +145,16 @@
                             class="custom-color px-3 py-5"
                             [routerLink]="['/create-table']"
                             >Create Table</a
+                        >
+                        <a
+                            class="custom-color px-3 py-5"
+                            [routerLink]="['/create-menu']"
+                            >Menus</a
+                        >
+                        <a
+                            class="custom-color px-3 py-5"
+                            [routerLink]="['/create-item']"
+                            >Create item</a
                         >
                     </div>
 

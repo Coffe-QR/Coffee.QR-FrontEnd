@@ -1,7 +1,7 @@
 <div class="custom-bg-events flex h-screen">
     <div class="container m-auto mt-32 max-h-72">
         <div
-            class="scrollbar mx-auto grid w-9/12 animate-jump-in grid-cols-1 gap-16 gap-x-6 overflow-auto p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-3"
+            class="scrollbar mx-auto grid w-9/12 animate-flip-down grid-cols-1 gap-16 gap-x-6 overflow-auto p-4 animate-delay-300 animate-duration-1000 md:grid-cols-2 lg:grid-cols-3"
             style="max-height: 49rem"
         >
             <div *ngFor="let event of events" class="relative h-full">
@@ -9,12 +9,21 @@
                     class="h-full w-full overflow-hidden rounded-lg bg-white bg-opacity-55 shadow-sm duration-300 hover:scale-105"
                 >
                     <img
+                        *ngIf="event.image"
                         [src]="
                             'https://localhost:44333/resources' + event.image
                         "
                         class="h-48 w-full object-cover"
                         alt="..."
                     />
+                    <div
+                        *ngIf="!event.image"
+                        class="flex h-48 w-full items-center justify-center bg-gray-300"
+                    >
+                        <span class="text-lg text-gray-700"
+                            >No Image Available</span
+                        >
+                    </div>
                     <div class="p-4">
                         <h1 class="mb-6 text-2xl font-semibold uppercase">
                             {{ event.name }}
@@ -57,7 +66,7 @@
                         </h3>
                         <div class="mt-4">
                             <button
-                                routerLink="#"
+                                [routerLink]="'/tickets-select/' + event.id"
                                 class="absolute bottom-0 left-0 flex h-9 w-full items-center rounded bg-zinc-500 px-4 py-1 font-semibold text-zinc-50 duration-300 hover:bg-zinc-950"
                             >
                                 Tickets

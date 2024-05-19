@@ -1,0 +1,75 @@
+<div
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <div
+        class="scrollbar grid animate-fade-down grid-cols-1 gap-16 overflow-auto p-4 animate-duration-700 md:grid-cols-2 lg:grid-cols-3"
+        style="max-height: 31rem"
+    >
+        <div
+            *ngFor="let menu of menus"
+            class="relative w-72 rounded-lg bg-transparent bg-white bg-opacity-25 p-3 text-center duration-300 hover:scale-105"
+        >
+            <h2 class="text-lg font-semibold">Menu name: {{ menu.name }}</h2>
+            <h2 class="mb-4 text-lg font-semibold">
+                Menu description: {{ menu.description }}
+            </h2>
+            <button
+                (click)="detailsMenu(menu.id)"
+                class="mr-5 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+            >
+                Details
+            </button>
+            <button
+                (click)="deleteMenu(menu.id)"
+                class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+            >
+                Delete
+            </button>
+        </div>
+    </div>
+
+    <form
+        class="mb-4 mt-10 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        (ngSubmit)="onSubmit()"
+    >
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="name"
+            >
+                Menu Name:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                name="name"
+                [(ngModel)]="menuName"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="name"
+            >
+                Menu Description:
+            </label>
+            <input
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="text"
+                name="name"
+                [(ngModel)]="menuDescription"
+                required
+            />
+        </div>
+
+        <div class="flex items-center justify-center">
+            <button
+                class="focus:shadow-outline rounded bg-stone-700 px-6 py-3 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black focus:outline-none"
+                type="submit"
+            >
+                Create Menu
+            </button>
+        </div>
+    </form>
+</div>
