@@ -5,8 +5,9 @@ import { ManagerLandingPageComponent } from './manager-landing-page/manager-land
 import { FormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
-import { FilterPipe } from '../../shared/filter-pipe';
+import { FilterPipe } from '../../shared/filter-pipe'
 import { CreateTableComponent } from './create-table/create-table.component'
+import { ReportListComponent } from './report-list/report-list.component'
 
 @NgModule({
     declarations: [
@@ -16,12 +17,14 @@ import { CreateTableComponent } from './create-table/create-table.component'
         EventsOverviewComponent,
         FilterPipe,
         CreateTableComponent,
+        ReportListComponent,
     ],
     imports: [CommonModule, FormsModule],
     exports: [
         CreateEventComponent,
         ManagerLandingPageComponent,
         SupplyCreateComponent,
+        ReportListComponent,
     ],
 })
 export class ManagerModule {}

@@ -27,7 +27,9 @@ import { CreateTableComponent } from '../components/CofeeManager/create-table/cr
 import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
 import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
 import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-overview/all-events-overview.component'
-
+import { StorageComponent } from '../components/Xuniversal/storage/storage.component'
+import { EmployeeGuard } from '../auth/employee.guard'
+import { ReportListComponent } from '../components/CofeeManager/report-list/report-list.component'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -139,6 +141,16 @@ const routes: Routes = [
         path: 'notifications-overview',
         component: NotificationOverviewComponent,
         canActivate: [WaiterGuard],
+    },
+    {
+        path: 'storage',
+        component: StorageComponent,
+        canActivate: [EmployeeGuard],
+    },
+    {
+        path: 'report-list',
+        component: ReportListComponent,
+        canActivate: [ManagerGuard],
     },
 ]
 

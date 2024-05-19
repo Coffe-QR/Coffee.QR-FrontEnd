@@ -1,0 +1,68 @@
+<div
+    class="custom-bg-manager mx-auto flex h-screen items-center justify-center bg-gradient-to-tr"
+>
+    <div
+        class="mb-4 flex h-3/4 w-3/4 animate-fade-right rounded bg-white bg-opacity-0 px-16 py-8 text-center"
+    >
+        <div
+            class="max-h-300 w-1/6 flex-col overflow-y-auto rounded-l-md bg-gray-50 bg-opacity-70 p-4"
+        >
+            <button
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+            >
+                All
+            </button>
+            <button
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+            >
+                Yearly
+            </button>
+            <button
+                class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+            >
+                Monthly
+            </button>
+        </div>
+        <div class="max-h-300 w-2/3 rounded-r-md bg-gray-50 bg-opacity-70 p-4">
+            <div class="flex flex-col rounded-r-md">
+                <div><h1 class="text-sm font-bold">Reports</h1></div>
+                <div class="flex flex-row">
+                    <div class="w-1/4">
+                        <p class="font-bold font-normal">Ime</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="font-bold font-normal">Date</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="font-bold font-normal">Date</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="font-bold font-normal">Link</p>
+                    </div>
+                </div>
+                <div
+                    *ngFor="let report of filteredReports"
+                    class="flex flex-row"
+                >
+                    <div class="w-1/4">
+                        <p class="text-sm">{{ report.id }}</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="text-sm">{{ report.type }}</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="text-sm">{{ report.date }}</p>
+                    </div>
+                    <div class="w-1/4">
+                        <a
+                            class="text-sm"
+                            [attr.href]="report.path"
+                            target="_blank"
+                            >Click here!</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

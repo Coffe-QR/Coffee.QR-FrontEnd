@@ -7,6 +7,7 @@ import { MenuOverviewComponent } from './menu-overview/menu-overview.component'
 import { JobApplicationFormComponent } from './job-application-form/job-application-form.component'
 import { AllEventsOverviewComponent } from './all-events-overview/all-events-overview.component'
 import { RouterModule } from '@angular/router'
+import { StorageComponent } from './storage/storage.component'
 
 @NgModule({
     declarations: [
@@ -15,12 +16,14 @@ import { RouterModule } from '@angular/router'
         MenuOverviewComponent,
         JobApplicationFormComponent,
         AllEventsOverviewComponent,
+        StorageComponent,
     ],
     imports: [CommonModule, FormsModule, RouterModule],
     exports: [
         SupplyStatusComponent,
         SupplyDetailsComponent,
         AllEventsOverviewComponent,
+        StorageComponent,
     ],
 })
 export class XUniversalModule {}

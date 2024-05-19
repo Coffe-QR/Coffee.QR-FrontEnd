@@ -14,4 +14,8 @@ export class ItemService {
     getAllItems(): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAll`)
     }
+
+    getAllItemForStorage(storageId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getAllStorage/` + storageId)
+    }
 }
