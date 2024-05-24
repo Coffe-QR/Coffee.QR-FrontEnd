@@ -5,6 +5,7 @@ import { User } from '../../../auth/model/user.model'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
 import { ToastrService } from 'ngx-toastr'
 import { OrderService } from '../../Xuniversal/order.service'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-notification-overview',
@@ -24,7 +25,8 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
         private localuserService: LocalUserService,
         private notificationService: NotificationService,
         private orderService: OrderService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -81,10 +83,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
         this.orderService.getOrdersByLocalIdAndIsActive(localId).subscribe({
             next: (data) => {
                 console.log('Orders:', data)
-                if (
-                    this.orders &&
-                    data.length > this.orders.length
-                ) {
+                if (this.orders && data.length > this.orders.length) {
                     this.toastr.info('You have new orders')
                 }
                 this.orders = data
@@ -109,6 +108,6 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
             })
     }
     seeOrder(orderId: number) {
-        
+        this.router.navigate(['/order-details/', orderId])
     }
 }

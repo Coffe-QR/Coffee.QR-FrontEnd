@@ -36,6 +36,7 @@ import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/
 import { CreateMenuComponent } from '../components/CofeeManager/create-menu/create-menu.component'
 import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
 import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
+import { OrderDetailsComponent } from '../components/Waiter/order-details/order-details.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -186,6 +187,11 @@ const routes: Routes = [
     {
         path: 'notifications-overview',
         component: NotificationOverviewComponent,
+        canActivate: [WaiterGuard],
+    },
+    {
+        path: 'order-details/:orderId',
+        component: OrderDetailsComponent,
         canActivate: [WaiterGuard],
     },
     {
