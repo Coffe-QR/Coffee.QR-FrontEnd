@@ -57,6 +57,7 @@ export class MenuOverviewComponent implements OnInit {
         this.menuItemService.getAllDrinksForMenu(this.menuId).subscribe({
             next: (data) => {
                 this.Drinks = data
+                console.log('Drinks:', this.Drinks)
             },
             error: (err) => console.error('Failed to load drinks:', err),
         })
