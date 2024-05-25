@@ -11,6 +11,7 @@ import { OrderItemService } from '../../Xuniversal/order-item.service'
 export class OrderDetailsComponent implements OnInit {
     orderId: number = 0
     orderItems: any[] = []
+    order: any = {}
 
     constructor(
         private router: Router,
@@ -23,10 +24,34 @@ export class OrderDetailsComponent implements OnInit {
         const orderIdParam = this.route.snapshot.paramMap.get('orderId')
         this.orderId = orderIdParam ? +orderIdParam : 0
 
+        this.orderService.getOrderById(this.orderId).subscribe({
+            next: (data) => {
+                this.order = data
+                console.log(this.order)
+            },
+            error: (error) => {
+                console.error(error)
+            },
+        })
+
         this.orderItemService.getAllForOrder(this.orderId).subscribe({
             next: (data) => {
                 this.orderItems = data
-                console.log(this.orderItems)
+                this.orderItems.forEach((orderItem) => {
+                    this.orderItemService
+                        .getQuantityByOrderIdAndItemId(
+                            this.orderId,
+                            orderItem.id
+                        )
+                        .subscribe({
+                            next: (quantity) => {
+                                orderItem.quantity = quantity
+                            },
+                            error: (error) => {
+                                console.error(error)
+                            },
+                        })
+                })
             },
             error: (error) => {
                 console.error(error)
