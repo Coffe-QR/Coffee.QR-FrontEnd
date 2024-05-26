@@ -26,7 +26,7 @@ import { MenuOverviewComponent } from '../components/Xuniversal/menu-overview/me
 import { CreateTableComponent } from '../components/CofeeManager/create-table/create-table.component'
 import { NotificationOverviewComponent } from '../components/Waiter/notification-overview/notification-overview.component'
 import { CreateLocalComponent } from '../components/ITsupport/create-local/create-local.component'
-import { JobsOverview } from '../components/CofeeManager/jobs-overview/jobs-overview.component'
+import { JobsOverviewComponent } from '../components/CofeeManager/jobs-overview/jobs-overview.component'
 import { GoogleFormComponent } from '../components/Xuniversal/google-form/google-form.component'
 import { AllEventsOverviewComponent } from '../components/Xuniversal/all-events-overview/all-events-overview.component'
 import { TicketsSelectComponent } from '../components/Xuniversal/tickets-select/tickets-select.component'
@@ -181,8 +181,8 @@ const routes: Routes = [
         component: JobApplicationFormComponent,
     },
     {
-        path: 'jobs-overview',
-        component: JobsOverview,
+        path: 'jobs-overview/:userId',
+        component: JobsOverviewComponent,
     },
     {
         path: 'notifications-overview',
