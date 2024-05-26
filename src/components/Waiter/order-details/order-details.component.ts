@@ -69,4 +69,8 @@ export class OrderDetailsComponent implements OnInit {
             },
         })
     }
+
+    printReceipt(orderId: number) {
+        
+    }
 }
