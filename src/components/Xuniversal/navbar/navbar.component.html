@@ -102,6 +102,12 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Create ticket</a
                             >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/ticket-sale-report']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Ticket sale report</a
+                            >
                         </div>
                     </div>
 
@@ -163,15 +169,13 @@
                         >
                     </div>
 
-                    
-                    
                     <a
                         *ngIf="user && user.username !== ''"
                         class="custom-color px-3 py-5"
                         [routerLink]="['/google-form']"
                         >Survey</a
                     >
-                    
+
                     <a
                         *ngIf="user && user.role === 'itsupport'"
                         [routerLink]="['/create-local']"

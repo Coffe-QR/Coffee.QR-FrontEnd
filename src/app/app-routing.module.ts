@@ -37,6 +37,7 @@ import { CreateMenuComponent } from '../components/CofeeManager/create-menu/crea
 import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
 import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
 import { OrderDetailsComponent } from '../components/Waiter/order-details/order-details.component'
+import { TicketSaleReportComponent } from '../components/CofeeManager/ticket-sale-report/ticket-sale-report.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -155,6 +156,11 @@ const routes: Routes = [
     {
         path: 'create-item',
         component: CreateItemComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'ticket-sale-report',
+        component: TicketSaleReportComponent,
         canActivate: [ManagerGuard],
     },
     {
