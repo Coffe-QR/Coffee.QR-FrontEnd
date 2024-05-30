@@ -19,38 +19,7 @@ export class TicketSaleReportComponent {
     user: User | undefined
     userId: number = 0
 
-    filteredReports: Report[] = [
-        {
-            id: 'R001',
-            type: 'Annual',
-            date: '2023-01-01',
-            path: 'https://example.com/report1.pdf',
-        },
-        {
-            id: 'R002',
-            type: 'Monthly',
-            date: '2023-02-01',
-            path: 'https://example.com/report2.pdf',
-        },
-        {
-            id: 'R003',
-            type: 'Monthly',
-            date: '2023-03-01',
-            path: 'https://example.com/report3.pdf',
-        },
-        {
-            id: 'R004',
-            type: 'Annual',
-            date: '2023-04-01',
-            path: 'https://example.com/report4.pdf',
-        },
-        {
-            id: 'R005',
-            type: 'Annual',
-            date: '2023-05-01',
-            path: 'https://example.com/report5.pdf',
-        },
-    ]
+    filteredReports: Report[] = []
     reports: any[] = []
 
     constructor(
@@ -63,6 +32,16 @@ export class TicketSaleReportComponent {
             this.user = user
         })
         this.userId = this.authService.user$.getValue().id
+
+        this.ticketSaleReportService.getAllCardSaleReports().subscribe({
+            next: (data) => {
+                this.reports = data.filter(
+                    (report: any) => report.userId === this.userId
+                )
+                console.log('Reports:', this.reports)
+            },
+            error: (err) => console.error('Failed to load reports:', err),
+        })
     }
 
     generateReport() {
