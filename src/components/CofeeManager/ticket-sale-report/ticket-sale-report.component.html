@@ -9,23 +9,6 @@
         >
             <div>
                 <button
-                    class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
-                >
-                    All
-                </button>
-                <button
-                    class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
-                >
-                    Yearly
-                </button>
-                <button
-                    class="w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
-                >
-                    Monthly
-                </button>
-            </div>
-            <div>
-                <button
                     (click)="generateReport()"
                     class="w-full rounded bg-stone-400 px-4 py-2 font-bold text-stone-950 duration-300 hover:bg-stone-700 hover:text-black"
                 >
@@ -58,7 +41,10 @@
                     <div class="w-1/3">
                         <a
                             class="rounded-md bg-stone-600 px-2 py-0.5 text-sm text-white duration-300 hover:bg-stone-800"
-                            [attr.href]="report.path"
+                            [attr.href]="
+                                'https://localhost:44333/resources' +
+                                report.path
+                            "
                             target="_blank"
                             >Open</a
                         >

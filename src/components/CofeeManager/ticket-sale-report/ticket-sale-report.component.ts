@@ -33,6 +33,10 @@ export class TicketSaleReportComponent {
         })
         this.userId = this.authService.user$.getValue().id
 
+        this.loadReports()
+    }
+
+    loadReports() {
         this.ticketSaleReportService.getAllCardSaleReports().subscribe({
             next: (data) => {
                 this.reports = data.filter(
@@ -56,7 +60,7 @@ export class TicketSaleReportComponent {
             .subscribe({
                 next: (data) => {
                     console.log('Report generated successfully:', data)
-                    //this.loadReports()
+                    this.loadReports()
                 },
                 error: (err) =>
                     console.error('Failed to generate report:', err),
