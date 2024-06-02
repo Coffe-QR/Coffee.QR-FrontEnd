@@ -156,6 +156,46 @@
                             [routerLink]="['/create-item']"
                             >Create item</a
                         >
+
+                        <button
+                            class="custom-color px-3 py-5"
+                            (mouseenter)="openDropdown('others')"
+                            (mouseleave)="startChecking('others')"
+                        >
+                            Others
+                        </button>
+                        <div
+                            *ngIf="dropdowns['others']"
+                            class="absolute right-3 top-12 z-10 w-32 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('others')"
+                            @dropdown
+                        >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/report-list']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Report list</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/contract-list']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Contract list</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/contract-create']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Create contract</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/cost-report-list']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Cost report</a
+                            >
+                        </div>
                     </div>
 
                     <a

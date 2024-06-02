@@ -64,6 +64,7 @@ export class NavbarComponent implements OnInit {
         this.dropdowns = {
             supply: false,
             event: false,
+            others: false,
         }
     }
 

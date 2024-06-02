@@ -37,7 +37,10 @@ import { CreateTicketComponent } from '../components/CofeeManager/create-ticket/
 import { CreateMenuComponent } from '../components/CofeeManager/create-menu/create-menu.component'
 import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/menu-details.component'
 import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
-
+import { ContractListComponent } from '../components/CofeeManager/contract-list/contract-list.component'
+import { ContractCreateComponent } from '../components/CofeeManager/contract-create/contract-create.component'
+import { ContractItemComponent } from '../components/CofeeManager/contract-item/contract-item.component'
+import { CostReportListComponent } from '../components/CofeeManager/cost-report-list/cost-report-list.component'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -193,6 +196,26 @@ const routes: Routes = [
     {
         path: 'report-list',
         component: ReportListComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'contract-list',
+        component: ContractListComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'contract-create',
+        component: ContractCreateComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'contract-item',
+        component: ContractItemComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'cost-report-list',
+        component: CostReportListComponent,
         canActivate: [ManagerGuard],
     },
 ]

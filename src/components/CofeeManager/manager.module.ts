@@ -15,6 +15,10 @@ import { CreateMenuComponent } from './create-menu/create-menu.component'
 import { MenuDetailsComponent } from './menu-details/menu-details.component'
 import { CreateItemComponent } from './create-item/create-item.component' // Needed for animations
 import { ReportListComponent } from './report-list/report-list.component'
+import { ContractListComponent } from './contract-list/contract-list.component'
+import { ContractCreateComponent } from './contract-create/contract-create.component'
+import { ContractItemComponent } from './contract-item/contract-item.component'
+import { CostReportListComponent } from './cost-report-list/cost-report-list.component'
 
 @NgModule({
     declarations: [
@@ -30,6 +34,10 @@ import { ReportListComponent } from './report-list/report-list.component'
         MenuDetailsComponent,
         CreateItemComponent,
         ReportListComponent,
+        ContractListComponent,
+        ContractCreateComponent,
+        ContractItemComponent,
+        CostReportListComponent,
     ],
     imports: [
         CommonModule,
@@ -43,6 +51,10 @@ import { ReportListComponent } from './report-list/report-list.component'
         SupplyCreateComponent,
         CreateItemComponent,
         ReportListComponent,
+        ContractListComponent,
+        ContractCreateComponent,
+        ContractItemComponent,
+        CostReportListComponent,
     ],
 })
 export class ManagerModule {}

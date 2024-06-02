@@ -13,4 +13,8 @@ export class ContractService {
     getAllForLocal(localId: number): Observable<any> {
         return this.http.get(this.apiUrl + '/getAllForLocal/' + localId)
     }
+
+    create(contract: any): Observable<any> {
+        return this.http.post(this.apiUrl, contract)
+    }
 }

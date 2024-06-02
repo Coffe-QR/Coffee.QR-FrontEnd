@@ -56,7 +56,10 @@
                     <div class="w-1/4">
                         <a
                             class="text-sm"
-                            [attr.href]="report.path"
+                            [attr.href]="
+                                'https://localhost:44333/resources' +
+                                report.path
+                            "
                             target="_blank"
                             >Click here!</a
                         >

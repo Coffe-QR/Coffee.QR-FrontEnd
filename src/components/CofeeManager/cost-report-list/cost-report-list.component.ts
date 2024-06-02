@@ -1,20 +1,20 @@
 import { Component } from '@angular/core'
-import { Report } from '../../../auth/model/report.model'
 import { ReportService } from '../report.service'
+import { Report } from '../../../auth/model/report.model'
 
 @Component({
-    selector: 'app-report-list',
-    templateUrl: './report-list.component.html',
-    styleUrl: './report-list.component.scss',
+    selector: 'app-cost-report-list',
+    templateUrl: './cost-report-list.component.html',
+    styleUrl: './cost-report-list.component.scss',
 })
-export class ReportListComponent {
+export class CostReportListComponent {
     filteredReports: Report[] = []
     repots: Report[] = []
 
     constructor(private reportService: ReportService) {}
 
     ngOnInit() {
-        this.reportService.getAllForLocal(1).subscribe({
+        this.reportService.getAllCostForLocal(1).subscribe({
             next: (response) => {
                 this.filteredReports = response
                 this.repots = response

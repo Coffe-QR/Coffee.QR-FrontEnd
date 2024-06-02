@@ -9,35 +9,39 @@
         >
             <button
                 class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+                (click)="filterCategory(2)"
             >
                 All
             </button>
             <button
                 class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+                (click)="filterCategory(1)"
             >
                 Yearly
             </button>
             <button
                 class="mb-2 w-full rounded bg-stone-700 px-4 py-2 font-bold text-white duration-300 hover:bg-stone-400 hover:text-black"
+                (click)="filterCategory(0)"
             >
                 Monthly
             </button>
         </div>
+
         <div class="max-h-300 w-2/3 rounded-r-md bg-gray-50 bg-opacity-70 p-4">
             <div class="flex flex-col rounded-r-md">
                 <div><h1 class="text-sm font-bold">Contracs</h1></div>
                 <div class="flex flex-row">
                     <div class="w-1/4">
-                        <p class="font-bold font-normal">Ime</p>
+                        <p class="font-bold font-normal">Id</p>
+                    </div>
+                    <div class="w-1/4">
+                        <p class="font-bold font-normal">Description</p>
                     </div>
                     <div class="w-1/4">
                         <p class="font-bold font-normal">Date</p>
                     </div>
                     <div class="w-1/4">
-                        <p class="font-bold font-normal">Date</p>
-                    </div>
-                    <div class="w-1/4">
-                        <p class="font-bold font-normal">Link</p>
+                        <p class="font-bold font-normal">Frequency</p>
                     </div>
                 </div>
                 <div
@@ -48,18 +52,15 @@
                         <p class="text-sm">{{ contrac.id }}</p>
                     </div>
                     <div class="w-1/4">
-                        <p class="text-sm">{{ contrac.type }}</p>
+                        <p class="text-sm">{{ contrac.description }}</p>
                     </div>
                     <div class="w-1/4">
                         <p class="text-sm">{{ contrac.date }}</p>
                     </div>
                     <div class="w-1/4">
-                        <a
-                            class="text-sm"
-                            [attr.href]="contrac.path"
-                            target="_blank"
-                            >Click here!</a
-                        >
+                        <p class="text-sm">
+                            {{ getFrequency(contrac.frequency) }}
+                        </p>
                     </div>
                 </div>
             </div>

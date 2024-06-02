@@ -14,4 +14,8 @@ export class ReportService {
     getAllForLocal(localId: number): Observable<any> {
         return this.http.get(this.apiUrl + '/getAllForLocal/' + localId)
     }
+
+    getAllCostForLocal(localId: number): Observable<any> {
+        return this.http.get(this.apiUrl + '/getAllCoastForLocal/' + localId)
+    }
 }

@@ -1,28 +1,32 @@
 import { Component } from '@angular/core'
-import { Router } from '@angular/router'
-import { ItemService } from '../item.service'
 import { Item } from '../../../auth/model/item.model'
 import { Supply } from '../../../auth/model/supply.model'
+import { ItemService } from '../item.service'
 import { SupplyService } from '../supply.service'
-import { SupplyItemService } from '../supply-item.service'
+import { Router } from '@angular/router'
 import { SupplyItem } from '../../../auth/model/supply-item.model'
+import { ContractItemService } from '../contract-item.service'
+import { ContractService } from '../contract.service'
+import { OrderItem } from '../../../auth/model/order-item.model'
+import { ContractItem } from '../../../auth/model/contract-item.model'
 
 @Component({
-    selector: 'app-supply-create',
-    templateUrl: './supply-create.component.html',
-    styleUrl: './supply-create.component.scss',
+    selector: 'app-contract-item',
+    templateUrl: './contract-item.component.html',
+    styleUrl: './contract-item.component.scss',
 })
-export class SupplyCreateComponent {
+export class ContractItemComponent {
     products: Item[] = []
     filteredProducts: Item[] = []
     orderItems: any[] = []
     searchTerm: string = ''
     supply: Supply | null = null
+    contractId: number | null = null
 
     constructor(
         private itemService: ItemService,
-        private supplyService: SupplyService,
-        private supplyItemService: SupplyItemService,
+        private contractService: ContractService,
+        private contractItemService: ContractItemService,
         private router: Router
     ) {}
 
@@ -40,26 +44,7 @@ export class SupplyCreateComponent {
             },
             error: (error) => console.error('Error creating event:', error),
         })
-        const supplyId = localStorage.getItem('supply')
-        if (supplyId !== null) {
-            //
-            this.supplyItemService.getAllForSupply(Number(supplyId)).subscribe({
-                next: (response) => {
-                    response.forEach((element: any) => {
-                        this.orderItems.push({
-                            product: this.products.find(
-                                (p) => p.id === element.itemId
-                            ),
-                            quantity: element.quantity,
-                        })
-                    })
-
-                    localStorage.removeItem('supply')
-                    console.log(this.orderItems)
-                },
-                error: (error) => console.error('Error creating event:', error),
-            })
-        }
+        this.contractId = Number(localStorage.getItem('contract-id'))
     }
 
     filterCategory(category: number) {
@@ -91,7 +76,7 @@ export class SupplyCreateComponent {
     }
 
     checkout() {
-        if (this.orderItems.length === 0) return
+        if (this.orderItems.length === 0 || this.contractId === null) return
         // Implement checkout logic
         let supply: Supply = {
             id: 0,
@@ -99,34 +84,24 @@ export class SupplyCreateComponent {
             totalPrice: this.total,
             status: 2,
         }
-        this.supplyService.createSupply(supply).subscribe({
+        let contractItems: ContractItem[] = []
+        this.orderItems.forEach((oi) => {
+            contractItems.push({
+                id: -1,
+                contractId: this.contractId !== null ? this.contractId : -1,
+                itemId: oi.product.id,
+                quantity: oi.quantity,
+                price: oi.product.price * oi.quantity,
+            })
+        })
+        this.contractItemService.createContractItems(contractItems).subscribe({
             next: (response) => {
-                supply = response
-                let supplyItems: SupplyItem[] = []
-                this.orderItems.forEach((oi) => {
-                    supplyItems.push({
-                        id: -1,
-                        supplyId: supply.id,
-                        itemId: oi.product.id,
-                        quantity: oi.quantity,
-                        price: oi.product.price * oi.quantity,
-                    })
-                })
-                this.supplyItemService
-                    .createSupplyItems(supplyItems)
-                    .subscribe({
-                        next: (response) =>
-                            alert(
-                                'You have successfully completed the purchase.'
-                            ),
-                        error: (error) =>
-                            console.error(
-                                'Error creating supply items:',
-                                error
-                            ),
-                    })
+                alert('You have successfully created contract.')
+                localStorage.removeItem('contract-id')
+                this.router.navigate(['/manager'])
             },
-            error: (error) => console.error('Error creating supply:', error),
+            error: (error) =>
+                console.error('Error creating supply items:', error),
         })
     }
     increaseQuantity(item: any) {

@@ -22,4 +22,18 @@ export class ContractListComponent {
             error: (error) => console.error('Error creating event:', error),
         })
     }
+
+    getFrequency(type: number) {
+        return type === 0 ? 'Monthly' : 'Yearly'
+    }
+
+    filterCategory(category: number) {
+        if (category === 2) {
+            this.filteredContracts = [...this.contracts]
+        } else {
+            this.filteredContracts = this.contracts.filter(
+                (contract) => contract.frequency == category
+            )
+        }
+    }
 }
