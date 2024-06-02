@@ -14,7 +14,7 @@ import { EventDescriptionDialogComponent } from './event-description-dialog/even
 import { CreateMenuComponent } from './create-menu/create-menu.component'
 import { MenuDetailsComponent } from './menu-details/menu-details.component'
 import { CreateItemComponent } from './create-item/create-item.component' // Needed for animations
-import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component';
+import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
 import { JobsReportComponent } from './jobs-report/jobs-report.component'
 
