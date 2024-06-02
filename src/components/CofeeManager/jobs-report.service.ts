@@ -6,11 +6,11 @@ import { Observable } from 'rxjs'
     providedIn: 'root',
 })
 export class JobsReportService {
-    private apiUrl = 'https://localhost:44333/'
+    private apiUrl = 'https://localhost:44333/for-local/'
 
     constructor(private http: HttpClient) {}
 
     getAllCostForLocal(localId: number): Observable<any> {
-        return this.http.get(this.apiUrl + '/for-local/' + localId)
+        return this.http.get(this.apiUrl + localId)
     }
 }
