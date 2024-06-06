@@ -28,18 +28,18 @@ export class CreateMenuComponent implements OnInit {
     ngOnInit(): void {
         this.userId = this.authService.user$.getValue().id
 
-        this.loadMenus()
-
         this.localuserService.getLocalUserByUserId(this.userId).subscribe({
             next: (response) => {
                 this.menuCafeId = response.localId
+                this.loadMenus()
             },
             error: (error) => console.error('Error getting local user:', error),
         })
+
     }
 
     loadMenus(): void {
-        this.menuService.getMenuByLocalId(this.userId).subscribe({
+        this.menuService.getMenuByLocalId(this.menuCafeId).subscribe({
             next: (response) => {
                 this.menus = response
             },
