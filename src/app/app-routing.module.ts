@@ -38,6 +38,7 @@ import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/me
 import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
 import { OrderDetailsComponent } from '../components/Waiter/order-details/order-details.component'
 import { TicketSaleReportComponent } from '../components/CofeeManager/ticket-sale-report/ticket-sale-report.component'
+import { TicketSeatSelectComponent } from '../components/Xuniversal/ticket-seat-select/ticket-seat-select.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -95,6 +96,10 @@ const routes: Routes = [
         path: 'payment-completed',
         component: PaymentCompletedComponent,
         //data: { animation: 'CompletedPayment' },
+    },
+    {
+        path: 'ticket-seat-select',
+        component: TicketSeatSelectComponent,
     },
 
     //--------------------ROLES--------------------

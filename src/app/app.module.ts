@@ -12,8 +12,9 @@ import { FormsModule } from '@angular/forms'
 import { ManagerModule } from '../components/CofeeManager/manager.module'
 import { XUniversalModule } from '../components/Xuniversal/xuniversal.module'
 import { WaiterModule } from '../components/Waiter/waiter.module'
-import { ITSupportModule } from '../components/ITsupport/it-support.module';
+import { ITSupportModule } from '../components/ITsupport/it-support.module'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
+import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent],
@@ -37,10 +38,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
         XUniversalModule,
         WaiterModule,
         ITSupportModule,
+        SeatsioAngularModule,
     ],
-    providers: [
-    provideAnimationsAsync()
-  ],
+    providers: [provideAnimationsAsync()],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
