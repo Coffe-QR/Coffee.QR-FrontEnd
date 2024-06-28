@@ -5,7 +5,13 @@
     >
         <si-seatsio-seating-chart
             [config]="config"
-            class="rounded-md bg-white bg-opacity-50"
+            class="rounded-md bg-white bg-opacity-10"
         ></si-seatsio-seating-chart>
+        <button
+            (click)="onContinueToPayment()"
+            class="mx-auto mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+        >
+            Continue to payment
+        </button>
     </div>
 </div>
