@@ -25,4 +25,8 @@ export class LocalService {
     getLocalById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/${id}`)
     }
+
+    updateLocal(localData: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/UpdateLocal`, localData)
+    }
 }

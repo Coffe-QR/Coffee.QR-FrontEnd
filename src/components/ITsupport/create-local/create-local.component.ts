@@ -33,13 +33,14 @@ export class CreateLocalComponent implements OnInit {
             name: this.localName,
             city: this.localCity,
             dateOfStartingPartnership: this.localDateOfStartingPartnership,
-            isActive: true,
+            isActive: false,
         }
 
         this.localService.createLocal(localData).subscribe({
             next: (response) => {
-                this.router.navigate(['/it-support'])
-                console.log('Local created:', response)
+                // this.router.navigate(['/it-support'])
+                // console.log('Local created:', response)
+                this.router.navigate(['/create-local-seat-map/', response.id])
             },
             error: (error) => console.error('Error creating local:', error),
         })

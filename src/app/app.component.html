@@ -1,6 +1,6 @@
 <div *ngIf="!isMobileDevice">
     <div class="custom-bg">
-        <app-navbar></app-navbar>
+        <app-navbar *ngIf="isEnabled"></app-navbar>
 
         <div [@routeAnimations]="prepareRoute(outlet)">
             <router-outlet

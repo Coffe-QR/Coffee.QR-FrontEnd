@@ -4,4 +4,5 @@ export interface Local {
     city: string
     dateOfStartingPartnership: string // DateOnly is not available in TypeScript, use string instead
     isActive: boolean
+    chartKey?: string
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { slideInAnimation } from './route-animations'
-import { RouterOutlet } from '@angular/router'
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { AuthService } from '../auth/auth.service'
 
 @Component({
@@ -12,8 +12,21 @@ import { AuthService } from '../auth/auth.service'
 export class AppComponent implements OnInit {
     title = 'Coffee.QR'
     public isMobileDevice: boolean = false
+    isEnabled: boolean = true
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Check if the current route matches 'create-local-seat-map/*'
+                if (this.router.url.includes('create-local-seat-map/3')) {
+                    this.isEnabled = false
+                }
+            }
+        })
+    }
 
     backgroundImage: string = './assets/landing1.jpg'
     ngOnInit() {
