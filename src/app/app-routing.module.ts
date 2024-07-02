@@ -40,6 +40,7 @@ import { OrderDetailsComponent } from '../components/Waiter/order-details/order-
 import { TicketSaleReportComponent } from '../components/CofeeManager/ticket-sale-report/ticket-sale-report.component'
 import { TicketSeatSelectComponent } from '../components/Xuniversal/ticket-seat-select/ticket-seat-select.component'
 import { CreateLocalSeatMapComponent } from '../components/ITsupport/create-local-seat-map/create-local-seat-map.component'
+import { CreateEventSeatMapComponent } from '../components/CofeeManager/create-event-seat-map/create-event-seat-map.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -99,8 +100,9 @@ const routes: Routes = [
         //data: { animation: 'CompletedPayment' },
     },
     {
-        path: 'ticket-seat-select',
+        path: 'ticket-seat-select/:eventId',
         component: TicketSeatSelectComponent,
+        data: { animation: 'TicketsSeatSelect' },
     },
 
     //--------------------ROLES--------------------
@@ -122,6 +124,11 @@ const routes: Routes = [
     {
         path: 'create-event',
         component: CreateEventComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-event-seatmap',
+        component: CreateEventSeatMapComponent,
         canActivate: [ManagerGuard],
     },
     {
