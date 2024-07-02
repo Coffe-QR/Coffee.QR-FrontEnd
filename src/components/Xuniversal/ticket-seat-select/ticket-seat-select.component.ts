@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ChartRendererConfigOptions } from '@seatsio/seatsio-types'
 import { EmbeddableProps } from '@seatsio/seatsio-angular'
-import { ActivatedRoute, Router } from '@angular/router' // Import the Router class
+import { ActivatedRoute, Router } from '@angular/router'
 import { EventService } from '../../CofeeManager/event.service'
 
 @Component({
@@ -14,12 +14,17 @@ export class TicketSeatSelectComponent implements OnInit {
     eventName: string = ''
     totalpr: number = 0
 
-    config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number } =
-        {
+    config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number }
+
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private eventService: EventService
+    ) {
+        this.config = {
             region: 'eu',
             workspaceKey: '2d3804d9-bcc2-44cd-b613-b2e5afb398cb',
-            event: 'SAX-p1', //this.eventName,
-
+            event: '', // Initially empty, will be set in ngOnInit
             pricing: [
                 { category: 'Stolovi', price: 100 },
                 { category: 'Separei', price: 250 },
@@ -29,8 +34,7 @@ export class TicketSeatSelectComponent implements OnInit {
                 console.log(object.pricing.price)
                 this.totalpr += Number(object.pricing.price)
             },
-
-            onChartRendered(chart) {
+            onChartRendered: (chart) => {
                 chart.changeConfig({
                     filteredCategories: ['Stolovi', 'Separei'],
                 })
@@ -38,22 +42,23 @@ export class TicketSeatSelectComponent implements OnInit {
             },
             totalpr: this.totalpr,
         }
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private eventService: EventService
-    ) {}
-
-    onContinueToPayment(): void {
-        alert('Total price: ' + this.totalpr)
-        this.router.navigate(['/payment'])
     }
 
     ngOnInit(): void {
         this.eventId = this.route.snapshot.params['eventId']
 
         this.eventService.getEventById(this.eventId).subscribe((event) => {
-            this.eventName = event.name
+            this.eventName = this.sanitizeEventKey(event.name)
+            this.config.event = this.eventName // Set the event name dynamically
         })
+    }
+
+    sanitizeEventKey(key: string): string {
+        return key.replace(/[^a-zA-Z0-9-]/g, '-')
+    }
+
+    onContinueToPayment(): void {
+        alert('Total price: ' + this.totalpr)
+        this.router.navigate(['/payment'])
     }
 }
