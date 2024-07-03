@@ -23,7 +23,7 @@
         <div class="mb-4">
             <label
                 class="mb-2 block text-2xl font-bold text-zinc-100"
-                for="datetime"
+                for="city"
             >
                 Local City:
             </label>
@@ -31,7 +31,7 @@
                 class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
                 type="text"
                 [(ngModel)]="localCity"
-                name="datetime"
+                name="city"
                 required
             />
         </div>
@@ -49,6 +49,29 @@
                 name="datetime"
                 required
             />
+        </div>
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-zinc-100"
+                for="datetime"
+            >
+                Manager of local:
+            </label>
+            <select
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                type="date"
+                [(ngModel)]="managerId"
+                name="datetime"
+                required
+            >
+                <option
+                    class="text-gray-700"
+                    *ngFor="let manager of managers"
+                    [value]="manager.id"
+                >
+                    {{ manager.username }}
+                </option>
+            </select>
         </div>
 
         <div class="mt-8 flex items-center justify-center">

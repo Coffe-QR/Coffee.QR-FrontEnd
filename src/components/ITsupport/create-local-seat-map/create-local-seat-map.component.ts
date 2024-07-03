@@ -55,7 +55,7 @@ export class CreateLocalSeatMapComponent {
                         .subscribe({
                             next: (response) => {
                                 console.log('Local updated:', response)
-                                //this.router.navigate(['/it-support'])
+                                this.router.navigate(['/it-support'])
                             },
                             error: (error) =>
                                 console.error('Error updating local:', error),

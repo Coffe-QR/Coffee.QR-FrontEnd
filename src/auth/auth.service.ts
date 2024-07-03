@@ -105,4 +105,10 @@ export class AuthService {
 
         return Buffer.from(base64, 'base64').toString('utf-8')
     }
+
+    getAllManagersWithoutLocal(): Observable<any> {
+        return this.http.get<any>(
+            'https://localhost:44333/api/users/GetAllManagersNotInLocalUser'
+        )
+    }
 }

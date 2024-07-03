@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { LocalService } from '../../Xuniversal/local.service'
 import { Router } from '@angular/router'
+import { AuthService } from '../../../auth/auth.service'
+import { LocalUserService } from '../../Xuniversal/local-user.service'
 
 @Component({
     selector: 'app-create-local',
@@ -17,15 +19,26 @@ export class CreateLocalComponent implements OnInit {
     localName: string = ''
     localCity: string = ''
     localDateOfStartingPartnership: string = ''
+    managerId: number = 0
+    managers: any[] = []
+    localId: number = 0
     //localIsActive: boolean = true
 
     constructor(
         private localService: LocalService,
-        private router: Router
+        private router: Router,
+        private authService: AuthService,
+        private localUserService: LocalUserService
     ) {}
 
     ngOnInit(): void {
-        // Initialization logic goes here
+        this.authService.getAllManagersWithoutLocal().subscribe({
+            next: (response) => {
+                this.managers = response
+                console.log('Managers:', response)
+            },
+            error: (error) => console.error('Error getting managers:', error),
+        })
     }
 
     onSubmit(): void {
@@ -40,7 +53,23 @@ export class CreateLocalComponent implements OnInit {
             next: (response) => {
                 // this.router.navigate(['/it-support'])
                 // console.log('Local created:', response)
-                this.router.navigate(['/create-local-seat-map/', response.id])
+                this.localId = response.id
+                const localUserData = {
+                    localId: response.id,
+                    userId: this.managerId,
+                }
+
+                this.localUserService.createLocalUser(localUserData).subscribe({
+                    next: (response) => {
+                        this.router.navigate([
+                            '/create-local-seat-map/',
+                            this.localId,
+                        ])
+                        console.log('Local user created:', response)
+                    },
+                    error: (error) =>
+                        console.error('Error creating local user:', error),
+                })
             },
             error: (error) => console.error('Error creating local:', error),
         })
