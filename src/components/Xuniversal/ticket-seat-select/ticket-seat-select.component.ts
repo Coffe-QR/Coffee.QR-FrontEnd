@@ -3,6 +3,7 @@ import { ChartRendererConfigOptions } from '@seatsio/seatsio-types'
 import { EmbeddableProps } from '@seatsio/seatsio-angular'
 import { ActivatedRoute, Router } from '@angular/router'
 import { EventService } from '../../CofeeManager/event.service'
+import { SeatsioService } from '../seatsio.service'
 
 @Component({
     selector: 'app-ticket-seat-select',
@@ -14,12 +15,15 @@ export class TicketSeatSelectComponent implements OnInit {
     eventName: string = ''
     totalpr: number = 0
 
+    selectedSeats: any[] = []
+
     config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number }
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private eventService: EventService
+        private eventService: EventService,
+        private seatsioService: SeatsioService
     ) {
         this.config = {
             region: 'eu',
@@ -31,8 +35,24 @@ export class TicketSeatSelectComponent implements OnInit {
             ],
             priceFormatter: (price) => '$' + price,
             onObjectSelected: (object) => {
-                console.log(object.pricing.price)
+                console.log(object)
+                this.selectedSeats.push(object)
                 this.totalpr += Number(object.pricing.price)
+
+                this.seatsioService
+                    .holdSeats(this.eventName, [object.label])
+                    .subscribe(
+                        (response) => {
+                            console.log('Hold token:', response.holdToken) // Store this holdToken appropriately
+                            console.log(
+                                'Seats held temporarily:',
+                                response.heldSeats
+                            )
+                        },
+                        (error) => {
+                            console.error('Failed to hold seats:', error)
+                        }
+                    )
             },
             onChartRendered: (chart) => {
                 chart.changeConfig({
@@ -57,8 +77,30 @@ export class TicketSeatSelectComponent implements OnInit {
         return key.replace(/[^a-zA-Z0-9-]/g, '-')
     }
 
+    // onContinueToPayment(): void {
+    //     alert('Total price: ' + this.totalpr)
+
+    //     console.log('Selected Seats:', this.selectedSeats)
+
+    //     this.router.navigate(['/payment'])
+    // }
+
     onContinueToPayment(): void {
-        alert('Total price: ' + this.totalpr)
-        this.router.navigate(['/payment'])
+        console.log('Selected Seats:', this.selectedSeats)
+
+        // Extract seat labels from selectedSeats
+        const seatLabels = this.selectedSeats.map((seat) => seat.label)
+
+        // Call backend API to book seats
+        this.seatsioService.bookSeats(this.eventName, seatLabels).subscribe(
+            () => {
+                alert('Seats booked successfully!')
+                this.router.navigate(['/payment'])
+            },
+            (error) => {
+                console.error('Error booking seats:', error)
+                alert('Failed to book seats. Please try again later.')
+            }
+        )
     }
 }
