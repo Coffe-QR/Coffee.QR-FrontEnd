@@ -78,18 +78,18 @@ export class CreateTicketComponent implements OnInit {
             return
         }
 
-        this.ticketService.createCard(ticketData).subscribe({
-            next: (response) => {
-                this.router.navigate(['/manager'])
-            },
-            error: (error) => console.error('Error creating ticket:', error),
-        })
-
         this.seatsioService.createCategory(categoryData).subscribe({
             next: (response) => {
                 console.log(response)
             },
             error: (error) => console.error('Error creating category:', error),
+        })
+
+        this.ticketService.createCard(ticketData).subscribe({
+            next: (response) => {
+                this.router.navigate(['/manager'])
+            },
+            error: (error) => console.error('Error creating ticket:', error),
         })
     }
 }
