@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TicketUserService } from '../ticket-user.service'
 import { TicketUser } from '../../../auth/model/ticket-user.model'
+import { SeatsioService } from '../seatsio.service'
 
 @Component({
     selector: 'app-payment',
@@ -17,21 +18,30 @@ export class PaymentComponent implements OnInit {
     userId: number = 0
     quantity: number = 0
     currency: string = 'usd'
+    seatLabels: any[] = []
+    eventName: string = ''
     //paymentStatus: string = ''
     //payPalPaymentIntentId: string = ''
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private ticketUserService: TicketUserService
+        private ticketUserService: TicketUserService,
+        private seatsioService: SeatsioService
     ) {
         const navigation = this.router.getCurrentNavigation()
+
         const state = navigation?.extras.state as { ticketUser: any }
-        console.log(state?.ticketUser) // Here you can access the ticketUser object
         this.amount = state?.ticketUser.amount
         this.cardId = state?.ticketUser.cardId
         this.userId = state?.ticketUser.userId
         this.quantity = state?.ticketUser.quantity
+
+        const state2 = navigation?.extras.state as { seatLabels: any }
+        this.seatLabels = state2?.seatLabels
+
+        const state3 = navigation?.extras.state as { eventName: any }
+        this.eventName = state3?.eventName
     }
 
     ngOnInit() {
@@ -66,6 +76,8 @@ export class PaymentComponent implements OnInit {
                                 payPalPaymentIntentId: details.id,
                             }
 
+                            const seatLabels = this.seatLabels
+
                             this.ticketUserService
                                 .createCardUser(ticketUser)
                                 .subscribe({
@@ -82,6 +94,19 @@ export class PaymentComponent implements OnInit {
                                     error: (error) =>
                                         console.error(
                                             'Error creating ticket user:',
+                                            error
+                                        ),
+                                })
+
+                            this.seatsioService
+                                .bookSeats(this.eventName, seatLabels)
+                                .subscribe({
+                                    next: (response) => {
+                                        console.log('Seats booked:', response)
+                                    },
+                                    error: (error) =>
+                                        console.error(
+                                            'Error booking seats:',
                                             error
                                         ),
                                 })

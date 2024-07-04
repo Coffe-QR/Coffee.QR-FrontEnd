@@ -33,7 +33,7 @@ export class TicketSeatSelectComponent implements OnInit {
         this.config = {
             region: 'eu',
             workspaceKey: '2d3804d9-bcc2-44cd-b613-b2e5afb398cb',
-            event: '', // Initially empty, will be set in ngOnInit
+            event: '',
             pricing: [
                 { category: 'Stolovi', price: 100 },
                 { category: 'Separei', price: 250 },
@@ -43,6 +43,23 @@ export class TicketSeatSelectComponent implements OnInit {
                 console.log(object)
                 this.selectedSeats.push(object)
                 this.totalpr += Number(object.pricing.price)
+                this.quantity++
+                alert(
+                    'quantity: ' +
+                        this.quantity +
+                        ' total price: ' +
+                        this.totalpr
+                )
+            },
+            onObjectDeselected: (object) => {
+                this.quantity--
+                this.totalpr -= Number(object.pricing.price)
+                alert(
+                    'quantity: ' +
+                        this.quantity +
+                        ' total price: ' +
+                        this.totalpr
+                )
             },
             onChartRendered: (chart) => {
                 chart.changeConfig({
@@ -61,7 +78,7 @@ export class TicketSeatSelectComponent implements OnInit {
 
         this.eventService.getEventById(this.eventId).subscribe((event) => {
             this.eventName = this.sanitizeEventKey(event.name)
-            this.config.event = this.eventName // Set the event name dynamically
+            this.config.event = this.eventName
         })
     }
 
@@ -70,40 +87,32 @@ export class TicketSeatSelectComponent implements OnInit {
     }
 
     onContinueToPayment(): void {
-        // if (this.userId === 0) {
-        //     console.error('User not logged in')
-        //     this.router.navigate(['/login'])
-        //     return
-        // }
-
-        const ticketUser = {
-            cardId: 69,
-            userId: this.userId || 50,
-            quantity: this.quantity,
-            amount: this.totalpr,
-            currency: 'usd',
-            paymentStatus: 'pending',
-            //stripePaymentIntentId: '',
-            paymentMethod: 'card',
-        }
-
-        console.log('Selected Seats:', this.selectedSeats)
-
-        // Extract seat labels from selectedSeats
-        const seatLabels = this.selectedSeats.map((seat) => seat.label)
-
-        // Call backend API to book seats
-        this.seatsioService.bookSeats(this.eventName, seatLabels).subscribe(
-            () => {
-                alert('Seats booked successfully!')
-                this.router.navigate(['/payment'], {
-                    state: { ticketUser: ticketUser },
-                })
-            },
-            (error) => {
-                console.error('Error booking seats:', error)
-                alert('Failed to book seats. Please try again later.')
+        if (this.userId === 0) {
+            console.error('User not logged in')
+            this.router.navigate(['/login'])
+            return
+        } else {
+            const ticketUser = {
+                cardId: 69,
+                userId: this.userId,
+                quantity: this.quantity,
+                amount: this.totalpr,
+                currency: 'usd',
+                paymentStatus: 'pending',
+                paymentMethod: 'card',
             }
-        )
+
+            console.log('Selected Seats:', this.selectedSeats)
+
+            const seatLabels = this.selectedSeats.map((seat) => seat.label)
+
+            this.router.navigate(['/payment'], {
+                state: {
+                    ticketUser: ticketUser,
+                    seatLabels: seatLabels,
+                    eventName: this.eventName,
+                },
+            })
+        }
     }
 }
