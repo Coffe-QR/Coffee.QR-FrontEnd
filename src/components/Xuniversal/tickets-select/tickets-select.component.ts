@@ -60,47 +60,48 @@ export class TicketsSelectComponent implements OnInit {
     }
 
     onContinueToPayment(): void {
-        if (this.userId === 0) {
-            console.error('User not logged in')
-            this.router.navigate(['/login'])
-            return
-        } else {
-            const ticket = this.tickets.find(
-                (t) =>
-                    +t.eventId === +this.eventId && t.type === this.selectedType
-            )
+        // if (this.userId === 0) {
+        //     console.error('User not logged in')
+        //     this.router.navigate(['/login'])
+        //     return
+        // } else {
+        //     const ticket = this.tickets.find(
+        //         (t) =>
+        //             +t.eventId === +this.eventId && t.type === this.selectedType
+        //     )
 
-            const ticketUser = {
-                cardId: ticket?.id || 0,
-                userId: this.userId,
-                quantity: this.quantity,
-                amount: this.totalPrice,
-                currency: 'usd',
-                paymentStatus: 'pending',
-                stripePaymentIntentId: '',
-                paymentMethod: 'card',
-            }
-            this.router.navigate(['/payment'], {
-                state: { ticketUser: ticketUser },
-            })
-        }
-    }
-
-    getTotalPrice(): void {
-        if (!this.selectedType || !this.eventId) {
-            this.totalPrice = 0
-            return
-        }
-
-        const ticket = this.tickets.find(
-            (t) => +t.eventId === +this.eventId && t.type === this.selectedType
-        )
-
-        if (ticket) {
-            this.totalPrice = ticket.price * this.quantity
-        } else {
-            console.error('No ticket found for the selected type and event')
-            this.totalPrice = 0
-        }
+        //     const ticketUser = {
+        //         cardId: ticket?.id || 0,
+        //         userId: this.userId,
+        //         quantity: this.quantity,
+        //         amount: this.totalPrice,
+        //         currency: 'usd',
+        //         paymentStatus: 'pending',
+        //         stripePaymentIntentId: '',
+        //         paymentMethod: 'card',
+        //     }
+        //     this.router.navigate(['/payment'], {
+        //         state: { ticketUser: ticketUser },
+        //     })
+        this.router.navigate(['/ticket-seat-select/', this.eventId])
     }
 }
+
+// getTotalPrice(): void {
+//     if (!this.selectedType || !this.eventId) {
+//         this.totalPrice = 0
+//         return
+//     }
+
+//     const ticket = this.tickets.find(
+//         (t) => +t.eventId === +this.eventId && t.type === this.selectedType
+//     )
+
+//     if (ticket) {
+//         this.totalPrice = ticket.price * this.quantity
+//     } else {
+//         console.error('No ticket found for the selected type and event')
+//         this.totalPrice = 0
+//     }
+// }
+//}

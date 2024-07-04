@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { EventService } from '../../CofeeManager/event.service'
 import { SeatsioService } from '../seatsio.service'
 import { AuthService } from '../../../auth/auth.service'
+import { TicketService } from '../ticket.service'
 
 @Component({
     selector: 'app-ticket-seat-select',
@@ -18,58 +19,45 @@ export class TicketSeatSelectComponent implements OnInit {
     userId: number = 0
     quantity: number = 0
     totalPrice: number = 0
+    tickets: any[] = []
 
     selectedSeats: any[] = []
 
-    config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number }
-
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private eventService: EventService,
-        private seatsioService: SeatsioService,
-        private authService: AuthService
-    ) {
-        this.config = {
+    config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number } =
+        {
             region: 'eu',
             workspaceKey: '2d3804d9-bcc2-44cd-b613-b2e5afb398cb',
             event: '',
-            pricing: [
-                { category: 'Stolovi', price: 100 },
-                { category: 'Separei', price: 250 },
-            ],
+            pricing: [],
             priceFormatter: (price) => '$' + price,
             onObjectSelected: (object) => {
                 console.log(object)
                 this.selectedSeats.push(object)
                 this.totalpr += Number(object.pricing.price)
                 this.quantity++
-                alert(
-                    'quantity: ' +
-                        this.quantity +
-                        ' total price: ' +
-                        this.totalpr
-                )
             },
             onObjectDeselected: (object) => {
                 this.quantity--
                 this.totalpr -= Number(object.pricing.price)
-                alert(
-                    'quantity: ' +
-                        this.quantity +
-                        ' total price: ' +
-                        this.totalpr
-                )
             },
             onChartRendered: (chart) => {
                 chart.changeConfig({
-                    filteredCategories: ['Stolovi', 'Separei'],
+                    filteredCategories: this.tickets.map(
+                        (ticket) => ticket.type
+                    ),
                 })
-                chart.zoomToFilteredCategories()
             },
             totalpr: this.totalpr,
         }
-    }
+
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private eventService: EventService,
+        private seatsioService: SeatsioService,
+        private authService: AuthService,
+        private ticketService: TicketService
+    ) {}
 
     ngOnInit(): void {
         this.userId = this.authService.user$.getValue().id
@@ -80,6 +68,22 @@ export class TicketSeatSelectComponent implements OnInit {
             this.eventName = this.sanitizeEventKey(event.name)
             this.config.event = this.eventName
         })
+
+        this.ticketService
+            .getAllByEventId(this.eventId)
+            .subscribe((tickets) => {
+                this.tickets = tickets
+                console.log('Tickets:', this.tickets)
+
+                // Update pricing dynamically
+                this.config.pricing = this.tickets.map((ticket) => ({
+                    category: ticket.type,
+                    price: ticket.price,
+                }))
+
+                // Update the chart configuration to apply the new pricing
+                this.updateChartConfig()
+            })
     }
 
     sanitizeEventKey(key: string): string {
@@ -113,6 +117,16 @@ export class TicketSeatSelectComponent implements OnInit {
                     eventName: this.eventName,
                 },
             })
+        }
+    }
+
+    updateChartConfig(): void {
+        if (this.config.onChartRendered) {
+            this.config.onChartRendered({
+                changeConfig: (config: any) => {
+                    config.pricing = this.config.pricing
+                },
+            } as any)
         }
     }
 }

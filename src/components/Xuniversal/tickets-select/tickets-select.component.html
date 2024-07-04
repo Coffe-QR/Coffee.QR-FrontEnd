@@ -78,7 +78,7 @@
             </div>
             <span class="mb-5 ml-2 text-zinc-200">per card</span>
             <div #cardInfo></div>
-            <select
+            <!-- <select
                 [(ngModel)]="selectedType"
                 (change)="getTotalPrice()"
                 class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center"
@@ -87,15 +87,15 @@
                 <option *ngFor="let ticket of tickets" [value]="ticket.type">
                     {{ ticket.type }}
                 </option>
-            </select>
-            <input
+            </select> -->
+            <!-- <input
                 [(ngModel)]="quantity"
                 (change)="getTotalPrice()"
                 type="number"
                 min="1"
                 class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center text-zinc-900 placeholder:text-zinc-900"
                 placeholder="Number of cards"
-            />
+            /> -->
 
             <h3 class="text-zinc-200">
                 Total price:
