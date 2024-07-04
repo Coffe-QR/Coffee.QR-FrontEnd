@@ -15,8 +15,7 @@ export class SeatsioService {
         return this.http.post(`${this.baseUrl}/book`, body)
     }
 
-    holdSeats(eventName: string, seatLabels: string[]): Observable<any> {
-        const body = { eventName, seatsToHold: seatLabels }
-        return this.http.post(`${this.baseUrl}/hold`, body)
+    createCategory(request: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/createCategory`, request)
     }
 }

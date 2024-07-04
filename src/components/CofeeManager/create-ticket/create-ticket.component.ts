@@ -3,6 +3,9 @@ import { Router } from '@angular/router'
 import { TicketService } from '../../Xuniversal/ticket.service'
 import { AuthService } from '../../../auth/auth.service'
 import { EventService } from '../event.service'
+import { LocalUserService } from '../../Xuniversal/local-user.service'
+import { LocalService } from '../../Xuniversal/local.service'
+import { SeatsioService } from '../../Xuniversal/seatsio.service'
 
 @Component({
     selector: 'app-create-ticket',
@@ -19,13 +22,18 @@ export class CreateTicketComponent implements OnInit {
     ticketNote: string = ''
     ticketEventId: any
 
+    localChartKey: string = ''
+
     submitAttempted = false
 
     constructor(
         private authService: AuthService,
         private ticketService: TicketService,
         private eventService: EventService,
-        private router: Router
+        private router: Router,
+        private localUserService: LocalUserService,
+        private localService: LocalService,
+        private seatsioService: SeatsioService
     ) {}
 
     ngOnInit(): void {
@@ -37,6 +45,19 @@ export class CreateTicketComponent implements OnInit {
             },
             error: (error) => console.error('Error getting events:', error),
         })
+
+        this.localUserService.getLocalUserByUserId(this.userId).subscribe({
+            next: (response: any) => {
+                this.localService.getLocalById(response.localId).subscribe({
+                    next: (response1: any) => {
+                        this.localChartKey = response1.chartKey
+                    },
+                    error: (error) =>
+                        console.error('Error getting local:', error),
+                })
+            },
+            error: (error) => console.error('Error getting local user:', error),
+        })
     }
 
     onSubmit(): void {
@@ -45,6 +66,11 @@ export class CreateTicketComponent implements OnInit {
             price: this.ticketPrice,
             note: this.ticketNote,
             eventId: this.ticketEventId,
+        }
+
+        const categoryData = {
+            chartKey: this.localChartKey,
+            categoryKeyName: this.ticketType,
         }
 
         this.submitAttempted = true
@@ -57,6 +83,13 @@ export class CreateTicketComponent implements OnInit {
                 this.router.navigate(['/manager'])
             },
             error: (error) => console.error('Error creating ticket:', error),
+        })
+
+        this.seatsioService.createCategory(categoryData).subscribe({
+            next: (response) => {
+                console.log(response)
+            },
+            error: (error) => console.error('Error creating category:', error),
         })
     }
 }
