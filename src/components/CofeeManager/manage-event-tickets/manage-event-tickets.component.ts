@@ -15,6 +15,7 @@ import { TicketService } from '../../Xuniversal/ticket.service'
 export class ManageEventTicketsComponent {
     eventId: number = 0
     categories: any[] = []
+    eventName: string = ''
 
     eventManagerConfig: EmbeddableProps<EventManagerConfigOptions> = {
         region: 'eu',
@@ -35,6 +36,7 @@ export class ManageEventTicketsComponent {
 
         this.eventService.getEventById(this.eventId).subscribe({
             next: (event) => {
+                this.eventName = event.name
                 this.eventManagerConfig.event = this.sanitizeEventKey(
                     event.name
                 )

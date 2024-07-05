@@ -3,6 +3,9 @@
         class="m-auto grid w-6/12 animate-flip-down grid-cols-1 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
         style="height: 69vh"
     >
+        <h1 class="mx-auto text-3xl font-semibold uppercase text-zinc-50">
+            {{ eventName }}
+        </h1>
         <si-seatsio-event-manager
             [config]="eventManagerConfig"
         ></si-seatsio-event-manager>
