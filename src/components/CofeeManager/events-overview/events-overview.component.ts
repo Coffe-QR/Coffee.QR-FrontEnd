@@ -5,6 +5,7 @@ import { User } from '../../../auth/model/user.model'
 import { MatDialog } from '@angular/material/dialog'
 import { EventDescriptionDialogComponent } from '../event-description-dialog/event-description-dialog.component'
 import { AUTO_STYLE } from '@angular/animations'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-events-overview',
@@ -20,7 +21,8 @@ export class EventsOverviewComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private eventService: EventService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -56,5 +58,9 @@ export class EventsOverviewComponent implements OnInit {
             },
             error: (err) => this.loadEvents(),
         })
+    }
+
+    manageTickets(eventId: number) {
+        this.router.navigate(['/manage-event-tickets/', eventId])
     }
 }

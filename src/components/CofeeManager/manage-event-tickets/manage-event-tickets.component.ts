@@ -8,11 +8,11 @@ import { CategoriesInfoDialogComponent } from './categories-info-dialog/categori
 import { TicketService } from '../../Xuniversal/ticket.service'
 
 @Component({
-    selector: 'app-create-event-seat-map',
-    templateUrl: './create-event-seat-map.component.html',
-    styleUrl: './create-event-seat-map.component.scss',
+    selector: 'app-manage-event-tickets',
+    templateUrl: './manage-event-tickets.component.html',
+    styleUrl: './manage-event-tickets.component.scss',
 })
-export class CreateEventSeatMapComponent implements OnInit {
+export class ManageEventTicketsComponent {
     eventId: number = 0
     categories: any[] = []
 
@@ -35,7 +35,9 @@ export class CreateEventSeatMapComponent implements OnInit {
 
         this.eventService.getEventById(this.eventId).subscribe({
             next: (event) => {
-                this.eventManagerConfig.event = event.name
+                this.eventManagerConfig.event = this.sanitizeEventKey(
+                    event.name
+                )
             },
             error: (err) => console.error('Failed to load event:', err),
         })
@@ -47,6 +49,10 @@ export class CreateEventSeatMapComponent implements OnInit {
             },
             error: (err) => console.error('Failed to load tickets:', err),
         })
+    }
+
+    sanitizeEventKey(key: string): string {
+        return key.replace(/[^a-zA-Z0-9-]/g, '-')
     }
 
     onShowCategoriesInfo(): void {

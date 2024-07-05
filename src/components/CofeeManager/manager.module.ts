@@ -16,9 +16,9 @@ import { MenuDetailsComponent } from './menu-details/menu-details.component'
 import { CreateItemComponent } from './create-item/create-item.component' // Needed for animations
 import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
-import { CreateEventSeatMapComponent } from './create-event-seat-map/create-event-seat-map.component'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
-import { CategoriesInfoDialogComponent } from './create-event-seat-map/categories-info-dialog/categories-info-dialog.component'
+import { CategoriesInfoDialogComponent } from './manage-event-tickets/categories-info-dialog/categories-info-dialog.component'
+import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component'
 
 @NgModule({
     declarations: [
@@ -35,8 +35,8 @@ import { CategoriesInfoDialogComponent } from './create-event-seat-map/categorie
         CreateItemComponent,
         JobsOverviewComponent,
         TicketSaleReportComponent,
-        CreateEventSeatMapComponent,
         CategoriesInfoDialogComponent,
+        ManageEventTicketsComponent,
     ],
     imports: [
         CommonModule,

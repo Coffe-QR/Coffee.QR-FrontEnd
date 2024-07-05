@@ -36,11 +36,18 @@
                 >
                     View Description
                 </button>
+
                 <button
                     class="mb-5 mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+                    (click)="manageTickets(event.id)"
+                >
+                    Manage tickets
+                </button>
+                <button
+                    class="absolute right-2 top-2 rounded-full bg-stone-700 px-2.5 py-1.5 text-white hover:bg-red-400"
                     (click)="deleteEvent(event.id)"
                 >
-                    Delete
+                    <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>
