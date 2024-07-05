@@ -127,7 +127,7 @@ const routes: Routes = [
         canActivate: [ManagerGuard],
     },
     {
-        path: 'create-event-seatmap',
+        path: 'create-event-seatmap/:eventId',
         component: CreateEventSeatMapComponent,
         canActivate: [ManagerGuard],
     },

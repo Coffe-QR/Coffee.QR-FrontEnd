@@ -18,6 +18,7 @@ import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
 import { CreateEventSeatMapComponent } from './create-event-seat-map/create-event-seat-map.component'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
+import { CategoriesInfoDialogComponent } from './create-event-seat-map/categories-info-dialog/categories-info-dialog.component'
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
         JobsOverviewComponent,
         TicketSaleReportComponent,
         CreateEventSeatMapComponent,
+        CategoriesInfoDialogComponent,
     ],
     imports: [
         CommonModule,

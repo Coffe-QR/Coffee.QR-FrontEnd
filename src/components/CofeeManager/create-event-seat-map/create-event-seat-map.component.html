@@ -1,10 +1,16 @@
-<div>
+<div class="custom-bg-events flex h-screen">
     <div
-        class="mb-2 flex-col items-center justify-center opacity-90"
-        style="height: 90vh; width: 90vw"
+        class="m-auto grid w-6/12 animate-flip-down grid-cols-1 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
+        style="height: 69vh"
     >
         <si-seatsio-event-manager
             [config]="eventManagerConfig"
         ></si-seatsio-event-manager>
+        <button
+            (click)="onShowCategoriesInfo()"
+            class="mx-auto mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+        >
+            Show categories info
+        </button>
     </div>
 </div>
