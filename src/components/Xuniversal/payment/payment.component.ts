@@ -82,31 +82,33 @@ export class PaymentComponent implements OnInit {
                                 .createCardUser(ticketUser)
                                 .subscribe({
                                     next: (response) => {
-                                        this.router.navigate(
-                                            ['/payment-completed'],
-                                            {
-                                                state: {
-                                                    ticketUser: ticketUser,
+                                        this.seatsioService
+                                            .bookSeats(
+                                                this.eventName,
+                                                seatLabels
+                                            )
+                                            .subscribe({
+                                                next: (response) => {
+                                                    this.router.navigate(
+                                                        ['/payment-completed'],
+                                                        {
+                                                            state: {
+                                                                ticketUser:
+                                                                    ticketUser,
+                                                            },
+                                                        }
+                                                    )
                                                 },
-                                            }
-                                        )
+                                                error: (error) =>
+                                                    console.error(
+                                                        'Error booking seats:',
+                                                        error
+                                                    ),
+                                            })
                                     },
                                     error: (error) =>
                                         console.error(
                                             'Error creating ticket user:',
-                                            error
-                                        ),
-                                })
-
-                            this.seatsioService
-                                .bookSeats(this.eventName, seatLabels)
-                                .subscribe({
-                                    next: (response) => {
-                                        console.log('Seats booked:', response)
-                                    },
-                                    error: (error) =>
-                                        console.error(
-                                            'Error booking seats:',
                                             error
                                         ),
                                 })
@@ -115,7 +117,6 @@ export class PaymentComponent implements OnInit {
                 },
                 onError: (err: any) => {
                     alert('Transaction failed')
-                    console.log(err)
                 },
             })
             .render(this.paymentRef.nativeElement)

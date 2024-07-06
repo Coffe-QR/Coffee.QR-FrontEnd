@@ -24,6 +24,7 @@ export class TicketSeatSelectComponent implements OnInit {
 
     selectedSeats: any[] = []
     selectedCategory: string = ''
+    cardId: number = 0
 
     config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number } =
         {
@@ -51,7 +52,7 @@ Tickets can be purchased from only one category at a time.`)
             onObjectDeselected: (object: any) => {
                 this.quantity--
                 this.totalpr -= Number(object.pricing.price)
-                console.log('NOVOOOOO:', object)
+
                 this.selectedSeats = this.selectedSeats.filter(
                     (seat) => seat.id !== object.id
                 )
@@ -93,15 +94,12 @@ Tickets can be purchased from only one category at a time.`)
             .getAllByEventId(this.eventId)
             .subscribe((tickets) => {
                 this.tickets = tickets
-                console.log('Tickets:', this.tickets)
 
-                // Update pricing dynamically
                 this.config.pricing = this.tickets.map((ticket) => ({
                     category: ticket.type,
                     price: ticket.price,
                 }))
 
-                // Update the chart configuration to apply the new pricing
                 this.updateChartConfig()
             })
     }
@@ -116,27 +114,38 @@ Tickets can be purchased from only one category at a time.`)
             this.router.navigate(['/login'])
             return
         } else {
-            const ticketUser = {
-                cardId: 69,
-                userId: this.userId,
-                quantity: this.quantity,
-                amount: this.totalpr,
-                currency: 'usd',
-                paymentStatus: 'pending',
-                paymentMethod: 'card',
-            }
+            this.ticketService
+                .getAllByEventId(this.eventId)
+                .subscribe((tickets) => {
+                    const filteredTickets = tickets.filter(
+                        (ticket: any) => ticket.type === this.selectedCategory
+                    )
+                    this.cardId = filteredTickets[0].id
 
-            console.log('Selected Seats:', this.selectedSeats)
+                    alert(this.cardId)
 
-            const seatLabels = this.selectedSeats.map((seat) => seat.label)
+                    const ticketUser = {
+                        cardId: this.cardId,
+                        userId: this.userId,
+                        quantity: this.quantity,
+                        amount: this.totalpr,
+                        currency: 'usd',
+                        paymentStatus: 'pending',
+                        paymentMethod: 'card',
+                    }
 
-            this.router.navigate(['/payment'], {
-                state: {
-                    ticketUser: ticketUser,
-                    seatLabels: seatLabels,
-                    eventName: this.eventName,
-                },
-            })
+                    const seatLabels = this.selectedSeats.map(
+                        (seat) => seat.label
+                    )
+
+                    this.router.navigate(['/payment'], {
+                        state: {
+                            ticketUser: ticketUser,
+                            seatLabels: seatLabels,
+                            eventName: this.eventName,
+                        },
+                    })
+                })
         }
     }
 
