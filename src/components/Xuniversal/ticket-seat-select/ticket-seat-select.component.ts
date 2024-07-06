@@ -6,6 +6,7 @@ import { EventService } from '../../CofeeManager/event.service'
 import { SeatsioService } from '../seatsio.service'
 import { AuthService } from '../../../auth/auth.service'
 import { TicketService } from '../ticket.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-ticket-seat-select',
@@ -22,6 +23,7 @@ export class TicketSeatSelectComponent implements OnInit {
     tickets: any[] = []
 
     selectedSeats: any[] = []
+    selectedCategory: string = ''
 
     config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number } =
         {
@@ -31,14 +33,31 @@ export class TicketSeatSelectComponent implements OnInit {
             pricing: [],
             priceFormatter: (price) => '$' + price,
             onObjectSelected: (object) => {
-                console.log(object)
-                this.selectedSeats.push(object)
-                this.totalpr += Number(object.pricing.price)
-                this.quantity++
+                if (
+                    this.selectedCategory === '' ||
+                    object.category?.label === this.selectedCategory
+                ) {
+                    this.selectedSeats.push(object)
+                    this.totalpr += Number(object.pricing.price)
+                    this.quantity++
+                    this.selectedCategory = object.category?.label ?? ''
+                } else {
+                    object.deselect()
+                    this.toastService.info(
+                        `Please select seats from only the "${this.selectedCategory}" category at a time.`
+                    )
+                }
             },
-            onObjectDeselected: (object) => {
+            onObjectDeselected: (object: any) => {
                 this.quantity--
                 this.totalpr -= Number(object.pricing.price)
+                console.log('NOVOOOOO:', object)
+                this.selectedSeats = this.selectedSeats.filter(
+                    (seat) => seat.id !== object.id
+                )
+                if (this.selectedSeats.length === 0) {
+                    this.selectedCategory = ''
+                }
             },
             onChartRendered: (chart) => {
                 chart.changeConfig({
@@ -56,7 +75,8 @@ export class TicketSeatSelectComponent implements OnInit {
         private eventService: EventService,
         private seatsioService: SeatsioService,
         private authService: AuthService,
-        private ticketService: TicketService
+        private ticketService: TicketService,
+        private toastService: ToastrService
     ) {}
 
     ngOnInit(): void {
