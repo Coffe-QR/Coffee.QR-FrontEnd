@@ -43,9 +43,9 @@ export class TicketSeatSelectComponent implements OnInit {
                     this.selectedCategory = object.category?.label ?? ''
                 } else {
                     object.deselect()
-                    this.toastService.info(
-                        `Please select seats from only the "${this.selectedCategory}" category at a time.`
-                    )
+                    this.toastService
+                        .info(`Please select seats only from the "${this.selectedCategory}" category.
+Tickets can be purchased from only one category at a time.`)
                 }
             },
             onObjectDeselected: (object: any) => {
