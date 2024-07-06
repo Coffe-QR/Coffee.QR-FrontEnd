@@ -6,6 +6,8 @@ import { EventService } from '../event.service'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
 import { LocalService } from '../../Xuniversal/local.service'
 import { SeatsioService } from '../../Xuniversal/seatsio.service'
+import { ToastrService } from 'ngx-toastr'
+import { take, tap } from 'rxjs'
 
 @Component({
     selector: 'app-create-ticket',
@@ -33,7 +35,8 @@ export class CreateTicketComponent implements OnInit {
         private router: Router,
         private localUserService: LocalUserService,
         private localService: LocalService,
-        private seatsioService: SeatsioService
+        private seatsioService: SeatsioService,
+        private toastrService: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -87,7 +90,10 @@ export class CreateTicketComponent implements OnInit {
 
         this.ticketService.createCard(ticketData).subscribe({
             next: (response) => {
-                this.router.navigate(['/manager'])
+                this.router.navigate([
+                    `/manage-event-tickets/${this.ticketEventId}`,
+                ])
+                this.toastrService.success('Ticket created successfully!')
             },
             error: (error) => console.error('Error creating ticket:', error),
         })
