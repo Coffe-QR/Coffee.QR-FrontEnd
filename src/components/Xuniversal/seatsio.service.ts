@@ -18,4 +18,12 @@ export class SeatsioService {
     createCategory(request: any): Observable<any> {
         return this.http.post(`${this.baseUrl}/createCategory`, request)
     }
+
+    getChartDetails(chartKey: string): Observable<any> {
+        return this.http.get(`${this.baseUrl}/getChartDetails/${chartKey}`)
+    }
+
+    getChartCategories(chartKey: string): Observable<any> {
+        return this.http.get(`${this.baseUrl}/getChartCategories/${chartKey}`)
+    }
 }

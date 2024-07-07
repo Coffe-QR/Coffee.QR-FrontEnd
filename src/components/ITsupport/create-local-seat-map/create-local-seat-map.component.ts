@@ -6,6 +6,8 @@ import {
 import { EmbeddableProps } from '@seatsio/seatsio-angular'
 import { ActivatedRoute, Router } from '@angular/router' // Import the Router class
 import { LocalService } from '../../Xuniversal/local.service'
+import { SeatsioService } from '../../Xuniversal/seatsio.service'
+import { TableService } from '../../Xuniversal/table.service'
 
 @Component({
     selector: 'app-create-local-seat-map',
@@ -15,6 +17,7 @@ import { LocalService } from '../../Xuniversal/local.service'
 export class CreateLocalSeatMapComponent {
     key: string = ''
     localId: number = 0
+    details: any
 
     designerConfig: EmbeddableProps<ChartDesignerConfigOptions> = {
         region: 'eu',
@@ -28,7 +31,9 @@ export class CreateLocalSeatMapComponent {
     constructor(
         private router: Router,
         private localService: LocalService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private seatsioService: SeatsioService,
+        private tableService: TableService
     ) {}
 
     ngOnInit(): void {
@@ -55,6 +60,40 @@ export class CreateLocalSeatMapComponent {
                         .subscribe({
                             next: (response) => {
                                 console.log('Local updated:', response)
+
+                                //HERE I NEED ALL STARTER CATEGORIES TO BE CREATED // PRICE WILL BE FREE
+                                this.seatsioService
+                                    .getChartCategories(this.key)
+                                    .subscribe({
+                                        next: (categories) => {
+                                            console.log(
+                                                'Categories:',
+                                                categories
+                                            )
+                                        },
+                                        error: (error) =>
+                                            console.error(
+                                                'Error getting chart categories:',
+                                                error
+                                            ),
+                                    })
+
+                                //HERE I NEED ALL TABLES TO BE CREATED
+                                this.seatsioService
+                                    .getChartDetails(this.key)
+                                    .subscribe({
+                                        next: (chartDetails) => {
+                                            this.postDataToDatabase(
+                                                chartDetails
+                                            )
+                                        },
+                                        error: (error) =>
+                                            console.error(
+                                                'Error getting chart details:',
+                                                error
+                                            ),
+                                    })
+
                                 this.router.navigate(['/it-support'])
                             },
                             error: (error) =>
@@ -64,5 +103,23 @@ export class CreateLocalSeatMapComponent {
                 error: (error) => console.error('Error getting local:', error),
             })
         }
+    }
+
+    postDataToDatabase(chartDetails: any) {
+        Object.keys(chartDetails).forEach((key) => {
+            chartDetails[key].forEach((item: any) => {
+                const tableData = {
+                    name: item.labels.own.label, // Adjust according to your data structure
+                    capacity: item.capacity,
+                    isSmokingArea: false, // Adjust as needed
+                    localId: this.localId,
+                }
+                this.tableService.createTable(tableData).subscribe({
+                    next: (response) => console.log('Table created:', response),
+                    error: (error) =>
+                        console.error('Error creating table:', error),
+                })
+            })
+        })
     }
 }
