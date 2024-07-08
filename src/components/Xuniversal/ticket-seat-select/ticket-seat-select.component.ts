@@ -7,6 +7,8 @@ import { SeatsioService } from '../seatsio.service'
 import { AuthService } from '../../../auth/auth.service'
 import { TicketService } from '../ticket.service'
 import { ToastrService } from 'ngx-toastr'
+import { TicketEventService } from '../ticket-event.service'
+import { forkJoin, map, switchMap } from 'rxjs'
 
 @Component({
     selector: 'app-ticket-seat-select',
@@ -21,6 +23,7 @@ export class TicketSeatSelectComponent implements OnInit {
     quantity: number = 0
     totalPrice: number = 0
     tickets: any[] = []
+    ticketEvents: any[] = []
 
     selectedSeats: any[] = []
     selectedCategory: string = ''
@@ -77,7 +80,8 @@ Tickets can be purchased from only one category at a time.`)
         private seatsioService: SeatsioService,
         private authService: AuthService,
         private ticketService: TicketService,
-        private toastService: ToastrService
+        private toastService: ToastrService,
+        private ticketEventService: TicketEventService
     ) {}
 
     ngOnInit(): void {
@@ -90,18 +94,36 @@ Tickets can be purchased from only one category at a time.`)
             this.config.event = this.eventName
         })
 
-        this.ticketService
+        this.ticketEventService
             .getAllByEventId(this.eventId)
-            .subscribe((tickets) => {
-                this.tickets = tickets
+            .pipe(
+                switchMap((ticketEvents) => {
+                    const cardRequests = ticketEvents.map((ticketEvent: any) =>
+                        this.ticketService.getById(ticketEvent.cardId)
+                    )
 
-                this.config.pricing = this.tickets.map((ticket) => ({
-                    category: ticket.type,
-                    price: ticket.price,
-                }))
-
-                this.updateChartConfig()
-            })
+                    return forkJoin(cardRequests).pipe(
+                        map((cards: any) =>
+                            cards.map((card: any, index: any) => ({
+                                category: card.type,
+                                price: ticketEvents[index].price,
+                            }))
+                        )
+                    )
+                })
+            )
+            .subscribe(
+                (pricingConfig) => {
+                    this.config.pricing = pricingConfig
+                    console.log('Configured Pricing:', this.config.pricing)
+                },
+                (error) => {
+                    console.error(
+                        'Failed to load ticket events or cards:',
+                        error
+                    )
+                }
+            )
     }
 
     sanitizeEventKey(key: string): string {
@@ -114,13 +136,10 @@ Tickets can be purchased from only one category at a time.`)
             this.router.navigate(['/login'])
             return
         } else {
-            this.ticketService
+            this.ticketEventService
                 .getAllByEventId(this.eventId)
-                .subscribe((tickets) => {
-                    const filteredTickets = tickets.filter(
-                        (ticket: any) => ticket.type === this.selectedCategory
-                    )
-                    this.cardId = filteredTickets[0].id
+                .subscribe((ticketEvents) => {
+                    this.cardId = ticketEvents[0].cardId
 
                     alert(this.cardId)
 
