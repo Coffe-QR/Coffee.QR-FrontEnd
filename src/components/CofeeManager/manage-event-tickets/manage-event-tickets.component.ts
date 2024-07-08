@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { CategoriesInfoDialogComponent } from './categories-info-dialog/categories-info-dialog.component'
 import { TicketService } from '../../Xuniversal/ticket.service'
+import { TicketEventService } from '../../Xuniversal/ticket-event.service'
 
 @Component({
     selector: 'app-manage-event-tickets',
@@ -15,6 +16,7 @@ import { TicketService } from '../../Xuniversal/ticket.service'
 export class ManageEventTicketsComponent {
     eventId: number = 0
     categories: any[] = []
+    cat1: any[] = []
     eventName: string = ''
 
     eventManagerConfig: EmbeddableProps<EventManagerConfigOptions> = {
@@ -28,7 +30,8 @@ export class ManageEventTicketsComponent {
         private eventService: EventService,
         private route: ActivatedRoute,
         private dialog: MatDialog,
-        private ticketService: TicketService
+        private ticketService: TicketService,
+        private ticketEventService: TicketEventService
     ) {}
 
     ngOnInit(): void {
@@ -44,10 +47,23 @@ export class ManageEventTicketsComponent {
             error: (err) => console.error('Failed to load event:', err),
         })
 
-        this.ticketService.getAllByEventId(this.eventId).subscribe({
+        this.ticketEventService.getAllByEventId(this.eventId).subscribe({
             next: (tickets) => {
                 this.categories = tickets
-                console.log('Tickets:', this.categories)
+                this.categories.forEach((category) => {
+                    this.ticketService.getById(category.cardId).subscribe({
+                        next: (ticket) => {
+                            this.cat1.push({
+                                id: category.id,
+                                type: ticket.type,
+                                price: category.price,
+                                note: ticket.note,
+                            })
+                        },
+                        error: (err) =>
+                            console.error('Failed to load ticket:', err),
+                    })
+                })
             },
             error: (err) => console.error('Failed to load tickets:', err),
         })
@@ -60,7 +76,7 @@ export class ManageEventTicketsComponent {
     onShowCategoriesInfo(): void {
         this.dialog.open(CategoriesInfoDialogComponent, {
             panelClass: 'custom-dialog',
-            data: { categories: this.categories },
+            data: { categories: this.cat1 },
         })
     }
 }
