@@ -8,6 +8,7 @@ import { LocalService } from '../../Xuniversal/local.service'
 import { SeatsioService } from '../../Xuniversal/seatsio.service'
 import { ToastrService } from 'ngx-toastr'
 import { take, tap } from 'rxjs'
+import { TicketEventService } from '../../Xuniversal/ticket-event.service'
 
 @Component({
     selector: 'app-create-ticket',
@@ -24,6 +25,7 @@ export class CreateTicketComponent implements OnInit {
     ticketNote: string = ''
     ticketEventId: any
 
+    localId: number = 0
     localChartKey: string = ''
 
     submitAttempted = false
@@ -36,7 +38,8 @@ export class CreateTicketComponent implements OnInit {
         private localUserService: LocalUserService,
         private localService: LocalService,
         private seatsioService: SeatsioService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private ticketEventService: TicketEventService
     ) {}
 
     ngOnInit(): void {
@@ -53,6 +56,7 @@ export class CreateTicketComponent implements OnInit {
             next: (response: any) => {
                 this.localService.getLocalById(response.localId).subscribe({
                     next: (response1: any) => {
+                        this.localId = response1.id
                         this.localChartKey = response1.chartKey
                     },
                     error: (error) =>
@@ -66,9 +70,8 @@ export class CreateTicketComponent implements OnInit {
     onSubmit(): void {
         const ticketData = {
             type: this.ticketType,
-            price: this.ticketPrice,
             note: this.ticketNote,
-            eventId: this.ticketEventId,
+            localId: this.localId,
         }
 
         const categoryData = {
@@ -82,20 +85,38 @@ export class CreateTicketComponent implements OnInit {
         }
 
         this.seatsioService.createCategory(categoryData).subscribe({
-            next: (response) => {
-                console.log(response)
+            next: () => {
+                this.ticketService.createCard(ticketData).subscribe({
+                    next: (response) => {
+                        const ticketEventData = {
+                            cardId: response.id,
+                            price: this.ticketPrice,
+                            eventId: this.ticketEventId,
+                        }
+
+                        this.ticketEventService
+                            .createCardEvent(ticketEventData)
+                            .subscribe({
+                                next: () => {
+                                    this.router.navigate([
+                                        `/manage-event-tickets/${this.ticketEventId}`,
+                                    ])
+                                    this.toastrService.success(
+                                        'Ticket created successfully!'
+                                    )
+                                },
+                                error: (error) =>
+                                    console.error(
+                                        'Error creating ticket event:',
+                                        error
+                                    ),
+                            })
+                    },
+                    error: (error) =>
+                        console.error('Error creating ticket:', error),
+                })
             },
             error: (error) => console.error('Error creating category:', error),
-        })
-
-        this.ticketService.createCard(ticketData).subscribe({
-            next: (response) => {
-                this.router.navigate([
-                    `/manage-event-tickets/${this.ticketEventId}`,
-                ])
-                this.toastrService.success('Ticket created successfully!')
-            },
-            error: (error) => console.error('Error creating ticket:', error),
         })
     }
 }
