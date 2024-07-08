@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router' // Import the Router cl
 import { LocalService } from '../../Xuniversal/local.service'
 import { SeatsioService } from '../../Xuniversal/seatsio.service'
 import { TableService } from '../../Xuniversal/table.service'
+import { TicketService } from '../../Xuniversal/ticket.service'
+import { TicketEventService } from '../../Xuniversal/ticket-event.service'
 
 @Component({
     selector: 'app-create-local-seat-map',
@@ -33,7 +35,9 @@ export class CreateLocalSeatMapComponent {
         private localService: LocalService,
         private route: ActivatedRoute,
         private seatsioService: SeatsioService,
-        private tableService: TableService
+        private tableService: TableService,
+        private ticketService: TicketService,
+        private ticketEventService: TicketEventService
     ) {}
 
     ngOnInit(): void {
@@ -61,14 +65,30 @@ export class CreateLocalSeatMapComponent {
                             next: (response) => {
                                 console.log('Local updated:', response)
 
-                                //HERE I NEED ALL STARTER CATEGORIES TO BE CREATED // PRICE WILL BE FREE
                                 this.seatsioService
                                     .getChartCategories(this.key)
                                     .subscribe({
                                         next: (categories) => {
-                                            console.log(
-                                                'Categories:',
-                                                categories
+                                            Object.keys(categories).forEach(
+                                                (key) => {
+                                                    const category =
+                                                        categories[key]
+                                                    const ticketData = {
+                                                        type: key,
+                                                        price: 0,
+                                                        note: 'default',
+                                                        localId: this.localId,
+                                                    }
+                                                    this.ticketService
+                                                        .createCard(ticketData)
+                                                        .subscribe({
+                                                            error: (error) =>
+                                                                console.error(
+                                                                    'Error creating ticket:',
+                                                                    error
+                                                                ),
+                                                        })
+                                                }
                                             )
                                         },
                                         error: (error) =>
@@ -78,7 +98,6 @@ export class CreateLocalSeatMapComponent {
                                             ),
                                     })
 
-                                //HERE I NEED ALL TABLES TO BE CREATED
                                 this.seatsioService
                                     .getChartDetails(this.key)
                                     .subscribe({
