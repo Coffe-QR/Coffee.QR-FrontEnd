@@ -26,4 +26,13 @@ export class SeatsioService {
     getChartCategories(chartKey: string): Observable<any> {
         return this.http.get(`${this.baseUrl}/getChartCategories/${chartKey}`)
     }
+
+    updateCategory(
+        eventKey: string,
+        objectIds: string[],
+        newCategory: string
+    ): Observable<any> {
+        const body = { eventKey, objectIds, newCategory }
+        return this.http.post(`${this.baseUrl}/updateCategory`, body)
+    }
 }
