@@ -3,19 +3,28 @@
     class="space-y-4 overflow-y-auto"
     style="max-height: 350px"
 >
-    <div
-        *ngFor="let category of data.categories"
-        class="flex flex-col items-center justify-center rounded-lg bg-white bg-opacity-85 p-3 shadow-md transition duration-300 hover:scale-105"
-    >
-        <p class="mb-4 font-medium text-gray-600">
-            Type: <span class="text-gray-800">{{ category.type }}</span>
-        </p>
-        <p class="mb-4 font-medium text-gray-600">
-            Price:
-            <span class="font-bold text-green-500">{{ category.price }}$</span>
-        </p>
-        <p class="font-medium text-gray-600">
-            Note: <span class="text-gray-800">{{ category.note }}</span>
+    <div *ngIf="data.categories.length > 0">
+        <div
+            *ngFor="let category of data.categories"
+            class="m-5 flex flex-col items-center justify-center rounded-lg bg-white bg-opacity-85 p-3 shadow-md transition duration-300 hover:scale-105"
+        >
+            <p class="mb-4 font-medium text-gray-600">
+                Type: <span class="text-gray-800">{{ category.type }}</span>
+            </p>
+            <p class="mb-4 font-medium text-gray-600">
+                Price:
+                <span class="font-bold text-green-500"
+                    >{{ category.price }}$</span
+                >
+            </p>
+            <p class="font-medium text-gray-600">
+                Note: <span class="text-gray-800">{{ category.note }}</span>
+            </p>
+        </div>
+    </div>
+    <div *ngIf="data.categories.length === 0">
+        <p class="text-center text-gray-200">
+            No categories available for this event
         </p>
     </div>
 </div>

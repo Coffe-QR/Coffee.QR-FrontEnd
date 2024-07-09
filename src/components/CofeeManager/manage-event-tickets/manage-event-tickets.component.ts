@@ -23,8 +23,20 @@ export class ManageEventTicketsComponent {
         region: 'eu',
         secretKey: '709f52bc-9892-4334-b511-99fe2a56646a',
         event: '',
-        mode: 'manageCategories',
+        mode: 'manageTableBooking',
+        onObjectSelected: this.onObjectSelected.bind(this),
+        onObjectDeselected: this.onObjectDeselected.bind(this),
     }
+
+    onObjectSelected(object: any): void {
+        const allowedCategoryIds = this.cat1.map((category) => category.type)
+        console.log(object)
+        if (!allowedCategoryIds.includes(object.category.label)) {
+            alert(`Category ${object.category.label} is not allowed.`)
+        }
+    }
+
+    onObjectDeselected(object: any): void {}
 
     constructor(
         private eventService: EventService,
