@@ -11,7 +11,7 @@
             <img
                 *ngIf="event?.image"
                 [src]="'https://localhost:44333/resources' + event?.image"
-                class="w-96 rounded-md object-cover shadow-black drop-shadow-lg"
+                class="mt-1 w-96 rounded-md object-cover shadow-black drop-shadow-lg transition duration-300 hover:scale-105"
                 alt="..."
             />
             <div
@@ -68,7 +68,7 @@
             class="flex w-full flex-col items-center justify-start overflow-y-auto"
         >
             <div class="flex-grow"></div>
-            <!-- Add this div to push the button to the bottom -->
+
             <button
                 (click)="onContinueToPayment()"
                 class="w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
