@@ -1,10 +1,13 @@
 <div class="custom-bg-events flex h-screen">
     <div
-        class="m-auto grid w-6/12 animate-flip-down grid-cols-2 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
+        class="m-auto grid w-6/12 animate-flip-down grid-cols-1 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
         style="height: 75vh"
     >
         <!-- LEFT SIDE -->
-        <div class="mt-0 flex w-full flex-col items-center justify-start">
+        <div
+            class="mt-0 flex w-full flex-col items-center justify-start overflow-y-auto"
+            style="max-height: 75vh"
+        >
             <img
                 *ngIf="event?.image"
                 [src]="'https://localhost:44333/resources' + event?.image"
@@ -57,58 +60,21 @@
                 {{ event?.dateTime | date: 'dd.MM.yyyy. HH:mm' }}
             </h3>
 
-            <p class="mt-4 w-96 text-center text-zinc-200">
+            <p class="mt-4 w-3/4 text-center text-zinc-200">
                 {{ event?.description }}
             </p>
         </div>
-        <!-- END OF LEFT SIDE -->
-
-        <!-- RIGHT SIDE -->
-        <div class="flex w-full flex-col items-center justify-center">
-            <h2 class="mb-3 text-xl text-zinc-200">Price of the cards:</h2>
-
-            <div *ngFor="let ticket of tickets; let isLast = last">
-                <h3
-                    class="row-span-3 flex flex-col justify-center text-center text-2xl text-zinc-200"
-                    [class.mb-5]="!isLast"
-                >
-                    {{ ticket.type }}
-                    <span class="font-semibold">{{ ticket.price }} USD</span>
-                </h3>
-            </div>
-            <span class="mb-5 ml-2 text-zinc-200">per card</span>
-            <div #cardInfo></div>
-            <!-- <select
-                [(ngModel)]="selectedType"
-                (change)="getTotalPrice()"
-                class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center"
-            >
-                <option value="" disabled selected>Select a type</option>
-                <option *ngFor="let ticket of tickets" [value]="ticket.type">
-                    {{ ticket.type }}
-                </option>
-            </select> -->
-            <!-- <input
-                [(ngModel)]="quantity"
-                (change)="getTotalPrice()"
-                type="number"
-                min="1"
-                class="mb-5 w-56 rounded-lg bg-zinc-300 p-2 text-center text-zinc-900 placeholder:text-zinc-900"
-                placeholder="Number of cards"
-            /> -->
-
-            <h3 class="text-zinc-200">
-                Total price:
-                <span class="font-semibold">{{ totalPrice }} USD</span>
-            </h3>
+        <div
+            class="flex w-full flex-col items-center justify-start overflow-y-auto"
+        >
+            <div class="flex-grow"></div>
+            <!-- Add this div to push the button to the bottom -->
             <button
                 (click)="onContinueToPayment()"
-                class="mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+                class="w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
             >
-                Continue to payment
+                Select tickets
             </button>
         </div>
-
-        <!-- END OF RIGHT SIDE -->
     </div>
 </div>
