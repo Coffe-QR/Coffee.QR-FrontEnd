@@ -141,8 +141,6 @@ Tickets can be purchased from only one category at a time.`)
                 .subscribe((ticketEvents) => {
                     this.cardId = ticketEvents[0].cardId
 
-                    alert(this.cardId)
-
                     const ticketUser = {
                         cardId: this.cardId,
                         userId: this.userId,
