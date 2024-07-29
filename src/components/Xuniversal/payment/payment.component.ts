@@ -32,7 +32,7 @@ export class PaymentComponent implements OnInit {
         const navigation = this.router.getCurrentNavigation()
 
         const state = navigation?.extras.state as { ticketUser: any }
-        this.amount = state?.ticketUser.amount
+        this.amount = parseFloat(Number(state.ticketUser.amount).toFixed(3));
         this.cardId = state?.ticketUser.cardId
         this.userId = state?.ticketUser.userId
         this.quantity = state?.ticketUser.quantity
@@ -116,7 +116,7 @@ export class PaymentComponent implements OnInit {
                     })
                 },
                 onError: (err: any) => {
-                    alert('Transaction failed')
+                    //alert('Transaction failed')
                 },
             })
             .render(this.paymentRef.nativeElement)
