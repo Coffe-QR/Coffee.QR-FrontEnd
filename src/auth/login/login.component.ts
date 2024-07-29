@@ -56,7 +56,8 @@ export class LoginComponent {
                     localStorage.setItem('jwt', response.accessToken)
 
                     if (this.authService.user$.value.role === 'client') {
-                        this.router.navigate(['/client'])
+                        // this.router.navigate(['/client'])
+                        this.router.navigate(['/all-events-overview'])
                     } else if (
                         this.authService.user$.value.role === 'bartender'
                     ) {
