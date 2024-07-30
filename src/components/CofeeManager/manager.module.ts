@@ -18,7 +18,8 @@ import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
 import { CategoriesInfoDialogComponent } from './manage-event-tickets/categories-info-dialog/categories-info-dialog.component'
-import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component'
+import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component';
+import { CreateTicketForEventComponent } from './create-ticket-for-event/create-ticket-for-event.component'
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event
         TicketSaleReportComponent,
         CategoriesInfoDialogComponent,
         ManageEventTicketsComponent,
+        CreateTicketForEventComponent,
     ],
     imports: [
         CommonModule,

@@ -52,8 +52,9 @@ export class CreateEventComponent implements OnInit {
         }
 
         this.eventService.createEvent(eventData).subscribe({
-            next: (response) =>
-                this.router.navigate(['/create-ticket'], response.id),
+            next: (response) =>{
+                this.router.navigate(['create-ticket-for-event/', response.id])
+            },
             error: (error) => console.error('Error creating event:', error),
         })
     }
