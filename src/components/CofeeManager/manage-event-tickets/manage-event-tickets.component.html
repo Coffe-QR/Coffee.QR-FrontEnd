@@ -1,21 +1,72 @@
 <div
     class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
-    <div
-        class="m-auto grid w-6/12 animate-flip-down grid-cols-1 gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
-        style="height: 69vh"
-    >
+    <div class="m-auto grid w-7/12 grid-cols-1 gap-4 p-7" style="height: 69vh">
         <h1 class="mx-auto text-3xl font-semibold uppercase text-zinc-50">
             {{ eventName }}
         </h1>
-        <si-seatsio-event-manager
-            [config]="eventManagerConfig"
-        ></si-seatsio-event-manager>
-        <button
-            (click)="onShowCategoriesInfo()"
-            class="mx-auto mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
-        >
-            Show categories info
-        </button>
+        <div class="grid grid-cols-4 gap-10">
+            <div class="col-span-3 rounded-md bg-white bg-opacity-15">
+                <si-seatsio-event-manager
+                    [config]="eventManagerConfig"
+                ></si-seatsio-event-manager>
+            </div>
+            <div
+                class="col-span-1 flex flex-col items-center rounded-md bg-white bg-opacity-15"
+            >
+                <div class="space-y-4 overflow-y-auto" style="max-height: 50vh">
+                    <div *ngIf="cat1.length > 0">
+                        <div
+                            *ngFor="let category of cat1"
+                            class="m-5 flex flex-col rounded-lg bg-white bg-opacity-85 p-3 shadow-md transition duration-300 hover:scale-105"
+                        >
+                            <p class="mb-4 font-medium text-gray-600">
+                                Type:
+                                <span class="text-gray-800">{{
+                                    category.type
+                                }}</span>
+                            </p>
+                            <p class="mb-4 font-medium text-gray-600">
+                                Price:
+                                <span class="font-bold text-green-500"
+                                    >{{ category.price }}$</span
+                                >
+                            </p>
+                            <p class="font-medium text-gray-600">
+                                Note:
+                                <span class="text-gray-800">{{
+                                    category.note
+                                }}</span>
+                            </p>
+                            <div class="m-auto mt-2 flex-row">
+                                <button
+                                    (click)="onSelectedCategory(category)"
+                                    class="mx-auto mr-3 mt-1 w-16 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+                                >
+                                    Select
+                                </button>
+                                <button
+                                    class="mx-auto mt-1 w-16 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="cat1.length === 0">
+                        <p class="text-center text-gray-200">
+                            No categories available for this event
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    (click)="onAddNewCategory()"
+                    class="mb-2 mt-auto w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+                >
+                    Add new category
+                </button>
+            </div>
+        </div>
     </div>
 </div>

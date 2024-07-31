@@ -20,7 +20,6 @@ export class CreateTicketForEventComponent {
   userId: number = 0
   events: any[] = []
 
-  //properties
   ticketType: string = ''
   ticketPrice: any = null
   ticketNote: string = ''
@@ -143,7 +142,7 @@ export class CreateTicketForEventComponent {
         this.submitAttempted = false;
         this.ticketNote = '';
       } else if (result.isDenied) {
-        this.router.navigate(['manage-event-tickets/', this.ticketEventId]) // Update with your actual route
+        this.router.navigate(['manage-event-tickets/', this.ticketEventId]) 
       }
     });
   }

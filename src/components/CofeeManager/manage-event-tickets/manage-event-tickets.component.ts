@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { EventManagerConfigOptions } from '@seatsio/seatsio-types'
 import { EmbeddableProps } from '@seatsio/seatsio-angular'
 import { EventService } from '../event.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { CategoriesInfoDialogComponent } from './categories-info-dialog/categories-info-dialog.component'
 import { TicketService } from '../../Xuniversal/ticket.service'
@@ -50,7 +50,8 @@ export class ManageEventTicketsComponent implements OnInit {
         private ticketService: TicketService,
         private ticketEventService: TicketEventService,
         private seatsioService: SeatsioService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -93,51 +94,76 @@ export class ManageEventTicketsComponent implements OnInit {
         return key.replace(/[^a-zA-Z0-9-]/g, '-')
     }
 
-    onShowCategoriesInfo(): void {
+    onSelectedCategory(category: any): void {
         if (this.selectedObjects.length === 0) {
             this.toastr.info('Please select a objects first!')
         } else {
-            const dialogRef = this.dialog.open(CategoriesInfoDialogComponent, {
-                panelClass: 'custom-dialog',
-                data: { categories: this.cat1 },
-            })
-
+            this.selectedCategory = category.type
             this.labels = this.selectedObjects.map((obj) => obj.label)
-
-            dialogRef.afterClosed().subscribe((result) => {
-                if (result) {
-                    this.selectedCategory = result.type // Ensure it's a string
-                    // Log to verify data
-                    console.log('Event Name:', this.sanitizedEventName)
-                    console.log('Labels:', this.labels)
-                    console.log('Selected Category:', this.selectedCategory)
-
-                    this.seatsioService
-                        .updateCategory(
-                            this.sanitizedEventName,
-                            this.labels,
-                            this.selectedCategory
-                        )
-                        .subscribe({
-                            next: (res) => {
-                                // Assuming toastr.success() is the method you're calling to show the notification
-                                this.toastr.success(
-                                    'Category updated!',
-                                    'Success!',
-                                    { timeOut: 400 }
-                                ) // Adjust timeOut as needed
-
-                                setTimeout(() => {
-                                    window.location.reload()
-                                }, 400) // Set this slightly longer than the toastr timeOut
-                            },
-                            error: (err) => {
-                                console.error('Failed to update category:', err)
-                                this.toastr.error('Failed to update category.')
-                            },
-                        })
-                }
-            })
+            this.seatsioService
+                .updateCategory(
+                    this.sanitizedEventName,
+                    this.labels,
+                    this.selectedCategory
+                )
+                .subscribe({
+                    next: () => {
+                        this.toastr.success('Category updated!', 'Success!')
+                        window.location.reload()
+                    },
+                    error: (err) => {
+                        console.error('Failed to update category:', err)
+                        this.toastr.error('Failed to update category.')
+                    },
+                })
         }
+    }
+
+    onAddNewCategory(): void {
+        this.router.navigate(['create-ticket-for-event/', this.eventId])
+    }
+
+    onShowCategoriesInfo(): void {
+        // if (this.selectedObjects.length === 0) {
+        //     this.toastr.info('Please select a objects first!')
+        // } else {
+        //     const dialogRef = this.dialog.open(CategoriesInfoDialogComponent, {
+        //         panelClass: 'custom-dialog',
+        //         data: { categories: this.cat1 },
+        //     })
+        //     this.labels = this.selectedObjects.map((obj) => obj.label)
+        //     dialogRef.afterClosed().subscribe((result) => {
+        //         if (result) {
+        //             this.selectedCategory = result.type // Ensure it's a string
+        //             // Log to verify data
+        //             console.log('Event Name:', this.sanitizedEventName)
+        //             console.log('Labels:', this.labels)
+        //             console.log('Selected Category:', this.selectedCategory)
+        // this.seatsioService
+        //     .updateCategory(
+        //         this.sanitizedEventName,
+        //         this.labels,
+        //         this.selectedCategory
+        //     )
+        //     .subscribe({
+        //         next: (res) => {
+        //             // Assuming toastr.success() is the method you're calling to show the notification
+        //             this.toastr.success(
+        //                 'Category updated!',
+        //                 'Success!',
+        //                 { timeOut: 400 }
+        //             ) // Adjust timeOut as needed
+        //             setTimeout(() => {
+        //                 window.location.reload()
+        //             }, 400) // Set this slightly longer than the toastr timeOut
+        //         },
+        //         error: (err) => {
+        //             console.error('Failed to update category:', err)
+        //             this.toastr.error('Failed to update category.')
+        //         },
+        //     })
+        //         }
+        //     })
+        // }
     }
 }
