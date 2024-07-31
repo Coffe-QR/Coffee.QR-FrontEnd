@@ -1,16 +1,33 @@
-<h1>Edit Category</h1>
-<form [formGroup]="categoryForm">
-    <mat-form-field>
-        <mat-label>Type</mat-label>
-        <input matInput formControlName="type" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Note</mat-label>
-        <input matInput formControlName="note" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Price</mat-label>
-        <input matInput type="number" formControlName="price" />
-    </mat-form-field>
-    <button mat-button (click)="onSave()">Save</button>
-</form>
+<div class="flex flex-col items-center justify-center bg-gray-200">
+    <h1 class="mb-4 pt-3 text-2xl font-bold uppercase">Edit Category</h1>
+    <form [formGroup]="categoryForm" class="space-y-4 p-4 text-center">
+        <label class="block text-lg font-semibold uppercase">Type</label>
+        <input
+            formControlName="type"
+            class="rounded-md border border-gray-300 px-5 py-2 text-center"
+        />
+
+        <label class="block text-lg font-semibold uppercase">Note</label>
+        <textarea
+            formControlName="note"
+            rows="3"
+            class="resize-none rounded-md border border-gray-300 px-7 py-2 text-center"
+        ></textarea>
+
+        <label class="block text-lg font-semibold uppercase">Price</label>
+        <input
+            type="number"
+            formControlName="price"
+            class="rounded-md border border-gray-300 px-5 py-2 text-center"
+        />
+
+        <div class="mt-1 flex flex-row justify-center space-x-2">
+            <button
+                (click)="onSave()"
+                class="mt-3 w-16 rounded-lg bg-transparent bg-zinc-300 py-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+            >
+                Save
+            </button>
+        </div>
+    </form>
+</div>

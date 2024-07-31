@@ -9,6 +9,7 @@ import { TicketService } from '../../Xuniversal/ticket.service'
 import { TicketEventService } from '../../Xuniversal/ticket-event.service'
 import { SeatsioService } from '../../Xuniversal/seatsio.service'
 import { ToastrService } from 'ngx-toastr'
+import { ChangeDetectorRef } from '@angular/core'
 
 @Component({
     selector: 'app-manage-event-tickets',
@@ -51,7 +52,8 @@ export class ManageEventTicketsComponent implements OnInit {
         private ticketEventService: TicketEventService,
         private seatsioService: SeatsioService,
         private toastr: ToastrService,
-        private router: Router
+        private router: Router,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -68,9 +70,14 @@ export class ManageEventTicketsComponent implements OnInit {
             error: (err) => console.error('Failed to load event:', err),
         })
 
+        this.loadCategories()
+    }
+
+    loadCategories(): void {
         this.ticketEventService.getAllByEventId(this.eventId).subscribe({
             next: (tickets) => {
                 this.categories = tickets
+                this.cat1 = []
                 this.categories.forEach((category) => {
                     this.ticketService.getById(category.cardId).subscribe({
                         next: (ticket) => {
@@ -81,6 +88,11 @@ export class ManageEventTicketsComponent implements OnInit {
                                 price: category.price,
                                 note: ticket.note,
                             })
+
+                            this.cat1.sort((a, b) => a.price - b.price)
+
+                            // Since sorting is done within a subscription, manually triggering change detection might be necessary
+                            this.cdr.detectChanges()
                         },
                         error: (err) =>
                             console.error('Failed to load ticket:', err),
@@ -121,62 +133,17 @@ export class ManageEventTicketsComponent implements OnInit {
     }
 
     onEditCategory(category: any): void {
-        //PROSLEDJUJEM ID CARDEVENTA UMESTO CARDID
         const dialogRef = this.dialog.open(CategoriesInfoDialogComponent, {
-            width: '250px',
+            width: '350px',
             data: { category: category },
         })
 
         dialogRef.afterClosed().subscribe((result) => {
-            console.log('The dialog was closed')
-            // Optionally refresh the categories list here
+            this.loadCategories()
+            this.cdr.detectChanges()
         })
     }
     onAddNewCategory(): void {
         this.router.navigate(['create-ticket-for-event/', this.eventId])
-    }
-
-    onShowCategoriesInfo(): void {
-        // if (this.selectedObjects.length === 0) {
-        //     this.toastr.info('Please select a objects first!')
-        // } else {
-        //     const dialogRef = this.dialog.open(CategoriesInfoDialogComponent, {
-        //         panelClass: 'custom-dialog',
-        //         data: { categories: this.cat1 },
-        //     })
-        //     this.labels = this.selectedObjects.map((obj) => obj.label)
-        //     dialogRef.afterClosed().subscribe((result) => {
-        //         if (result) {
-        //             this.selectedCategory = result.type // Ensure it's a string
-        //             // Log to verify data
-        //             console.log('Event Name:', this.sanitizedEventName)
-        //             console.log('Labels:', this.labels)
-        //             console.log('Selected Category:', this.selectedCategory)
-        // this.seatsioService
-        //     .updateCategory(
-        //         this.sanitizedEventName,
-        //         this.labels,
-        //         this.selectedCategory
-        //     )
-        //     .subscribe({
-        //         next: (res) => {
-        //             // Assuming toastr.success() is the method you're calling to show the notification
-        //             this.toastr.success(
-        //                 'Category updated!',
-        //                 'Success!',
-        //                 { timeOut: 400 }
-        //             ) // Adjust timeOut as needed
-        //             setTimeout(() => {
-        //                 window.location.reload()
-        //             }, 400) // Set this slightly longer than the toastr timeOut
-        //         },
-        //         error: (err) => {
-        //             console.error('Failed to update category:', err)
-        //             this.toastr.error('Failed to update category.')
-        //         },
-        //     })
-        //         }
-        //     })
-        // }
     }
 }
