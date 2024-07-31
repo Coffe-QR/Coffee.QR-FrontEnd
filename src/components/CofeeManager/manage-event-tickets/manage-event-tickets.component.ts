@@ -76,6 +76,7 @@ export class ManageEventTicketsComponent implements OnInit {
                         next: (ticket) => {
                             this.cat1.push({
                                 id: category.id,
+                                categoryId: category.cardId,
                                 type: ticket.type,
                                 price: category.price,
                                 note: ticket.note,
@@ -119,6 +120,18 @@ export class ManageEventTicketsComponent implements OnInit {
         }
     }
 
+    onEditCategory(category: any): void {
+        //PROSLEDJUJEM ID CARDEVENTA UMESTO CARDID
+        const dialogRef = this.dialog.open(CategoriesInfoDialogComponent, {
+            width: '250px',
+            data: { category: category },
+        })
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed')
+            // Optionally refresh the categories list here
+        })
+    }
     onAddNewCategory(): void {
         this.router.navigate(['create-ticket-for-event/', this.eventId])
     }

@@ -34,6 +34,11 @@ export class TicketService {
         return this.http.get<any>(url, this.getHttpOptions())
     }
 
+    updateCard(cardId: number, ticket: any): Observable<any> {
+        const url = `${this.apiUrl}/${cardId}`
+        return this.http.put<any>(url, ticket, this.getHttpOptions())
+    }
+
     private getHttpOptions() {
         const httpOptions = {
             headers: new HttpHeaders({

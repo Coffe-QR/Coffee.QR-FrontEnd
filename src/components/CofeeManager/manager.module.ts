@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { CreateEventComponent } from './create-event/create-event.component'
 import { ManagerLandingPageComponent } from './manager-landing-page/manager-landing-page.component'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
 import { FilterPipe } from '../../shared/filter-pipe'
@@ -18,8 +18,10 @@ import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
 import { CategoriesInfoDialogComponent } from './manage-event-tickets/categories-info-dialog/categories-info-dialog.component'
-import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component';
+import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component'
 import { CreateTicketForEventComponent } from './create-ticket-for-event/create-ticket-for-event.component'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @NgModule({
     declarations: [
@@ -46,6 +48,9 @@ import { CreateTicketForEventComponent } from './create-ticket-for-event/create-
         MatDialogModule,
         BrowserAnimationsModule,
         SeatsioAngularModule,
+        MatInputModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
     ],
     exports: [
         CreateEventComponent,
