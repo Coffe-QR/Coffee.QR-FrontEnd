@@ -1,0 +1,118 @@
+<div
+    class="custom-bg-it-support flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="filterLocals()"
+        placeholder="Search..."
+        class="mb-5 w-1/3 rounded-2xl border border-zinc-700 border-opacity-70 bg-zinc-300 bg-opacity-35 px-4 py-2 font-thin text-zinc-900 caret-zinc-500 placeholder:text-zinc-900 hover:scale-105 focus:outline-none"
+        style="transition: transform 0.3s ease-in-out"
+    />
+
+    <div
+        class="mx-auto w-full max-w-4xl overflow-hidden rounded-lg bg-white bg-opacity-80 shadow-md"
+    >
+        <div class="max-h-96 overflow-y-auto">
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr>
+                        <th
+                            class="cursor-pointer border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            (click)="sortTable('name')"
+                        >
+                            Name
+                            <span *ngIf="sortColumn === 'name'">
+                                {{ sortDirection['name'] ? '▲' : '▼' }}
+                            </span>
+                        </th>
+                        <th
+                            class="cursor-pointer border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            (click)="sortTable('city')"
+                        >
+                            City
+                            <span *ngIf="sortColumn === 'city'">
+                                {{ sortDirection['city'] ? '▲' : '▼' }}
+                            </span>
+                        </th>
+                        <th
+                            class="cursor-pointer border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            (click)="sortTable('dateOfStartingPartnership')"
+                        >
+                            Date of Starting Partnership
+                            <span
+                                *ngIf="
+                                    sortColumn === 'dateOfStartingPartnership'
+                                "
+                            >
+                                {{
+                                    sortDirection['dateOfStartingPartnership']
+                                        ? '▲'
+                                        : '▼'
+                                }}
+                            </span>
+                        </th>
+                        <th
+                            class="cursor-pointer border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            (click)="sortTable('isActive')"
+                        >
+                            Active
+                            <span *ngIf="sortColumn === 'isActive'">
+                                {{ sortDirection['isActive'] ? '▲' : '▼' }}
+                            </span>
+                        </th>
+                        <th
+                            class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                        >
+                            Manage
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let local of filteredLocals">
+                        <td
+                            class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                        >
+                            {{ local.name }}
+                        </td>
+                        <td
+                            class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                        >
+                            {{ local.city }}
+                        </td>
+                        <td
+                            class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                        >
+                            {{
+                                local.dateOfStartingPartnership
+                                    | date: 'yyyy-MM-dd'
+                            }}
+                        </td>
+                        <td
+                            class="border-b border-gray-200 px-5 py-5 text-center text-sm font-bold"
+                        >
+                            <span
+                                [ngClass]="{
+                                    'text-cyan-500': local.isActive,
+                                    'text-zinc-500': !local.isActive
+                                }"
+                            >
+                                {{ local.isActive ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+                        <td
+                            class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                        >
+                            <button
+                                class="btn-custom-color rounded px-4 py-2 font-semibold text-zinc-900"
+                                (click)="manageLocal(local.id)"
+                            >
+                                Manage
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
