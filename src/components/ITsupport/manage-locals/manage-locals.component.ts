@@ -21,15 +21,13 @@ export class ManageLocalsComponent implements OnInit {
 
     ngOnInit(): void {
         this.localService.getAllLocals().subscribe((data) => {
-            console.log(data)
             this.locals = data
             this.filteredLocals = data
         })
     }
 
     manageLocal(localId: number): void {
-        console.log(localId)
-        // this.router.navigate(['/manage-local', localId]);
+        this.router.navigate(['/update-local-seat-map/', localId])
     }
 
     filterLocals(): void {

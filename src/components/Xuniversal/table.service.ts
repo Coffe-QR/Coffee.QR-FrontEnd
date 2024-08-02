@@ -25,4 +25,8 @@ export class TableService {
     deleteTable(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`)
     }
+
+    deleteTableByLocalId(localId: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/DeleteByLocalId/${localId}`)
+    }
 }

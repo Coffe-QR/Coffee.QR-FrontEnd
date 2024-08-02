@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
                 // Check if the current route matches 'create-local-seat-map/*'
                 if (this.router.url.includes('create-local-seat-map/')) {
                     this.isEnabled = false
+                } else if (this.router.url.includes('update-local-seat-map/')) {
+                    this.isEnabled = false
                 } else {
                     this.isEnabled = true
                 }

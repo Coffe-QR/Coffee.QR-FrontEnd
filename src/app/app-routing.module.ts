@@ -43,6 +43,7 @@ import { CreateLocalSeatMapComponent } from '../components/ITsupport/create-loca
 import { ManageEventTicketsComponent } from '../components/CofeeManager/manage-event-tickets/manage-event-tickets.component'
 import { CreateTicketForEventComponent } from '../components/CofeeManager/create-ticket-for-event/create-ticket-for-event.component'
 import { ManageLocalsComponent } from '../components/ITsupport/manage-locals/manage-locals.component'
+import { UpdateLocalSeatMapComponent } from '../components/ITsupport/update-local-seat-map/update-local-seat-map.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -205,6 +206,11 @@ const routes: Routes = [
     {
         path: 'create-local-seat-map/:localId',
         component: CreateLocalSeatMapComponent,
+        canActivate: [ItSupportGuard],
+    },
+    {
+        path: 'update-local-seat-map/:localId',
+        component: UpdateLocalSeatMapComponent,
         canActivate: [ItSupportGuard],
     },
     {
