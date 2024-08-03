@@ -27,9 +27,11 @@
             >
                 Event Date and Time:
             </label>
+
             <input
-                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
                 type="datetime-local"
+                id="datePicker"
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
                 [(ngModel)]="eventDateTime"
                 name="datetime"
                 required

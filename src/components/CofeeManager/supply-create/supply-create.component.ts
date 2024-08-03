@@ -115,10 +115,7 @@ export class SupplyCreateComponent {
                 this.supplyItemService
                     .createSupplyItems(supplyItems)
                     .subscribe({
-                        next: (response) =>
-                            alert(
-                                'You have successfully completed the purchase.'
-                            ),
+                        next: (response) => {},
                         error: (error) =>
                             console.error(
                                 'Error creating supply items:',

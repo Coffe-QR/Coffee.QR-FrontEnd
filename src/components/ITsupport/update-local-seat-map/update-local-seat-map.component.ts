@@ -69,8 +69,6 @@ export class UpdateLocalSeatMapComponent implements OnInit {
         }, 0)
     }
 
-    // AKO JE this.key === null, onda napravi novu mapu i promeni isActive na true, ako vec postoji samo update radimo
-
     saveLocal() {
         if (this.key === '') {
             alert('Please create a chart first')
@@ -161,9 +159,9 @@ export class UpdateLocalSeatMapComponent implements OnInit {
         Object.keys(chartDetails).forEach((key) => {
             chartDetails[key].forEach((item: any) => {
                 const tableData = {
-                    name: item.labels.own.label, // Adjust according to your data structure
+                    name: item.labels.own.label,
                     capacity: item.capacity,
-                    isSmokingArea: false, // Adjust as needed
+                    isSmokingArea: false,
                     localId: this.localId,
                 }
                 this.tableService.createTable(tableData).subscribe({

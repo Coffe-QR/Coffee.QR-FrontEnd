@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 @import 'ngx-toastr/toastr';
+@import 'flatpickr/dist/flatpickr.min.css';
 
 .custom-bg {
     background-image: url('assets/landing1.jpg');
@@ -55,4 +56,37 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.event-day {
+    position: relative;
+    background-color: #ffcccc; /* Light red for event days */
+}
+
+.event-day::after {
+    content: attr(title);
+    position: absolute;
+    white-space: nowrap;
+    bottom: 0%;
+    left: 0%;
+    transform: translateX(-50%);
+    background-color: rgba(1, 1, 24, 0.75);
+    color: white;
+    padding: 1px;
+    border-radius: 4px;
+    display: none;
+}
+
+.event-day:hover::after {
+    display: block;
+}
+
+.event-day[data-tooltip]:hover:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
 }

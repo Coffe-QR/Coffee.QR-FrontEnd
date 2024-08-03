@@ -5,6 +5,9 @@ import { Router } from '@angular/router'
 import { AuthService } from '../../../auth/auth.service'
 import { User } from '../../../auth/model/user.model'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
+import flatpickr from 'flatpickr'
+import { format, isSameDay, parse, parseISO } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 
 @Component({
     selector: 'app-create-event',
@@ -19,6 +22,8 @@ export class CreateEventComponent implements OnInit {
     eventDescription: string = ''
     eventImage: string = ''
     eventLocalId: number = 0
+    disabledDates: Date[] = []
+    events: any[] = []
 
     constructor(
         private authService: AuthService,
@@ -34,6 +39,17 @@ export class CreateEventComponent implements OnInit {
         this.localuserService.getLocalUserByUserId(this.userId).subscribe({
             next: (response) => {
                 this.eventLocalId = response.localId
+                this.eventService
+                    .getEventsByLocalId(this.eventLocalId)
+                    .subscribe({
+                        next: (response) => {
+                            this.events = response
+                            console.log('Events:', response)
+                            this.initializeFlatpickr(response)
+                        },
+                        error: (error) =>
+                            console.error('Error getting events:', error),
+                    })
             },
             error: (error) => console.error('Error getting local user:', error),
         })
@@ -52,7 +68,7 @@ export class CreateEventComponent implements OnInit {
         }
 
         this.eventService.createEvent(eventData).subscribe({
-            next: (response) =>{
+            next: (response) => {
                 this.router.navigate(['create-ticket-for-event/', response.id])
             },
             error: (error) => console.error('Error creating event:', error),
@@ -72,5 +88,26 @@ export class CreateEventComponent implements OnInit {
                 },
             })
         }
+    }
+    initializeFlatpickr(events: any[]): void {
+        const eventDates = events.map((event) => new Date(event.dateTime))
+        flatpickr('#datePicker', {
+            enableTime: true,
+            time_24hr: true,
+            dateFormat: 'Y-m-d\\TH:i',
+            altInput: true,
+            altFormat: 'd/m/Y H:i',
+            minDate: new Date(),
+            disable: eventDates,
+            onDayCreate: (dObj, dStr, fp, dayElem) => {
+                eventDates.forEach((eventDate, index) => {
+                    if (isSameDay(dayElem.dateObj, eventDate)) {
+                        const name = events[index].name
+                        dayElem.title = name
+                        dayElem.classList.add('event-day')
+                    }
+                })
+            },
+        })
     }
 }

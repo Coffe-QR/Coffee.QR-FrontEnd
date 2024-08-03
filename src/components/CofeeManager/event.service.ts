@@ -29,4 +29,12 @@ export class EventService {
     getEventById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/${id}`)
     }
+
+    getEventDatesByLocalId(localId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/dates/${localId}`)
+    }
+
+    getEventsByLocalId(localId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/local/${localId}/events`)
+    }
 }
