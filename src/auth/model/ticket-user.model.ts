@@ -6,4 +6,5 @@ export interface TicketUser {
     currency: string
     paymentStatus: string
     payPalPaymentIntentId: string
+    receiverEmail: string
 }

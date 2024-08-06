@@ -115,7 +115,7 @@ Tickets can be purchased from only one category at a time.`)
             .subscribe(
                 (pricingConfig) => {
                     this.config.pricing = pricingConfig
-                    console.log('Configured Pricing:', this.config.pricing)
+                    //console.log('Configured Pricing:', this.config.pricing)
                 },
                 (error) => {
                     console.error(
@@ -139,6 +139,14 @@ Tickets can be purchased from only one category at a time.`)
             this.ticketEventService
                 .getAllByEventId(this.eventId)
                 .subscribe((ticketEvents) => {
+                    console.log('Ticket Events:', ticketEvents)
+                    //PROSLEDJUJEM PRVI TICKET EVENT, UMESTO ONAJ KOJI JE SELEKTOVAN
+                    // NEED TO FIX
+                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                    const seat = this.selectedSeats[0].category.label // OVO MI JE IME KARTE KOJU TREBA DA VRATIM
+                    console.log('SEAT:', seat)
+
                     this.cardId = ticketEvents[0].cardId
 
                     const ticketUser = {

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { TicketUserService } from '../ticket-user.service'
 import { TicketUser } from '../../../auth/model/ticket-user.model'
 import { SeatsioService } from '../seatsio.service'
+import { AuthService } from '../../../auth/auth.service'
+import { User } from '../../../auth/model/user.model'
 
 @Component({
     selector: 'app-payment',
@@ -20,6 +22,10 @@ export class PaymentComponent implements OnInit {
     currency: string = 'usd'
     seatLabels: any[] = []
     eventName: string = ''
+    user: User | undefined
+    user1: any
+    userId1: number = 0
+
     //paymentStatus: string = ''
     //payPalPaymentIntentId: string = ''
 
@@ -27,12 +33,13 @@ export class PaymentComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private ticketUserService: TicketUserService,
-        private seatsioService: SeatsioService
+        private seatsioService: SeatsioService,
+        private authService: AuthService
     ) {
         const navigation = this.router.getCurrentNavigation()
 
         const state = navigation?.extras.state as { ticketUser: any }
-        this.amount = parseFloat(Number(state.ticketUser.amount).toFixed(3));
+        this.amount = parseFloat(Number(state.ticketUser.amount).toFixed(3))
         this.cardId = state?.ticketUser.cardId
         this.userId = state?.ticketUser.userId
         this.quantity = state?.ticketUser.quantity
@@ -45,6 +52,16 @@ export class PaymentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userId1 = this.authService.user$.getValue().id
+
+        this.authService.getUserById(this.userId1).subscribe({
+            next: (response) => {
+                this.user1 = response
+                console.log('User:', this.user1)
+            },
+            error: (error) => console.error('Error fetching user:', error),
+        })
+
         window.paypal
             .Buttons({
                 style: {
@@ -74,6 +91,7 @@ export class PaymentComponent implements OnInit {
                                 currency: 'USD',
                                 paymentStatus: details.status,
                                 payPalPaymentIntentId: details.id,
+                                receiverEmail: this.user1.email,
                             }
 
                             const seatLabels = this.seatLabels

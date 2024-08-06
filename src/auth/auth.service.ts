@@ -83,7 +83,7 @@ export class AuthService {
 
     getUserById(id: number): Observable<User> {
         return this.http.get<User>(
-            'https://localhost:44333/api/users//GetById/' + id
+            'https://localhost:44333/api/users/GetById/' + id
         )
     }
 
