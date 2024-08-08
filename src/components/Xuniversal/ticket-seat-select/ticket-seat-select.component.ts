@@ -19,6 +19,13 @@ import { tick } from '@angular/core/testing'
 export class TicketSeatSelectComponent implements OnInit {
     eventId: number = 0
     eventName: string = ''
+
+    eventNameForTicket: string = ''
+    eventDateTime: string = ''
+    eventImage: string = ''
+    ticketPrice: number = 0
+    position = ''
+
     totalpr: number = 0
     userId: number = 0
     quantity: number = 0
@@ -27,8 +34,10 @@ export class TicketSeatSelectComponent implements OnInit {
     ticketEvents: any[] = []
 
     selectedSeats: any[] = []
-    selectedCategory: string = ''
+    selectedSeat: string = ''
     cardId: number = 0
+
+    ignoreNextDeselect = false
 
     config: EmbeddableProps<ChartRendererConfigOptions> & { totalpr: number } =
         {
@@ -39,30 +48,45 @@ export class TicketSeatSelectComponent implements OnInit {
             priceFormatter: (price) => '$' + price,
             onObjectSelected: (object) => {
                 if (
-                    this.selectedCategory === '' ||
-                    object.category?.label === this.selectedCategory
+                    this.selectedSeat === '' ||
+                    this.selectedSeat === object.label
                 ) {
                     this.selectedSeats.push(object)
+
                     this.totalpr += Number(object.pricing.price)
                     this.quantity++
-                    this.selectedCategory = object.category?.label ?? ''
+                    this.selectedSeat = object.label ?? ''
+                    console.log('Selected Seats:', this.selectedSeats)
+                    console.log('Total Price:', this.totalpr)
                 } else {
+                    this.ignoreNextDeselect = true
                     object.deselect()
-                    this.toastService
-                        .info(`Please select seats only from the "${this.selectedCategory}" category.
-Tickets can be purchased from only one category at a time.`)
+                    this.toastService.info(`
+Tickets can be purchased just for one place at the time.`)
                 }
             },
             onObjectDeselected: (object: any) => {
+                if (this.ignoreNextDeselect) {
+                    this.ignoreNextDeselect = false // Reset the flag
+                    return // Exit early, no need to update price or quantity
+                }
+
                 this.quantity--
                 this.totalpr -= Number(object.pricing.price)
 
-                this.selectedSeats = this.selectedSeats.filter(
-                    (seat) => seat.id !== object.id
+                const index = this.selectedSeats.findIndex(
+                    (seat) => seat.id === object.id
                 )
-                if (this.selectedSeats.length === 0) {
-                    this.selectedCategory = ''
+
+                if (index !== -1) {
+                    this.selectedSeats.splice(index, 1)
                 }
+
+                if (this.selectedSeats.length === 0) {
+                    this.selectedSeat = ''
+                }
+                console.log('Selected Seats:', this.selectedSeats)
+                console.log('Total Price:', this.totalpr)
             },
             onChartRendered: (chart) => {
                 chart.changeConfig({
@@ -78,6 +102,7 @@ Tickets can be purchased from only one category at a time.`)
         private router: Router,
         private route: ActivatedRoute,
         private eventService: EventService,
+        private seatsioService: SeatsioService,
         private authService: AuthService,
         private ticketService: TicketService,
         private toastService: ToastrService,
@@ -90,6 +115,10 @@ Tickets can be purchased from only one category at a time.`)
         this.eventId = this.route.snapshot.params['eventId']
 
         this.eventService.getEventById(this.eventId).subscribe((event) => {
+            this.eventNameForTicket = event.name
+            this.eventDateTime = event.dateTime
+            this.eventImage = event.image
+
             this.eventName = this.sanitizeEventKey(event.name)
             this.config.event = this.eventName
         })
@@ -115,6 +144,7 @@ Tickets can be purchased from only one category at a time.`)
             .subscribe(
                 (pricingConfig) => {
                     this.config.pricing = pricingConfig
+                    //console.log('Configured Pricing:', this.config.pricing)
                 },
                 (error) => {
                     console.error(
@@ -139,31 +169,47 @@ Tickets can be purchased from only one category at a time.`)
                 .getAllByEventId(this.eventId)
                 .subscribe(() => {
                     const seat = this.selectedSeats[0].category.label
+                    this.position = this.selectedSeats[0].label
 
                     this.ticketService
                         .getByTypeAndEventId(seat, this.eventId)
                         .subscribe((ticket) => {
-                            const ticketUser = {
-                                cardId: this.cardId,
-                                userId: ticket[0].id,
-                                quantity: this.quantity,
-                                amount: this.totalpr,
-                                currency: 'usd',
-                                paymentStatus: 'pending',
-                                paymentMethod: 'card',
-                            }
+                            this.ticketEventService
+                                .getByCardIdAsync(ticket[0].id)
+                                .subscribe((ticketEvent) => {
+                                    this.ticketPrice = ticketEvent.price
 
-                            const seatLabels = this.selectedSeats.map(
-                                (seat) => seat.label
-                            )
+                                    const forTicketPrint = {
+                                        eventImage: this.eventImage,
+                                        eventName: this.eventNameForTicket,
+                                        eventDateTime: this.eventDateTime,
+                                        ticketPrice: this.ticketPrice,
+                                        position: this.position,
+                                    }
 
-                            this.router.navigate(['/payment'], {
-                                state: {
-                                    ticketUser: ticketUser,
-                                    seatLabels: seatLabels,
-                                    eventName: this.eventName,
-                                },
-                            })
+                                    const ticketUser = {
+                                        cardId: ticket[0].id,
+                                        userId: this.userId,
+                                        quantity: this.quantity,
+                                        amount: this.totalpr,
+                                        currency: 'usd',
+                                        paymentStatus: 'pending',
+                                        paymentMethod: 'card',
+                                    }
+
+                                    const seatLabels = this.selectedSeats.map(
+                                        (seat) => seat.label
+                                    )
+
+                                    this.router.navigate(['/payment'], {
+                                        state: {
+                                            ticketUser: ticketUser,
+                                            seatLabels: seatLabels,
+                                            eventName: this.eventName,
+                                            forTicketPrint: forTicketPrint,
+                                        },
+                                    })
+                                })
                         })
                 })
         }

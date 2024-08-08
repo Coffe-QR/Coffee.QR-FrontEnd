@@ -26,6 +26,12 @@ export class PaymentComponent implements OnInit {
     user1: any
     userId1: number = 0
 
+    eventNameForTicket: string = ''
+    eventDateTime: string = ''
+    eventImage: string = ''
+    ticketPrice: number = 0
+    position = ''
+
     //pay      entStatus: string = ''
     //payPalPaymentIntentId: string = ''
 
@@ -49,6 +55,13 @@ export class PaymentComponent implements OnInit {
 
         const state3 = navigation?.extras.state as { eventName: any }
         this.eventName = state3?.eventName
+
+        const state4 = navigation?.extras.state as { forTicketPrint: any }
+        this.eventNameForTicket = state4?.forTicketPrint.eventName
+        this.eventDateTime = state4?.forTicketPrint.eventDateTime
+        this.eventImage = state4?.forTicketPrint.eventImage
+        this.ticketPrice = state4?.forTicketPrint.ticketPrice
+        this.position = state4?.forTicketPrint.position
     }
 
     ngOnInit() {
@@ -57,7 +70,7 @@ export class PaymentComponent implements OnInit {
         this.authService.getUserById(this.userId1).subscribe({
             next: (response) => {
                 this.user1 = response
-                console.log('User:', this.user1)
+                //console.log('User:', this.user1)
             },
             error: (error) => console.error('Error fetching user:', error),
         })
@@ -83,6 +96,14 @@ export class PaymentComponent implements OnInit {
                 onApprove: (data: any, actions: any) => {
                     return actions.order.capture().then((details: any) => {
                         if (details.status === 'COMPLETED') {
+                            const forTicketPrint = {
+                                eventImage: this.eventImage,
+                                eventName: this.eventNameForTicket,
+                                eventDateTime: this.eventDateTime,
+                                ticketPrice: this.ticketPrice,
+                                position: this.position,
+                            }
+
                             const ticketUser = {
                                 cardId: this.cardId,
                                 userId: this.userId,
@@ -92,7 +113,10 @@ export class PaymentComponent implements OnInit {
                                 paymentStatus: details.status,
                                 payPalPaymentIntentId: details.id,
                                 receiverEmail: this.user1.email,
+                                printCard: forTicketPrint,
                             }
+
+                            console.log(forTicketPrint)
 
                             const seatLabels = this.seatLabels
 

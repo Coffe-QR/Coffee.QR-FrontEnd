@@ -41,6 +41,13 @@ export class TicketEventService {
         return this.http.get(`${this.apiUrl}/${id}`, this.getHttpOptions())
     }
 
+    getByCardIdAsync(cardId: number): Observable<any> {
+        return this.http.get<any>(
+            `${this.apiUrl}/card/${cardId}`,
+            this.getHttpOptions()
+        )
+    }
+
     private getHttpOptions() {
         const httpOptions = {
             headers: new HttpHeaders({
