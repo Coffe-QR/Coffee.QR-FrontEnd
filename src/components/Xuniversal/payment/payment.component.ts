@@ -26,7 +26,7 @@ export class PaymentComponent implements OnInit {
     user1: any
     userId1: number = 0
 
-    //paymentStatus: string = ''
+    //pay      entStatus: string = ''
     //payPalPaymentIntentId: string = ''
 
     constructor(

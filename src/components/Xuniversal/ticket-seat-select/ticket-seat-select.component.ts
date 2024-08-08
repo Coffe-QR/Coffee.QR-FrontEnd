@@ -9,6 +9,7 @@ import { TicketService } from '../ticket.service'
 import { ToastrService } from 'ngx-toastr'
 import { TicketEventService } from '../ticket-event.service'
 import { forkJoin, map, switchMap } from 'rxjs'
+import { tick } from '@angular/core/testing'
 
 @Component({
     selector: 'app-ticket-seat-select',
@@ -77,7 +78,6 @@ Tickets can be purchased from only one category at a time.`)
         private router: Router,
         private route: ActivatedRoute,
         private eventService: EventService,
-        private seatsioService: SeatsioService,
         private authService: AuthService,
         private ticketService: TicketService,
         private toastService: ToastrService,
@@ -115,7 +115,6 @@ Tickets can be purchased from only one category at a time.`)
             .subscribe(
                 (pricingConfig) => {
                     this.config.pricing = pricingConfig
-                    //console.log('Configured Pricing:', this.config.pricing)
                 },
                 (error) => {
                     console.error(
@@ -138,38 +137,34 @@ Tickets can be purchased from only one category at a time.`)
         } else {
             this.ticketEventService
                 .getAllByEventId(this.eventId)
-                .subscribe((ticketEvents) => {
-                    console.log('Ticket Events:', ticketEvents)
-                    //PROSLEDJUJEM PRVI TICKET EVENT, UMESTO ONAJ KOJI JE SELEKTOVAN
-                    // NEED TO FIX
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                .subscribe(() => {
+                    const seat = this.selectedSeats[0].category.label
 
-                    const seat = this.selectedSeats[0].category.label // OVO MI JE IME KARTE KOJU TREBA DA VRATIM
-                    console.log('SEAT:', seat)
+                    this.ticketService
+                        .getByTypeAndEventId(seat, this.eventId)
+                        .subscribe((ticket) => {
+                            const ticketUser = {
+                                cardId: this.cardId,
+                                userId: ticket[0].id,
+                                quantity: this.quantity,
+                                amount: this.totalpr,
+                                currency: 'usd',
+                                paymentStatus: 'pending',
+                                paymentMethod: 'card',
+                            }
 
-                    this.cardId = ticketEvents[0].cardId
+                            const seatLabels = this.selectedSeats.map(
+                                (seat) => seat.label
+                            )
 
-                    const ticketUser = {
-                        cardId: this.cardId,
-                        userId: this.userId,
-                        quantity: this.quantity,
-                        amount: this.totalpr,
-                        currency: 'usd',
-                        paymentStatus: 'pending',
-                        paymentMethod: 'card',
-                    }
-
-                    const seatLabels = this.selectedSeats.map(
-                        (seat) => seat.label
-                    )
-
-                    this.router.navigate(['/payment'], {
-                        state: {
-                            ticketUser: ticketUser,
-                            seatLabels: seatLabels,
-                            eventName: this.eventName,
-                        },
-                    })
+                            this.router.navigate(['/payment'], {
+                                state: {
+                                    ticketUser: ticketUser,
+                                    seatLabels: seatLabels,
+                                    eventName: this.eventName,
+                                },
+                            })
+                        })
                 })
         }
     }

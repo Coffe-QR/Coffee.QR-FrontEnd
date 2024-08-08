@@ -39,6 +39,11 @@ export class TicketService {
         return this.http.put<any>(url, ticket, this.getHttpOptions())
     }
 
+    getByTypeAndEventId(type: string, eventId: number): Observable<any> {
+        const url = `${this.apiUrl}/type/${type}/event/${eventId}`
+        return this.http.get<any>(url, this.getHttpOptions())
+    }
+
     private getHttpOptions() {
         const httpOptions = {
             headers: new HttpHeaders({
