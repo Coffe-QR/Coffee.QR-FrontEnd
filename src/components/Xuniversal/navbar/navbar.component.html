@@ -65,6 +65,15 @@
                         class="custom-color px-3 py-5"
                         >Events</a
                     >
+                    <a
+                        *ngIf="
+                            user &&
+                            (user.username == '' || user.role === 'client')
+                        "
+                        [routerLink]="['/tickets-overview']"
+                        class="custom-color px-3 py-5"
+                        >Transaction history</a
+                    >
 
                     <div
                         *ngIf="user && user.role === 'manager'"

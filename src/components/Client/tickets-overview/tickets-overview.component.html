@@ -1,0 +1,94 @@
+<div
+    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <button
+        (click)="toggleTickets()"
+        class="btn-custom-color mb-5 rounded-2xl px-4 py-2 transition-transform duration-300 hover:scale-105"
+    >
+        {{ showActiveTickets ? 'Show Past Tickets' : 'Show Active Tickets' }}
+    </button>
+
+    <div
+        class="mx-auto w-full max-w-4xl overflow-hidden rounded-lg bg-white bg-opacity-80 shadow-md"
+    >
+        <div class="max-h-96 overflow-y-auto">
+            <ng-container *ngIf="displayedTickets.length > 0; else noTickets">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Type
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Total Price
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Quantity
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Event Name
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Event Date & Time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let ticket of displayedTickets"
+                            class="duration-500 hover:bg-cyan-50"
+                        >
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{ ticket.type }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm font-medium text-gray-900"
+                            >
+                                {{ ticket.amount }}$
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{ ticket.quantity }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{ ticket.eventName }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{
+                                    ticket.eventDateTime
+                                        | date: 'dd/MM/yyyy HH:mm'
+                                }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+            <!-- Template for No Tickets -->
+            <ng-template #noTickets>
+                <div
+                    class="flex h-32 items-center justify-center bg-zinc-100 bg-opacity-75 text-gray-500"
+                >
+                    No {{ showActiveTickets ? 'active' : 'past' }} tickets
+                    available.
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

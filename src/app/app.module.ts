@@ -15,6 +15,7 @@ import { WaiterModule } from '../components/Waiter/waiter.module'
 import { ITSupportModule } from '../components/ITsupport/it-support.module'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
+import { ClientModule } from '../components/Client/client.module'
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent],
@@ -39,6 +40,7 @@ import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
         WaiterModule,
         ITSupportModule,
         SeatsioAngularModule,
+        ClientModule,
     ],
     providers: [provideAnimationsAsync()],
     bootstrap: [AppComponent],

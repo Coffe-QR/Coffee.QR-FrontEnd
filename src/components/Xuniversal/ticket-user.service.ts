@@ -45,6 +45,11 @@ export class TicketUserService {
         return this.http.delete<void>(url, this.getHttpOptions())
     }
 
+    getByUserId(userId: number): Observable<any> {
+        const url = `${this.apiUrl}/userId/${userId}`
+        return this.http.get<any>(url, this.getHttpOptions())
+    }
+
     private getHttpOptions() {
         const httpOptions = {
             headers: new HttpHeaders({

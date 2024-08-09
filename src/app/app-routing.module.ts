@@ -44,6 +44,7 @@ import { ManageEventTicketsComponent } from '../components/CofeeManager/manage-e
 import { CreateTicketForEventComponent } from '../components/CofeeManager/create-ticket-for-event/create-ticket-for-event.component'
 import { ManageLocalsComponent } from '../components/ITsupport/manage-locals/manage-locals.component'
 import { UpdateLocalSeatMapComponent } from '../components/ITsupport/update-local-seat-map/update-local-seat-map.component'
+import { TicketsOverviewComponent } from '../components/Client/tickets-overview/tickets-overview.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -117,6 +118,11 @@ const routes: Routes = [
     {
         path: 'client',
         component: ClientLandingPageComponent,
+        canActivate: [ClientGuard],
+    },
+    {
+        path: 'tickets-overview',
+        component: TicketsOverviewComponent,
         canActivate: [ClientGuard],
     },
     {

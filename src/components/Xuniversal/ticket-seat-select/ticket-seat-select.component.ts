@@ -67,8 +67,8 @@ Tickets can be purchased just for one place at the time.`)
             },
             onObjectDeselected: (object: any) => {
                 if (this.ignoreNextDeselect) {
-                    this.ignoreNextDeselect = false // Reset the flag
-                    return // Exit early, no need to update price or quantity
+                    this.ignoreNextDeselect = false
+                    return
                 }
 
                 this.quantity--
