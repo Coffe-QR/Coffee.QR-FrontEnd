@@ -48,6 +48,7 @@ import { TicketsOverviewComponent } from '../components/Client/tickets-overview/
 import { LocalsOverviewComponent } from '../components/Client/locals-overview/locals-overview.component'
 import { CreatePriceListForRentComponent } from '../components/CofeeManager/create-price-list-for-rent/create-price-list-for-rent.component'
 import { RentOfferComponent } from '../components/Client/rent-offer/rent-offer.component'
+import { ReviewRentOffersComponent } from '../components/CofeeManager/review-rent-offers/review-rent-offers.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -206,6 +207,11 @@ const routes: Routes = [
     {
         path: 'create-price-list-for-rent',
         component: CreatePriceListForRentComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'review-rent-offers',
+        component: ReviewRentOffersComponent,
         canActivate: [ManagerGuard],
     },
     {

@@ -172,11 +172,31 @@
                             [routerLink]="['/create-table']"
                             >Create Table</a
                         > -->
-                        <a
+                        <button
                             class="custom-color px-3 py-5"
-                            [routerLink]="['/create-price-list-for-rent']"
-                            >Rent local</a
+                            (mouseenter)="openDropdown('rent')"
+                            (mouseleave)="startChecking('rent')"
                         >
+                            Rent
+                        </button>
+                        <div
+                            *ngIf="dropdowns['rent']"
+                            class="absolute left-20 top-12 z-10 w-48 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('rent')"
+                            @dropdown
+                        >
+                            <a
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                [routerLink]="['/create-price-list-for-rent']"
+                                >Rent local</a
+                            >
+                            <a
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                [routerLink]="['/review-rent-offers']"
+                                >Review rent offers</a
+                            >
+                        </div>
                         <a
                             class="custom-color px-3 py-5"
                             [routerLink]="['/jobs-overview', user.id]"

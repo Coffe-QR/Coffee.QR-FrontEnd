@@ -35,6 +35,18 @@ export class RentOfferService {
             .pipe(catchError(this.handleError<any[]>('getAllRentOffers', [])))
     }
 
+    // Get all RentOffers by LocalId
+    getRentOffersByLocalId(localId: number): Observable<any[]> {
+        const url = `${this.apiUrl}/local/${localId}`
+        return this.http
+            .get<any[]>(url)
+            .pipe(
+                catchError(
+                    this.handleError<any[]>('getRentOffersByLocalId', [])
+                )
+            )
+    }
+
     // Update a RentOffer
     updateRentOffer(id: number, rentOffer: any): Observable<any> {
         const url = `${this.apiUrl}/${id}`

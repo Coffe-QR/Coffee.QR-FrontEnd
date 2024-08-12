@@ -14,6 +14,10 @@ export class EventService {
         return this.http.post(this.apiUrl, eventData)
     }
 
+    createRentEvent(eventData: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/rent`, eventData)
+    }
+
     getAllEvents(): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAll`)
     }

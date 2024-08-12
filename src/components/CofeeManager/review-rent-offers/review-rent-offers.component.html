@@ -1,0 +1,110 @@
+<div
+    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
+>
+    <div class="mb-4">
+        <button
+            class="mb-2 mr-2 rounded-lg bg-sky-900 px-4 py-2 text-white duration-300 hover:bg-sky-500"
+            (click)="setFilter('SENT')"
+            [class.bg-gray-300]="selectedStatus === 'SENT'"
+        >
+            Show SENT
+        </button>
+        <button
+            class="btn-custom-color mb-2 mr-2 rounded-lg px-4 py-2"
+            (click)="setFilter('ACCEPTED')"
+            [class.bg-gray-300]="selectedStatus === 'ACCEPTED'"
+        >
+            Show ACCEPTED
+        </button>
+        <button
+            class="mb-2 rounded-lg bg-sky-300 px-4 py-2 text-black duration-300 hover:bg-cyan-700"
+            (click)="setFilter('DECLINED')"
+            [class.bg-gray-300]="selectedStatus === 'DECLINED'"
+        >
+            Show DECLINED
+        </button>
+    </div>
+
+    <div
+        class="mx-auto w-full max-w-4xl animate-flip-down overflow-hidden rounded-lg bg-white bg-opacity-80 shadow-md animate-delay-300 animate-duration-1000"
+    >
+        <div class="max-h-96 overflow-y-auto">
+            <ng-container *ngIf="filteredRentOffers.length > 0; else noOffers">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Username
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Price
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Date/Time
+                            </th>
+                            <th
+                                class="border-b-2 border-gray-200 px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-600"
+                            >
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let offer of filteredRentOffers"
+                            class="duration-500 hover:bg-cyan-50"
+                        >
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{ offer.username }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm font-medium text-gray-900"
+                            >
+                                {{ offer.price | currency }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                {{ offer.dateTime | date: 'dd/MM/yyyy HH:mm' }}
+                            </td>
+                            <td
+                                class="border-b border-gray-200 px-5 py-5 text-center text-sm"
+                            >
+                                <button
+                                    class="btn-custom-color mr-2 rounded px-3 py-1"
+                                    (click)="acceptOffer(offer.id)"
+                                    *ngIf="offer.rentOfferStatus === 'SENT'"
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    class="rounded bg-sky-300 px-3 py-1 text-black duration-300 hover:bg-cyan-700"
+                                    (click)="declineOffer(offer.id)"
+                                    *ngIf="offer.rentOfferStatus === 'SENT'"
+                                >
+                                    Decline
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+            <!-- Template for No Rent Offers -->
+            <ng-template #noOffers>
+                <div
+                    class="flex h-32 items-center justify-center bg-zinc-100 bg-opacity-75 text-gray-500"
+                >
+                    No {{ selectedStatus.toLowerCase() }} rent offers available.
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
