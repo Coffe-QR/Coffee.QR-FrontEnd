@@ -74,6 +74,23 @@
             </select>
         </div>
 
+        <div class="mb-4">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="file"
+            >
+                Local Logo:
+            </label>
+            <input
+                type="file"
+                (change)="onFileSelected($event)"
+                class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-700 shadow focus:outline-none"
+                style="text-align: center; padding-left: 35%; padding-right: 0"
+                name="file"
+                required
+            />
+        </div>
+
         <div class="mt-8 flex items-center justify-center">
             <button
                 class="focus:shadow-outline btn-custom-color rounded px-6 py-3 font-bold text-cyan-900 duration-300 hover:bg-lime-300 hover:text-black focus:outline-none"

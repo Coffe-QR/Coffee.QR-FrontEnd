@@ -10,6 +10,7 @@ import { SeatsioService } from '../../Xuniversal/seatsio.service'
 import { TableService } from '../../Xuniversal/table.service'
 import { TicketService } from '../../Xuniversal/ticket.service'
 import { TicketEventService } from '../../Xuniversal/ticket-event.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-create-local-seat-map',
@@ -37,7 +38,8 @@ export class CreateLocalSeatMapComponent {
         private seatsioService: SeatsioService,
         private tableService: TableService,
         private ticketService: TicketService,
-        private ticketEventService: TicketEventService
+        private ticketEventService: TicketEventService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -46,7 +48,7 @@ export class CreateLocalSeatMapComponent {
 
     saveLocal() {
         if (this.key === '') {
-            alert('Please create a chart first')
+            this.toastr.info('Please create a chart first')
         } else {
             this.localService.getLocalById(this.localId).subscribe({
                 next: (local) => {
@@ -60,6 +62,7 @@ export class CreateLocalSeatMapComponent {
                                 local.dateOfStartingPartnership,
                             isActive: true,
                             chartKey: this.key,
+                            logo: local.logo,
                         })
                         .subscribe({
                             next: (response) => {

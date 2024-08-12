@@ -21,7 +21,8 @@ import { CategoriesInfoDialogComponent } from './manage-event-tickets/categories
 import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component'
 import { CreateTicketForEventComponent } from './create-ticket-for-event/create-ticket-for-event.component'
 import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CreatePriceListForRentComponent } from './create-price-list-for-rent/create-price-list-for-rent.component'
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
         CategoriesInfoDialogComponent,
         ManageEventTicketsComponent,
         CreateTicketForEventComponent,
+        CreatePriceListForRentComponent,
     ],
     imports: [
         CommonModule,

@@ -10,6 +10,7 @@ import { SeatsioService } from '../../Xuniversal/seatsio.service'
 import { TableService } from '../../Xuniversal/table.service'
 import { TicketService } from '../../Xuniversal/ticket.service'
 import { TicketEventService } from '../../Xuniversal/ticket-event.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-update-local-seat-map',
@@ -26,11 +27,11 @@ export class UpdateLocalSeatMapComponent implements OnInit {
         secretKey: '709f52bc-9892-4334-b511-99fe2a56646a',
         chartKey: '',
         onChartCreated: (chartKey) => {
-            alert(this.key)
+            //alert(this.key)
             if (this.key === null) {
                 this.key = chartKey
-                alert(this.key)
-                alert(chartKey)
+                //  alert(this.key)
+                //  alert(chartKey)
             }
         },
     }
@@ -42,7 +43,8 @@ export class UpdateLocalSeatMapComponent implements OnInit {
         private seatsioService: SeatsioService,
         private tableService: TableService,
         private ticketService: TicketService,
-        private ticketEventService: TicketEventService
+        private ticketEventService: TicketEventService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -71,7 +73,7 @@ export class UpdateLocalSeatMapComponent implements OnInit {
 
     saveLocal() {
         if (this.key === '') {
-            alert('Please create a chart first')
+            this.toastr.info('Please create a chart first')
         } else {
             this.tableService.deleteTableByLocalId(this.localId).subscribe({
                 next: (response) => console.log('Tables deleted:', response),
@@ -91,6 +93,7 @@ export class UpdateLocalSeatMapComponent implements OnInit {
                                 local.dateOfStartingPartnership,
                             isActive: true,
                             chartKey: this.key,
+                            logo: local.logo,
                         })
                         .subscribe({
                             next: (response) => {

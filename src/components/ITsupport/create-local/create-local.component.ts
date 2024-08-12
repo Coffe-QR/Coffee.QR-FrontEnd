@@ -3,6 +3,7 @@ import { LocalService } from '../../Xuniversal/local.service'
 import { Router } from '@angular/router'
 import { AuthService } from '../../../auth/auth.service'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
+import { UploadService } from '../../../shared/upload.service'
 
 @Component({
     selector: 'app-create-local',
@@ -22,13 +23,15 @@ export class CreateLocalComponent implements OnInit {
     managerId: number = 0
     managers: any[] = []
     localId: number = 0
+    localLogo: string = ''
     //localIsActive: boolean = true
 
     constructor(
         private localService: LocalService,
         private router: Router,
         private authService: AuthService,
-        private localUserService: LocalUserService
+        private localUserService: LocalUserService,
+        private uploadService: UploadService
     ) {}
 
     ngOnInit(): void {
@@ -47,6 +50,7 @@ export class CreateLocalComponent implements OnInit {
             city: this.localCity,
             dateOfStartingPartnership: this.localDateOfStartingPartnership,
             isActive: false,
+            logo: this.localLogo,
         }
 
         this.localService.createLocal(localData).subscribe({
@@ -73,5 +77,20 @@ export class CreateLocalComponent implements OnInit {
             },
             error: (error) => console.error('Error creating local:', error),
         })
+    }
+
+    onFileSelected(logo: any): void {
+        const file: File = logo.target.files[0]
+
+        if (file) {
+            this.uploadService.uploadImage(file).subscribe({
+                next: (response) => {
+                    this.localLogo = response.path
+                },
+                error: (error) => {
+                    console.error('Error uploading image:', error)
+                },
+            })
+        }
     }
 }

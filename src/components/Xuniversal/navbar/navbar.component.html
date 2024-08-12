@@ -68,7 +68,18 @@
                     <a
                         *ngIf="
                             user &&
-                            (user.username == '' || user.role === 'client')
+                            user.username != '' &&
+                            user.role === 'client'
+                        "
+                        [routerLink]="['/locals-overview']"
+                        class="custom-color px-3 py-5"
+                        >Locals for rent</a
+                    >
+                    <a
+                        *ngIf="
+                            user &&
+                            user.username != '' &&
+                            user.role === 'client'
                         "
                         [routerLink]="['/tickets-overview']"
                         class="custom-color px-3 py-5"
@@ -161,6 +172,11 @@
                             [routerLink]="['/create-table']"
                             >Create Table</a
                         > -->
+                        <a
+                            class="custom-color px-3 py-5"
+                            [routerLink]="['/create-price-list-for-rent']"
+                            >Rent local</a
+                        >
                         <a
                             class="custom-color px-3 py-5"
                             [routerLink]="['/jobs-overview', user.id]"

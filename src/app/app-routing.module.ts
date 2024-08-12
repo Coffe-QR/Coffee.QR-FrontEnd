@@ -45,6 +45,8 @@ import { CreateTicketForEventComponent } from '../components/CofeeManager/create
 import { ManageLocalsComponent } from '../components/ITsupport/manage-locals/manage-locals.component'
 import { UpdateLocalSeatMapComponent } from '../components/ITsupport/update-local-seat-map/update-local-seat-map.component'
 import { TicketsOverviewComponent } from '../components/Client/tickets-overview/tickets-overview.component'
+import { LocalsOverviewComponent } from '../components/Client/locals-overview/locals-overview.component'
+import { CreatePriceListForRentComponent } from '../components/CofeeManager/create-price-list-for-rent/create-price-list-for-rent.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -121,6 +123,11 @@ const routes: Routes = [
         canActivate: [ClientGuard],
     },
     {
+        path: 'locals-overview',
+        component: LocalsOverviewComponent,
+        canActivate: [ClientGuard],
+    },
+    {
         path: 'tickets-overview',
         component: TicketsOverviewComponent,
         canActivate: [ClientGuard],
@@ -188,6 +195,11 @@ const routes: Routes = [
     {
         path: 'ticket-sale-report',
         component: TicketSaleReportComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-price-list-for-rent',
+        component: CreatePriceListForRentComponent,
         canActivate: [ManagerGuard],
     },
     {
