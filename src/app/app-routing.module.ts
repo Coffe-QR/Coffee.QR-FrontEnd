@@ -47,6 +47,7 @@ import { UpdateLocalSeatMapComponent } from '../components/ITsupport/update-loca
 import { TicketsOverviewComponent } from '../components/Client/tickets-overview/tickets-overview.component'
 import { LocalsOverviewComponent } from '../components/Client/locals-overview/locals-overview.component'
 import { CreatePriceListForRentComponent } from '../components/CofeeManager/create-price-list-for-rent/create-price-list-for-rent.component'
+import { RentOfferComponent } from '../components/Client/rent-offer/rent-offer.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -125,6 +126,11 @@ const routes: Routes = [
     {
         path: 'locals-overview',
         component: LocalsOverviewComponent,
+        canActivate: [ClientGuard],
+    },
+    {
+        path: 'rent-offer/:localId',
+        component: RentOfferComponent,
         canActivate: [ClientGuard],
     },
     {

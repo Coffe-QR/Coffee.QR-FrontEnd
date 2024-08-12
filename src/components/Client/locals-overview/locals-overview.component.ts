@@ -16,6 +16,7 @@ export class LocalsOverviewComponent implements OnInit {
             .getAllLocalsWithActiveRentPriceList()
             .subscribe((locals) => {
                 this.locals = locals
+                console.log(this.locals)
 
                 this.locals.sort((a, b) => {
                     const priceA = a.activeRentPrice ?? Infinity

@@ -1,0 +1,35 @@
+<div class="custom-bg-events flex h-screen">
+    <div class="m-auto flex w-5/12 flex-col">
+        <div
+            class="m-auto w-full animate-flip-down gap-4 rounded-md bg-white bg-opacity-15 p-7 animate-delay-300 animate-duration-1000"
+            style="height: 50vh"
+        >
+            <si-seatsio-seating-chart
+                [config]="config"
+                class="rounded-md"
+            ></si-seatsio-seating-chart>
+        </div>
+        <div class="mb-4 mt-4 text-center">
+            <label
+                class="mb-2 block text-2xl font-bold text-stone-50"
+                for="datetime"
+            >
+                Available dates for rent:
+            </label>
+
+            <input
+                type="datetime-local"
+                id="datePicker"
+                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
+                [(ngModel)]="rentDateTime"
+                name="datetime"
+                required
+            />
+        </div>
+        <button
+            class="mx-auto mt-1 w-56 rounded-lg bg-transparent bg-zinc-300 p-2 font-semibold uppercase duration-300 hover:bg-zinc-700 hover:text-zinc-100"
+        >
+            Send offer
+        </button>
+    </div>
+</div>
