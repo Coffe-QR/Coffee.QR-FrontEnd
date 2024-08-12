@@ -5,7 +5,7 @@ import { ManagerLandingPageComponent } from './manager-landing-page/manager-land
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { SupplyCreateComponent } from './supply-create/supply-create.component'
 import { EventsOverviewComponent } from './events-overview/events-overview.component'
-import { FilterPipe } from '../../shared/filter-pipe'
+
 import { CreateTableComponent } from './create-table/create-table.component'
 import { CreateTicketComponent } from './create-ticket/create-ticket.component'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -21,9 +21,10 @@ import { CategoriesInfoDialogComponent } from './manage-event-tickets/categories
 import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event-tickets.component'
 import { CreateTicketForEventComponent } from './create-ticket-for-event/create-ticket-for-event.component'
 import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CreatePriceListForRentComponent } from './create-price-list-for-rent/create-price-list-for-rent.component';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { CreatePriceListForRentComponent } from './create-price-list-for-rent/create-price-list-for-rent.component'
 import { ReviewRentOffersComponent } from './review-rent-offers/review-rent-offers.component'
+import { SharedModule } from '../../shared/shared.module'
 
 @NgModule({
     declarations: [
@@ -31,7 +32,7 @@ import { ReviewRentOffersComponent } from './review-rent-offers/review-rent-offe
         ManagerLandingPageComponent,
         SupplyCreateComponent,
         EventsOverviewComponent,
-        FilterPipe,
+
         CreateTableComponent,
         CreateTicketComponent,
         EventDescriptionDialogComponent,
@@ -55,6 +56,7 @@ import { ReviewRentOffersComponent } from './review-rent-offers/review-rent-offe
         MatInputModule,
         MatFormFieldModule,
         ReactiveFormsModule,
+        SharedModule,
     ],
     exports: [
         CreateEventComponent,

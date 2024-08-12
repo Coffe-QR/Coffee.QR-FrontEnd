@@ -45,7 +45,7 @@ export class CreateTicketComponent implements OnInit {
     ngOnInit(): void {
         this.userId = this.authService.user$.getValue().id
 
-        this.eventService.getAllEventsByUserId(this.userId).subscribe({
+        this.eventService.getFutureEventsByUserId(this.userId).subscribe({
             next: (response: any) => {
                 this.events = response
             },

@@ -13,6 +13,7 @@ import { PaymentCompletedComponent } from './payment-completed/payment-completed
 import { GoogleFormComponent } from './google-form/google-form.component'
 import { TicketSeatSelectComponent } from './ticket-seat-select/ticket-seat-select.component'
 import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
+import { SharedModule } from '../../shared/shared.module'
 
 @NgModule({
     declarations: [
@@ -27,7 +28,13 @@ import { SeatsioAngularModule } from '@seatsio/seatsio-angular'
         GoogleFormComponent,
         TicketSeatSelectComponent,
     ],
-    imports: [CommonModule, FormsModule, RouterModule, SeatsioAngularModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        SeatsioAngularModule,
+        SharedModule,
+    ],
     exports: [
         SupplyStatusComponent,
         SupplyDetailsComponent,

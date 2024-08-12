@@ -4,6 +4,7 @@ import { LocalService } from '../local.service'
 import { forkJoin, Observable } from 'rxjs'
 import { mergeMap, map } from 'rxjs/operators'
 import { Event } from '../../../auth/model/event.model'
+import moment from 'moment'
 
 interface LocalNameMap {
     [id: number]: string
@@ -16,6 +17,10 @@ interface LocalNameMap {
 })
 export class AllEventsOverviewComponent implements OnInit {
     events: Event[] = []
+    searchTerm: string = ''
+    startDate: string = ''
+    endDate: string = ''
+    allEvents: any[] = [] // Store all events
 
     constructor(
         private eventService: EventService,
@@ -28,7 +33,7 @@ export class AllEventsOverviewComponent implements OnInit {
 
     fetchEventsWithLocalNames(): void {
         this.eventService
-            .getAllEvents()
+            .getFutureEvents()
             .pipe(
                 mergeMap((events: Event[]): Observable<Event[]> => {
                     const localIds = events.map((event) => event.localId)
@@ -47,6 +52,7 @@ export class AllEventsOverviewComponent implements OnInit {
             .subscribe(
                 (eventsWithLocals: Event[]) => {
                     this.events = eventsWithLocals
+                    this.allEvents = eventsWithLocals
                 },
                 (err) => console.error('Failed to load events:', err)
             )
@@ -68,5 +74,21 @@ export class AllEventsOverviewComponent implements OnInit {
                 return localNamesMap
             })
         )
+    }
+
+    filterEvents(): void {
+        if (this.startDate && this.endDate) {
+            this.events = this.allEvents.filter((event) => {
+                const eventDate = moment(event.dateTime)
+                return eventDate.isBetween(
+                    moment(this.startDate),
+                    moment(this.endDate),
+                    'days',
+                    '[]'
+                )
+            })
+        } else {
+            this.events = this.allEvents
+        }
     }
 }

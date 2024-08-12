@@ -45,7 +45,7 @@ export class EventsOverviewComponent implements OnInit {
     }
 
     loadEvents(): void {
-        this.eventService.getAllEventsByUserId(this.userId).subscribe({
+        this.eventService.getFutureEventsByUserId(this.userId).subscribe({
             next: (data) => {
                 this.allEvents = data
 

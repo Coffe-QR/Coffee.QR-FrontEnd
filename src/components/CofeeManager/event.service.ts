@@ -41,4 +41,12 @@ export class EventService {
     getEventsByLocalId(localId: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/local/${localId}/events`)
     }
+
+    getFutureEvents(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/future`)
+    }
+
+    getFutureEventsByUserId(userId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/future/byUser/${userId}`)
+    }
 }
