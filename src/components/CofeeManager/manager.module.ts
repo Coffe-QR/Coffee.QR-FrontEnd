@@ -22,7 +22,8 @@ import { ManageEventTicketsComponent } from './manage-event-tickets/manage-event
 import { CreateTicketForEventComponent } from './create-ticket-for-event/create-ticket-for-event.component'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CreatePriceListForRentComponent } from './create-price-list-for-rent/create-price-list-for-rent.component'
+import { CreatePriceListForRentComponent } from './create-price-list-for-rent/create-price-list-for-rent.component';
+import { ReviewRentOffersComponent } from './review-rent-offers/review-rent-offers.component'
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { CreatePriceListForRentComponent } from './create-price-list-for-rent/cr
         ManageEventTicketsComponent,
         CreateTicketForEventComponent,
         CreatePriceListForRentComponent,
+        ReviewRentOffersComponent,
     ],
     imports: [
         CommonModule,

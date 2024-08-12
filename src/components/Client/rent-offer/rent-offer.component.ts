@@ -9,6 +9,7 @@ import { toZonedTime } from 'date-fns-tz'
 import Swal from 'sweetalert2'
 import { LocalService } from '../../Xuniversal/local.service'
 import { AuthService } from '../../../auth/auth.service'
+import { RentOfferService } from '../rent-offer.service'
 
 @Component({
     selector: 'app-rent-offer',
@@ -41,7 +42,8 @@ export class RentOfferComponent implements OnInit {
         private eventService: EventService,
         private route: ActivatedRoute,
         private localService: LocalService,
-        private authService: AuthService
+        private authService: AuthService,
+        private rentOfferService: RentOfferService
     ) {}
 
     ngOnInit(): void {
@@ -117,12 +119,26 @@ export class RentOfferComponent implements OnInit {
                     'success'
                 )
 
+                const formattedDateTime = new Date(
+                    this.rentDateTime
+                ).toISOString()
+
                 const data = {
                     userId: this.userId,
                     localId: this.localId,
                     price: this.price,
-                    dateTime: this.rentDateTime,
+                    dateTime: formattedDateTime,
+                    rentOfferStatus: 'SENT',
                 }
+
+                this.rentOfferService.createRentOffer(data).subscribe(
+                    (response) => {
+                        console.log(response)
+                    },
+                    (error) => {
+                        console.error('Error sending offer:', error)
+                    }
+                )
             } else {
                 Swal.fire('Cancelled', 'The offer has not been sent.', 'info')
             }
