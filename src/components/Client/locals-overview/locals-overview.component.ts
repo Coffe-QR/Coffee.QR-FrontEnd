@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { LocalService } from '../../Xuniversal/local.service'
+import { Route, Router } from '@angular/router'
 
 @Component({
     selector: 'app-locals-overview',
@@ -9,7 +10,10 @@ import { LocalService } from '../../Xuniversal/local.service'
 export class LocalsOverviewComponent implements OnInit {
     locals: any[] = []
 
-    constructor(private localService: LocalService) {}
+    constructor(
+        private localService: LocalService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.localService
@@ -24,5 +28,10 @@ export class LocalsOverviewComponent implements OnInit {
                     return priceA - priceB
                 })
             })
+    }
+
+    showDetails(local: any, price: any): void {
+        this.localService.setPrice(price)
+        this.router.navigate(['/rent-offer/', local.id])
     }
 }

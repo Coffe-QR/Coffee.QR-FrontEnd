@@ -73,7 +73,9 @@
                         </h3>
                         <div class="mt-4">
                             <button
-                                [routerLink]="['/rent-offer/', local.id]"
+                                (click)="
+                                    showDetails(local, local.activeRentPrice)
+                                "
                                 class="absolute bottom-0 left-0 flex h-9 w-full items-center rounded bg-zinc-500 px-4 py-1 font-semibold text-zinc-50 duration-300 hover:bg-zinc-950"
                             >
                                 Details

@@ -6,6 +6,9 @@ import { ActivatedRoute } from '@angular/router'
 import flatpickr from 'flatpickr'
 import { format, isSameDay, parse, parseISO } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
+import Swal from 'sweetalert2'
+import { LocalService } from '../../Xuniversal/local.service'
+import { AuthService } from '../../../auth/auth.service'
 
 @Component({
     selector: 'app-rent-offer',
@@ -14,15 +17,20 @@ import { toZonedTime } from 'date-fns-tz'
 })
 export class RentOfferComponent implements OnInit {
     localId: number = 0
+    localName: string = ''
     eventName: string = ''
     rentDateTime: string = ''
+    formattedRentDateTime: string = ''
     events: any[] = []
+    price: number = 0
+    userId: number = 0
 
     config: EmbeddableProps<ChartRendererConfigOptions> = {
         region: 'eu',
         workspaceKey: '2d3804d9-bcc2-44cd-b613-b2e5afb398cb',
         event: '',
-        numberOfPlacesToSelect: 1,
+
+        mode: 'static',
     }
 
     sanitizeEventKey(key: string): string {
@@ -31,11 +39,20 @@ export class RentOfferComponent implements OnInit {
 
     constructor(
         private eventService: EventService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private localService: LocalService,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
+        this.userId = this.authService.user$.getValue().id
         this.localId = this.route.snapshot.params['localId']
+
+        this.price = this.localService.getPrice()
+
+        this.localService.getLocalById(this.localId).subscribe((local) => {
+            this.localName = local.name
+        })
 
         this.eventService
             .getEventsByLocalId(this.localId)
@@ -66,6 +83,49 @@ export class RentOfferComponent implements OnInit {
                     }
                 })
             },
+        })
+    }
+
+    formatRentDateTime(): void {
+        this.formattedRentDateTime = format(
+            new Date(this.rentDateTime),
+            'dd/MM/yyyy HH:mm'
+        )
+    }
+
+    sendOffer(): void {
+        this.formatRentDateTime()
+        Swal.fire({
+            title: 'Send Offer',
+            text:
+                'Are you sure you want to send offer for ' +
+                this.localName +
+                ' at ' +
+                this.formattedRentDateTime +
+                ' appointment for the price ' +
+                this.price +
+                '$?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Offer Sent',
+                    'The offer has been sent successfully!',
+                    'success'
+                )
+
+                const data = {
+                    userId: this.userId,
+                    localId: this.localId,
+                    price: this.price,
+                    dateTime: this.rentDateTime,
+                }
+            } else {
+                Swal.fire('Cancelled', 'The offer has not been sent.', 'info')
+            }
         })
     }
 }

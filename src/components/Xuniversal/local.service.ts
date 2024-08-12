@@ -6,6 +6,8 @@ import { Observable } from 'rxjs'
     providedIn: 'root',
 })
 export class LocalService {
+    private price: number = 0
+
     private apiUrl = 'https://localhost:44333/api/local'
 
     constructor(private http: HttpClient) {}
@@ -34,5 +36,13 @@ export class LocalService {
         return this.http.get<any[]>(
             `${this.apiUrl}/locals-with-active-rent-price-list`
         )
+    }
+
+    setPrice(price: number): void {
+        this.price = price
+    }
+
+    getPrice(): number {
+        return this.price
     }
 }
