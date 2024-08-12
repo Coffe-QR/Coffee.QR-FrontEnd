@@ -12,9 +12,16 @@ export class LocalsOverviewComponent implements OnInit {
     constructor(private localService: LocalService) {}
 
     ngOnInit(): void {
-        this.localService.getAllLocals().subscribe((locals) => {
-            this.locals = locals
-            console.log(locals)
-        })
+        this.localService
+            .getAllLocalsWithActiveRentPriceList()
+            .subscribe((locals) => {
+                this.locals = locals
+
+                this.locals.sort((a, b) => {
+                    const priceA = a.activeRentPrice ?? Infinity
+                    const priceB = b.activeRentPrice ?? Infinity
+                    return priceA - priceB
+                })
+            })
     }
 }

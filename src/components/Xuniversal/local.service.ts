@@ -29,4 +29,10 @@ export class LocalService {
     updateLocal(localData: any): Observable<any> {
         return this.http.put(`${this.apiUrl}/UpdateLocal`, localData)
     }
+
+    getAllLocalsWithActiveRentPriceList(): Observable<any[]> {
+        return this.http.get<any[]>(
+            `${this.apiUrl}/locals-with-active-rent-price-list`
+        )
+    }
 }

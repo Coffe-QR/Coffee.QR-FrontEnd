@@ -59,27 +59,47 @@ export class CreatePriceListForRentComponent implements OnInit {
             pricingDate: new Date().toISOString().split('T')[0],
             isActive: true,
         }
-        this.localRentService.createLocalRentPriceList(data).subscribe({
+        if (this.price <= 0) {
+            this.toastr.error('Price must be greater than 0')
+        } else {
+            this.localRentService.createLocalRentPriceList(data).subscribe({
+                next: (response) => {
+                    this.toastr.success('Rent price updated successfully')
+                    this.localRentService
+                        .getActiveLocalRentPriceList(this.localId)
+                        .subscribe({
+                            next: (response) => {
+                                console.log(response)
+                                if (response) {
+                                    this.currentPrice = response.price
+                                    this.pricingDate = response.pricingDate
+                                    this.price = 0
+                                }
+                            },
+                            error: (error) => {
+                                console.log(error)
+                            },
+                        })
+                },
+                error: (error) => {
+                    console.log(error)
+                },
+            })
+        }
+    }
+
+    deactivatePriceList() {
+        this.localRentService.deactivateAllByLocalId(this.localId).subscribe({
             next: (response) => {
-                this.toastr.success('Rent price updated successfully')
-                this.localRentService
-                    .getActiveLocalRentPriceList(this.localId)
-                    .subscribe({
-                        next: (response) => {
-                            console.log(response)
-                            if (response) {
-                                this.currentPrice = response.price
-                                this.pricingDate = response.pricingDate
-                                this.price = 0
-                            }
-                        },
-                        error: (error) => {
-                            console.log(error)
-                        },
-                    })
+                this.toastr.success('Rent price cancelled successfully')
+                this.currentPrice = 0
+                this.pricingDate = ''
+                this.price = 0
             },
             error: (error) => {
-                console.log(error)
+                this.toastr.error(
+                    'You can not cancel because you do not have active price list'
+                )
             },
         })
     }

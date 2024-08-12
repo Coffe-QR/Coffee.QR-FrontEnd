@@ -18,4 +18,11 @@ export class LocalRentService {
         const url = `${this.apiUrl}/active/${localId}`
         return this.http.get<any>(url)
     }
+
+    deactivateAllByLocalId(localId: number): Observable<void> {
+        return this.http.put<void>(
+            `${this.apiUrl}/deactivate-by-local/${localId}`,
+            {}
+        )
+    }
 }

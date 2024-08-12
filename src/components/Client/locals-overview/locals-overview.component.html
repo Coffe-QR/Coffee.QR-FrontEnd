@@ -1,6 +1,17 @@
 <div class="custom-bg-events flex h-screen">
     <div class="container m-auto mt-32 max-h-72">
         <div
+            *ngIf="locals.length == 0"
+            class="flex h-screen items-center justify-center text-center"
+            style="max-height: 40rem"
+        >
+            <h1
+                class="text-5xl font-semibold uppercase text-zinc-200 duration-1000 hover:text-6xl"
+            >
+                No available locals for rent
+            </h1>
+        </div>
+        <div
             class="scrollbar mx-auto grid w-9/12 animate-flip-down grid-cols-1 gap-16 gap-x-6 overflow-auto p-4 animate-delay-300 animate-duration-1000 md:grid-cols-2 lg:grid-cols-3"
             style="max-height: 49rem"
         >
@@ -58,7 +69,7 @@
                                 />
                             </svg>
 
-                            {{ local.dateTime | date: 'dd.MM.yyyy. HH:mm' }}
+                            {{ local.activeRentPrice || 'No price available' }}
                         </h3>
                         <div class="mt-4">
                             <button
