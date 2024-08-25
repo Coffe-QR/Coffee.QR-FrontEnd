@@ -148,11 +148,13 @@ export class PaymentComponent implements OnInit {
                                                     ),
                                             })
                                     },
-                                    error: (error) =>
+                                    error: (error) => {
                                         console.error(
                                             'Error creating ticket user:',
                                             error
-                                        ),
+                                        )
+                                        console
+                                    },
                                 })
                         }
                     })

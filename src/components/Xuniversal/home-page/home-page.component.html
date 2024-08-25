@@ -13,12 +13,14 @@
                 The best application for improving the experience in coffee
                 shops, restaurants, and nightclubs.
             </p>
-            <button
-                (click)="login()"
-                class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
-            >
-                Login to start
-            </button>
+            <div *ngIf="showLogin">
+                <button
+                    (click)="login()"
+                    class="mt-8 rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+                >
+                    Login to start
+                </button>
+            </div>
         </div>
     </div>
 </div>

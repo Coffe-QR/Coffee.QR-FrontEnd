@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { AuthService } from '../../../auth/auth.service'
 import { LocalUserService } from '../../Xuniversal/local-user.service'
 import { UploadService } from '../../../shared/upload.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-create-local',
@@ -31,13 +32,17 @@ export class CreateLocalComponent implements OnInit {
         private router: Router,
         private authService: AuthService,
         private localUserService: LocalUserService,
-        private uploadService: UploadService
+        private uploadService: UploadService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
         this.authService.getAllManagersWithoutLocal().subscribe({
             next: (response) => {
                 this.managers = response
+                if (this.managers.length === 0) {
+                    this.toastr.info('No managers available to create a local')
+                }
                 console.log('Managers:', response)
             },
             error: (error) => console.error('Error getting managers:', error),

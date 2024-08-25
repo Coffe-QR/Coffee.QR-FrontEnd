@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
             this.isDisabled = true
             this.authService.register(registration).subscribe({
                 next: () => {
-                    this.router.navigate(['/login'])
+                    this.router.navigate(['/'])
                     this.isDisabled = false
                 },
                 error: (err) => {
