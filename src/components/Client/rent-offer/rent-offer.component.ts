@@ -62,6 +62,7 @@ export class RentOfferComponent implements OnInit {
                 this.events = events
                 this.initializeFlatpickr(events)
                 this.eventName = this.sanitizeEventKey(events[0].name)
+                console.log(this.eventName)
                 this.config.event = this.eventName
             })
     }
