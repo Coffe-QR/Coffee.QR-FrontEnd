@@ -20,11 +20,12 @@ export class MenuOverviewComponent implements OnInit {
     tableName: string = ''
     Drinks: any[] = []
     Foods: any[] = []
+    selectedItems: any[] = []
 
     addedQuantity: number = 0
 
     // Properties
-    orderPrice: number = 100
+    orderPrice: number = 0
     orderDescription: string = ''
     orderDate: string = ''
     orderIsActive: boolean = true
@@ -57,6 +58,7 @@ export class MenuOverviewComponent implements OnInit {
         this.menuItemService.getAllDrinksForMenu(this.menuId).subscribe({
             next: (data) => {
                 this.Drinks = data
+
                 console.log('Drinks:', this.Drinks)
             },
             error: (err) => console.error('Failed to load drinks:', err),
@@ -69,6 +71,31 @@ export class MenuOverviewComponent implements OnInit {
             error: (err) => console.error('Failed to load food:', err),
         })
     }
+
+    incrementQuantity(drink: any): void {
+        drink.quantity++
+        this.selectedItems.push(drink)
+    }
+
+    decrementQuantity(drink: any): void {
+        if (drink.quantity > 0) {
+            drink.quantity--
+        }
+    }
+
+    //    addedItems: number[] = []
+
+    // addItemToOrder(itemId: number): void {
+    //     this.addedItems.push(itemId)
+    //     this.addedQuantity++
+    //     console.log('Added items:', this.addedItems)
+    // }
+
+    // removeItemFromOrder(itemId: number): void {
+    //     this.addedItems = this.addedItems.filter((id) => id !== itemId)
+    //     this.addedQuantity--
+    //     console.log('Added items after remove:', this.addedItems)
+    // }
 
     callWaiter() {
         const notificationData = {
@@ -108,6 +135,14 @@ export class MenuOverviewComponent implements OnInit {
 
     order(): void {
         this.orderDate = new Date().toISOString().split('T')[0]
+        const distinctItems = this.selectedItems.filter(
+            (item, index, self) => self.indexOf(item) === index
+        )
+
+        this.orderPrice = distinctItems.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        )
 
         const orderData = {
             price: this.orderPrice,
@@ -123,22 +158,23 @@ export class MenuOverviewComponent implements OnInit {
         this.orderService.createOrder(orderData).subscribe({
             next: (data) => {
                 this.toastr.success('Order created successfully!')
+
+                distinctItems.forEach((item) => {
+                    const orderItemData = {
+                        quantity: item.quantity,
+                        orderId: data.id,
+                        itemId: item.id,
+                    }
+                    console.log('Item:', orderItemData)
+                    this.orderItemService
+                        .createOrderItem(orderItemData)
+                        .subscribe({
+                            next: (data) => {},
+                            error: (error) => console.error('GREDA:', error),
+                        })
+                })
             },
             error: (error) => console.error('GREDA:', error),
         })
-    }
-
-    addedItems: number[] = []
-
-    addItemToOrder(itemId: number): void {
-        this.addedItems.push(itemId)
-        this.addedQuantity++
-        console.log('Added items:', this.addedItems)
-    }
-
-    removeItemFromOrder(itemId: number): void {
-        this.addedItems = this.addedItems.filter((id) => id !== itemId)
-        this.addedQuantity--
-        console.log('Added items after remove:', this.addedItems)
     }
 }

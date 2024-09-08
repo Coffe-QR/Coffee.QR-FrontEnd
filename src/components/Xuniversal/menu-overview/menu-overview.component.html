@@ -14,9 +14,11 @@
                     class="flex items-center justify-center space-x-8 rounded-lg bg-white bg-opacity-25 p-4 duration-300 hover:bg-opacity-50"
                 >
                     <img
-                        [src]="drink.picture"
+                        [src]="
+                            'https://localhost:44333/resources' + drink.picture
+                        "
                         alt="{{ drink.name }}"
-                        class="mr-24 h-24 w-24 rounded-lg object-cover"
+                        class="mr-24 h-36 w-36 rounded-lg object-cover"
                     />
                     <div
                         class="flex flex-col items-center justify-center space-y-2 text-center"
@@ -30,7 +32,7 @@
                         </p>
                         <div class="mt-2 flex items-center space-x-4">
                             <button
-                                (click)="removeItemFromOrder(drink.id)"
+                                (click)="decrementQuantity(drink)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 -
@@ -39,7 +41,7 @@
                                 {{ drink.quantity }}
                             </p>
                             <button
-                                (click)="addItemToOrder(drink.id)"
+                                (click)="incrementQuantity(drink)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 +
@@ -58,9 +60,11 @@
                     class="flex items-center justify-center space-x-8 rounded-lg bg-white bg-opacity-25 p-4 duration-300 hover:bg-opacity-50"
                 >
                     <img
-                        [src]="food.picture"
+                        [src]="
+                            'https://localhost:44333/resources' + food.picture
+                        "
                         alt="{{ food.name }}"
-                        class="mr-24 h-24 w-24 rounded-lg object-cover"
+                        class="mr-24 h-36 w-36 rounded-lg object-cover"
                     />
                     <div
                         class="flex flex-col items-center justify-center space-y-2 text-center"
@@ -74,7 +78,7 @@
                         </p>
                         <div class="mt-2 flex items-center space-x-4">
                             <button
-                                (click)="removeItemFromOrder(food.id)"
+                                (click)="decrementQuantity(food)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 -
@@ -83,7 +87,7 @@
                                 {{ food.quantity }}
                             </p>
                             <button
-                                (click)="addItemToOrder(food.id)"
+                                (click)="incrementQuantity(food)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 +

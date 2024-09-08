@@ -34,8 +34,6 @@ export class CreateItemComponent implements OnInit {
             picture: this.itemPicture,
         }
 
-        alert(this.itemType)
-
         this.submitAttempted = true
         if (this.itemPrice <= 0) {
             return
@@ -43,7 +41,6 @@ export class CreateItemComponent implements OnInit {
 
         this.itemService.createItem(itemData).subscribe({
             next: (response) => {
-                alert('Item created successfully')
                 this.router.navigate(['/manager'])
             },
             error: (error) => console.error('Error creating item:', error),
