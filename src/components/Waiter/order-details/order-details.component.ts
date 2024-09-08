@@ -31,6 +31,8 @@ export class OrderDetailsComponent implements OnInit {
         this.authService.user$.subscribe((user) => {
             this.user = user
         })
+
+        console.log(this.user)
         this.userId = this.authService.user$.getValue().id
 
         const orderIdParam = this.route.snapshot.paramMap.get('orderId')

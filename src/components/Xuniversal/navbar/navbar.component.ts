@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit {
                 case 'client':
                     return '/client'
                 case 'bartender':
-                    return '/bartender'
+                    return '/notifications-overview-bartender'
                 case 'itsupport':
                     return '/it-support'
                 case 'waiter':

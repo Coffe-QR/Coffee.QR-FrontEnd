@@ -1,5 +1,9 @@
 <div
-    class="custom-bg-waiter flex h-screen flex-col items-center justify-center"
+    [ngClass]="{
+        'custom-bg-waiter': user?.role === 'waiter',
+        'custom-bg-bartender': user?.role === 'bartender'
+    }"
+    class="flex h-screen flex-col items-center justify-center"
 >
     <h1 class="mb-5 animate-fade-down text-3xl font-semibold text-slate-100">
         Order NO. {{ order.id }}
@@ -23,7 +27,7 @@
                 class="flex h-48 items-center justify-center space-x-8"
             >
                 <img
-                    [src]="item.picture"
+                    [src]="'https://localhost:44333/resources' + item.picture"
                     alt="item.name"
                     class="h-3/4 rounded-lg object-cover"
                 />
@@ -46,18 +50,18 @@
     >
         <p class="text-xl font-semibold text-gray-800">No items in the order</p>
     </div>
-    <div>
-    <button
-        (click)="markAsDone(orderId)"
-        class="ml-4 mr-10 mt-9 animate-fade-down rounded bg-slate-600 px-6 py-4 text-lg text-slate-100 transition duration-300 hover:bg-slate-800"
-    >
-        Mark as done
-    </button>
-    <button
-        (click)="printReceipt(orderId)"
-        class="ml-4 mr-10 mt-9 animate-fade-down rounded bg-slate-600 px-6 py-4 text-lg text-slate-100 transition duration-300 hover:bg-slate-800"
-    >
-        Print receipt
-    </button>
+    <div *ngIf="user?.role === 'waiter'">
+        <button
+            (click)="markAsDone(orderId)"
+            class="ml-4 mr-10 mt-9 animate-fade-down rounded bg-slate-600 px-6 py-4 text-lg text-slate-100 transition duration-300 hover:bg-slate-800"
+        >
+            Mark as done
+        </button>
+        <button
+            (click)="printReceipt(orderId)"
+            class="ml-4 mr-10 mt-9 animate-fade-down rounded bg-slate-600 px-6 py-4 text-lg text-slate-100 transition duration-300 hover:bg-slate-800"
+        >
+            Print receipt
+        </button>
     </div>
 </div>

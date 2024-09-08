@@ -38,6 +38,8 @@ import { MenuDetailsComponent } from '../components/CofeeManager/menu-details/me
 import { CreateItemComponent } from '../components/CofeeManager/create-item/create-item.component'
 import { OrderDetailsComponent } from '../components/Waiter/order-details/order-details.component'
 import { TicketSaleReportComponent } from '../components/CofeeManager/ticket-sale-report/ticket-sale-report.component'
+import { NotificationOverviewBartenderComponent } from '../components/Bartender/notification-overview-bartender/notification-overview-bartender.component'
+import { WaiterBartenderGuard } from '../auth/waiter_bartender.guard'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -98,9 +100,14 @@ const routes: Routes = [
     },
 
     //--------------------ROLES--------------------
+    // {
+    //     path: 'bartender',
+    //     component: BartenderLandingPageComponent,
+    //     canActivate: [BartenderGuard],
+    // },
     {
-        path: 'bartender',
-        component: BartenderLandingPageComponent,
+        path: 'notifications-overview-bartender',
+        component: NotificationOverviewBartenderComponent,
         canActivate: [BartenderGuard],
     },
     {
@@ -198,7 +205,7 @@ const routes: Routes = [
     {
         path: 'order-details/:orderId',
         component: OrderDetailsComponent,
-        canActivate: [WaiterGuard],
+        canActivate: [WaiterBartenderGuard],
     },
     {
         path: 'google-form',

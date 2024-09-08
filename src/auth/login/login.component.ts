@@ -60,7 +60,9 @@ export class LoginComponent {
                     } else if (
                         this.authService.user$.value.role === 'bartender'
                     ) {
-                        this.router.navigate(['/bartender'])
+                        this.router.navigate([
+                            '/notifications-overview-bartender',
+                        ])
                     } else if (
                         this.authService.user$.value.role === 'manager'
                     ) {
