@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
 @Injectable({
@@ -34,5 +34,10 @@ export class OrderService {
 
     getOrderById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/getById/${id}`)
+    }
+
+    // Add the Export method
+    export(id: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/DataExport/${id}`)
     }
 }

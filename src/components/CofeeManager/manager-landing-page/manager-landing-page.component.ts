@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { User } from '../../../auth/model/user.model'
 import { AuthService } from '../../../auth/auth.service'
 import { EventService } from '../event.service'
+import { OrderService } from '../../Xuniversal/order.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-manager-landing-page',
@@ -15,7 +17,9 @@ export class ManagerLandingPageComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private eventService: EventService
+        private eventService: EventService,
+        private orderService: OrderService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -52,6 +56,15 @@ export class ManagerLandingPageComponent implements OnInit {
                 this.loadEvents() // Reload events to update the list
             },
             error: (err) => this.loadEvents(),
+        })
+    }
+
+    getAllOrders(): void {
+        this.orderService.export(this.userId).subscribe({
+            next: (data) => {
+                this.toastr.info('Order information sent to your email')
+            },
+            error: (err) => console.error('Failed to export data:', err),
         })
     }
 }

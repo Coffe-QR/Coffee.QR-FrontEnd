@@ -4,12 +4,20 @@
     <h1 class="animate-fade-down text-6xl text-white">
         Hello {{ user?.username }}, your role is {{ user?.role }}
     </h1>
-    <button
-        (click)="onLogout()"
-        class="mt-8 animate-fade-down rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
-    >
-        Logout
-    </button>
+    <div>
+        <button
+            (click)="getAllOrders()"
+            class="btn-custom-color mt-8 animate-fade-down rounded px-6 py-3 font-bold uppercase text-slate-800 transition duration-300 hover:scale-110 hover:bg-orange-700"
+        >
+            Get all orders
+        </button>
+        <button
+            (click)="onLogout()"
+            class="ml-5 mt-8 animate-fade-down rounded bg-orange-500 px-6 py-3 font-bold uppercase text-white transition duration-300 hover:scale-110 hover:bg-orange-700"
+        >
+            Logout
+        </button>
+    </div>
 
     <!-- <h1
         *ngIf="events.length > 0"
