@@ -66,13 +66,13 @@ export class LoginComponent {
                     } else if (
                         this.authService.user$.value.role === 'manager'
                     ) {
-                        this.router.navigate(['/manager'])
+                        this.router.navigate(['/create-menu'])
                     } else if (
                         this.authService.user$.value.role === 'itsupport'
                     ) {
                         this.router.navigate(['/it-support'])
                     } else if (this.authService.user$.value.role === 'waiter') {
-                        this.router.navigate(['/waiter'])
+                        this.router.navigate(['/notifications-overview'])
                     } else if (this.authService.user$.value.role === '') {
                         this.router.navigate(['/'])
                     }
