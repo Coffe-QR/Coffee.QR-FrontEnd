@@ -14,8 +14,11 @@ import { EventDescriptionDialogComponent } from './event-description-dialog/even
 import { CreateMenuComponent } from './create-menu/create-menu.component'
 import { MenuDetailsComponent } from './menu-details/menu-details.component'
 import { CreateItemComponent } from './create-item/create-item.component' // Needed for animations
-import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component';
+import { JobsOverviewComponent } from './jobs-overview/jobs-overview.component'
 import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-report.component'
+import { RegionsOverviewComponent } from './regions-overview/regions-overview.component'
+import { RegionItemsComponent } from './region-items/region-items.component'
+import { SharedModule } from '../../shared/shared.module'
 
 @NgModule({
     declarations: [
@@ -23,7 +26,6 @@ import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-repo
         ManagerLandingPageComponent,
         SupplyCreateComponent,
         EventsOverviewComponent,
-        FilterPipe,
         CreateTableComponent,
         CreateTicketComponent,
         EventDescriptionDialogComponent,
@@ -32,12 +34,15 @@ import { TicketSaleReportComponent } from './ticket-sale-report/ticket-sale-repo
         CreateItemComponent,
         JobsOverviewComponent,
         TicketSaleReportComponent,
+        RegionsOverviewComponent,
+        RegionItemsComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
         MatDialogModule,
         BrowserAnimationsModule,
+        SharedModule,
     ],
     exports: [
         CreateEventComponent,

@@ -35,7 +35,6 @@ export class CreateMenuComponent implements OnInit {
             },
             error: (error) => console.error('Error getting local user:', error),
         })
-
     }
 
     loadMenus(): void {
@@ -75,5 +74,9 @@ export class CreateMenuComponent implements OnInit {
 
     detailsMenu(menuId: number): void {
         this.router.navigate([`/menu-details/${menuId}`])
+    }
+
+    regionsOverview(menuId: number): void {
+        this.router.navigate([`/regions-overview/${menuId}`])
     }
 }

@@ -40,6 +40,8 @@ import { OrderDetailsComponent } from '../components/Waiter/order-details/order-
 import { TicketSaleReportComponent } from '../components/CofeeManager/ticket-sale-report/ticket-sale-report.component'
 import { NotificationOverviewBartenderComponent } from '../components/Bartender/notification-overview-bartender/notification-overview-bartender.component'
 import { WaiterBartenderGuard } from '../auth/waiter_bartender.guard'
+import { RegionsOverviewComponent } from '../components/CofeeManager/regions-overview/regions-overview.component'
+import { RegionItemsComponent } from '../components/CofeeManager/region-items/region-items.component'
 
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
@@ -168,6 +170,16 @@ const routes: Routes = [
     {
         path: 'ticket-sale-report',
         component: TicketSaleReportComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'regions-overview/:menuId',
+        component: RegionsOverviewComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'regions-items-overview/:regionId',
+        component: RegionItemsComponent,
         canActivate: [ManagerGuard],
     },
     {

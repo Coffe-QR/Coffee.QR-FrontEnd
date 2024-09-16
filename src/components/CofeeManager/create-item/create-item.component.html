@@ -2,7 +2,7 @@
     class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
     <form
-        class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center backdrop-blur-md"
         (ngSubmit)="onSubmit()"
     >
         <div class="mb-4">
@@ -20,7 +20,7 @@
                 required
             />
         </div>
-        <div class="mb-4">
+        <!-- <div class="mb-4">
             <label
                 class="mb-2 block text-2xl font-bold text-stone-50"
                 for="name"
@@ -36,7 +36,7 @@
                 <option [value]="1">Drink</option>
                 <option [value]="2">Ingredient</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="mb-4">
             <label
@@ -82,7 +82,7 @@
             <input
                 type="file"
                 (change)="onFileSelected($event)"
-                class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-700 shadow focus:outline-none"
+                class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-100 shadow focus:outline-none"
                 style="text-align: center; padding-left: 35%; padding-right: 0"
                 name="file"
                 required

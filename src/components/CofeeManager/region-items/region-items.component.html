@@ -1,0 +1,91 @@
+<div
+    class="custom-bg-manager flex h-screen flex-col items-center justify-center text-white"
+>
+    <!-- ITEMS IN REGION -->
+    <div
+        *ngIf="ItemsInRegion.length > 0"
+        class="scrollbar grid w-7/12 animate-jump-in grid-cols-2 gap-8 overflow-auto bg-white bg-opacity-20 p-4 animate-duration-700"
+        style="max-height: 20rem"
+    >
+        <div
+            class="col-span-2 flex w-full flex-col items-center justify-center"
+        >
+            <h2 class="mb-3 text-2xl text-zinc-200">Items in region</h2>
+            <hr class="mb-5 w-full bg-black" />
+        </div>
+
+        <!-- Search Bar -->
+        <div class="col-span-2 flex w-full justify-center">
+            <input
+                type="text"
+                [(ngModel)]="searchTerm1"
+                placeholder="Search items..."
+                class="w-1/2 rounded-lg bg-white bg-opacity-55 p-2 text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+        </div>
+
+        <div
+            *ngFor="let item of ItemsInRegion | filter: searchTerm1 : 'name'"
+            class="mx-auto w-96 rounded-lg bg-transparent bg-white bg-opacity-25 p-4 text-center duration-300 hover:scale-105"
+        >
+            <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+            <h2 class="text-lg font-semibold">
+                {{ item.description }}
+            </h2>
+            <h2 class="mb-2 text-lg font-semibold">{{ item.price }}$</h2>
+            <button
+                (click)="removeFromRegion(item.id)"
+                class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+            >
+                Remove
+            </button>
+        </div>
+    </div>
+    <div *ngIf="ItemsInRegion.length === 0" class="text-center text-2xl">
+        No items in the region
+    </div>
+
+    <!-- SUGGESTED ITEMS -->
+    <div
+        *ngIf="ItemsNotInRegion.length > 0"
+        class="scrollbar mt-10 grid w-7/12 animate-jump-in grid-cols-2 gap-8 overflow-auto bg-stone-900 bg-opacity-20 p-4 animate-duration-700"
+        style="max-height: 20rem"
+    >
+        <div
+            class="col-span-2 flex w-full flex-col items-center justify-center"
+        >
+            <h2 class="mb-3 text-2xl text-zinc-200">
+                Items Available to add to region
+            </h2>
+            <hr class="mb-5 w-full bg-black" />
+        </div>
+
+        <!-- Search Bar -->
+        <div class="col-span-2 flex w-full justify-center">
+            <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                placeholder="Search items..."
+                class="w-1/2 rounded-lg bg-white bg-opacity-55 p-2 text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+        </div>
+
+        <!-- Suggested Items -->
+        <div
+            *ngFor="let item of ItemsNotInRegion | filter: searchTerm : 'name'"
+            class="mx-auto w-96 rounded-lg bg-transparent bg-white bg-opacity-25 p-4 text-center duration-300 hover:scale-105"
+        >
+            <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+            <h2 class="text-lg font-semibold">
+                {{ item.description }}
+            </h2>
+            <h2 class="mb-2 text-lg font-semibold">{{ item.price }}$</h2>
+            <button
+                (click)="addItemToMenu(item.id)"
+                class="mb-1 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-400"
+            >
+                Add to region
+            </button>
+        </div>
+    </div>
+</div>

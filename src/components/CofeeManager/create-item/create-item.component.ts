@@ -12,7 +12,7 @@ export class CreateItemComponent implements OnInit {
     submitAttempted = false
     //properties
     itemName: string = ''
-    itemType: any
+    //itemType: any
     itemDescription: string = ''
     itemPrice: number = 0
     itemPicture: string = ''
@@ -28,7 +28,7 @@ export class CreateItemComponent implements OnInit {
     onSubmit(): void {
         const itemData = {
             name: this.itemName,
-            type: Number(this.itemType),
+            //type: Number(this.itemType),
             description: this.itemDescription,
             price: this.itemPrice,
             picture: this.itemPicture,
