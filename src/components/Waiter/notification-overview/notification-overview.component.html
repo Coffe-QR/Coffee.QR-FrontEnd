@@ -1,68 +1,132 @@
 <div
     class="custom-bg-waiter flex h-screen flex-col items-center justify-center"
 >
+    <!-- Upper section for Notifications and Orders -->
     <div
-        *ngIf="notifications.length != 0"
-        class="notification-container mb-8 mt-32 max-h-96 w-full max-w-4xl animate-fade-down overflow-auto rounded-lg bg-white bg-opacity-65 p-6 shadow-lg"
+        class="mb-8 mt-16 grid w-full max-w-4xl animate-fade-down grid-cols-2 gap-4 overflow-auto rounded-lg"
     >
-        <h1 class="text-center text-2xl font-bold text-gray-800">
-            Notifications
-        </h1>
+        <!-- Notifications Column -->
+        <div
+            *ngIf="notifications.length > 0; else noNotifications"
+            class="bg-white bg-opacity-65 p-6 shadow-lg"
+        >
+            <h1 class="text-center text-2xl font-bold text-gray-800">
+                Notifications
+            </h1>
+            <div class="mt-4 max-h-52 overflow-auto">
+                <ul class="divide-y divide-gray-200">
+                    <li
+                        *ngFor="let notification of notifications"
+                        class="flex items-center justify-between py-4"
+                    >
+                        <span class="text-gray-600">{{
+                            notification.message
+                        }}</span>
+                        <button
+                            (click)="markAsRead(notification.id)"
+                            class="ml-4 mr-10 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
+                        >
+                            Mark as done
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- No Notifications Placeholder -->
+        <ng-template #noNotifications>
+            <div
+                class="bg-white bg-opacity-65 p-6 text-center text-2xl font-medium text-gray-800 shadow-lg"
+            >
+                You don't have new notifications
+            </div>
+        </ng-template>
+
+        <!-- Orders Column -->
+        <div
+            *ngIf="orders.length > 0; else noOrders"
+            class="bg-white bg-opacity-65 p-6 shadow-lg"
+        >
+            <h1 class="text-center text-2xl font-bold text-gray-800">Orders</h1>
+            <div class="mt-4 max-h-52 overflow-auto">
+                <ul class="divide-y divide-gray-200">
+                    <li
+                        *ngFor="let order of orders"
+                        class="flex items-center justify-between py-4"
+                    >
+                        <span class="text-gray-600">
+                            <b>{{ order.tableName }} -</b>
+                            {{
+                                order.orderDescription
+                                    ? order.orderDescription
+                                    : 'No order description'
+                            }}
+                        </span>
+                        <button
+                            (click)="seeOrder(order.id)"
+                            class="rounded bg-slate-600 px-7 py-2 text-white transition duration-300 hover:bg-slate-800"
+                        >
+                            See order
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- No Orders Placeholder -->
+        <ng-template #noOrders>
+            <div
+                class="bg-white bg-opacity-65 p-6 text-center text-2xl font-medium text-gray-800 shadow-lg"
+            >
+                You don't have new orders
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Lower section for Tables -->
+    <div
+        class="tables-container mb-8 max-h-96 w-full max-w-4xl animate-fade-down overflow-auto rounded-lg bg-white bg-opacity-65 p-6 shadow-lg"
+    >
+        <h1 class="text-center text-2xl font-bold text-gray-800">Tables</h1>
+        <!-- Search Bar -->
+        <div class="col-span-2 flex w-full justify-center">
+            <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                placeholder="Search tables..."
+                class="mb-5 mt-5 w-1/2 rounded-lg border border-solid border-slate-900 bg-white bg-opacity-25 p-2 text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-slate-500"
+            />
+        </div>
         <div class="mt-4 max-h-96 overflow-auto">
             <ul class="divide-y divide-gray-200">
                 <li
-                    *ngFor="let notification of notifications"
+                    *ngFor="let table of tables | filter: searchTerm : 'name'"
                     class="flex items-center justify-between py-4"
                 >
-                    <span class="text-gray-600">{{
-                        notification.message
-                    }}</span>
-                    <button
-                        (click)="markAsRead(notification.id)"
-                        class="ml-4 mr-10 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
-                    >
-                        Mark as done
-                    </button>
+                    <span class="text-gray-600">{{ table.name }}</span>
+                    <div>
+                        <button
+                            (click)="completeAllOrders(table.id)"
+                            class="ml-4 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
+                            title="Complete all orders on this table"
+                        >
+                            Complete All
+                        </button>
+                        <button
+                            (click)="printReceipts(table.id)"
+                            class="ml-4 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
+                            title="Print receipts for all orders on this table"
+                        >
+                            Print Receipts
+                        </button>
+                        <button
+                            (click)="calculateTotal(table.id)"
+                            class="ml-4 rounded bg-slate-600 px-4 py-2 text-white transition duration-300 hover:bg-slate-800"
+                            title="Calculate total price for all orders on this table"
+                        >
+                            Total Price
+                        </button>
+                    </div>
                 </li>
             </ul>
         </div>
-    </div>
-    <div
-        *ngIf="notifications.length === 0"
-        class="empty-container mb-8  max-h-96 w-full max-w-lg animate-fade-down overflow-auto rounded-lg bg-white bg-opacity-70 p-6 shadow-lg"
-    >
-        <h1 class="text-center text-2xl font-medium text-gray-800">
-            You don't have new notifications
-        </h1>
-    </div>
-    <div
-        *ngIf="orders.length != 0"
-        class="order-container mb-8 max-h-96 w-full max-w-4xl animate-fade-down overflow-auto rounded-lg bg-white bg-opacity-65 p-6 shadow-lg"
-    >
-        <h1 class="text-center text-2xl font-bold text-gray-800">Orders</h1>
-        <div class="mt-4 max-h-96 overflow-auto">
-            <ul class="divide-y divide-gray-200">
-                <li
-                    *ngFor="let order of orders"
-                    class="flex items-center justify-between py-4"
-                >
-                    <span class="text-gray-600">{{ order.description }}</span>
-                    <button
-                        (click)="seeOrder(order.id)"
-                        class="ml-4 mr-10 rounded bg-slate-600 px-7 py-2 text-white transition duration-300 hover:bg-slate-800"
-                    >
-                        See order
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div
-        *ngIf="orders.length === 0"
-        class="empty-container max-h-96 w-full max-w-lg animate-fade-down overflow-auto rounded-lg bg-white bg-opacity-70 p-6 shadow-lg"
-    >
-        <h1 class="text-center text-2xl font-medium text-gray-800">
-            You don't have new orders
-        </h1>
     </div>
 </div>

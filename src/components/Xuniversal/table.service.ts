@@ -25,4 +25,12 @@ export class TableService {
     deleteTable(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`)
     }
+
+    getAllTablesForLocal(id: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getAllForLocal/${id}`)
+    }
+
+    getTotalPriceForTable(tableId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getTotalPriceForTable/${tableId}`)
+    }
 }

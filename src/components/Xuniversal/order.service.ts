@@ -32,11 +32,14 @@ export class OrderService {
         return this.http.put(`${this.apiUrl}/deactivate/${id}`, {})
     }
 
+    deactivateAllForTableOrders(id: number): Observable<any> {
+        return this.http.put(`${this.apiUrl}/deactivateAllForTable/${id}`, {})
+    }
+
     getOrderById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/getById/${id}`)
     }
 
-    // Add the Export method
     export(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/DataExport/${id}`)
     }

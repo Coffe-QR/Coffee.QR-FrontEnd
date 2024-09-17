@@ -25,6 +25,28 @@ export class ReceiptService {
             )
     }
 
+    createReceiptForWholeTable(
+        moneyReceived: number,
+        tableId: number,
+        waiterId: number
+    ): Observable<any> {
+        return this.http
+            .post<any>(
+                `${this.apiUrl}/ForWholeTable/${moneyReceived}/${tableId}/${waiterId}`,
+                null,
+                {
+                    headers: new HttpHeaders({
+                        'Content-Type': 'application/json',
+                    }),
+                }
+            )
+            .pipe(
+                catchError((error) => {
+                    throw 'Error in posting receipt for whole table: ' + error
+                })
+            )
+    }
+
     deleteReceipt(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`).pipe(
             catchError((error) => {
@@ -38,7 +60,7 @@ export class ReceiptService {
             .get<any[]>(`${this.apiUrl}/getAllForLocal/${localId}`)
             .pipe(
                 catchError((error) => {
-                    throw 'Error in fetching receipts for local: ' + error
+                    throw 'Error in getting receipts for local: ' + error
                 })
             )
     }

@@ -84,6 +84,8 @@ export class OrderDetailsComponent implements OnInit {
         })
     }
 
+    markAsDelivered(orderId: number) {}
+
     printReceipt(orderId: number) {
         const moneyReceived = prompt('Please enter the amount received:')
         if (moneyReceived !== null && moneyReceived.trim() !== '') {
