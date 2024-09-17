@@ -7,10 +7,12 @@ import { MenuOverviewComponent } from './menu-overview/menu-overview.component'
 import { JobApplicationFormComponent } from './job-application-form/job-application-form.component'
 import { AllEventsOverviewComponent } from './all-events-overview/all-events-overview.component'
 import { RouterModule } from '@angular/router'
-import { TicketsSelectComponent } from './tickets-select/tickets-select.component';
-import { PaymentComponent } from './payment/payment.component';
+import { TicketsSelectComponent } from './tickets-select/tickets-select.component'
+import { PaymentComponent } from './payment/payment.component'
 import { PaymentCompletedComponent } from './payment-completed/payment-completed.component'
-import { GoogleFormComponent } from './google-form/google-form.component';
+import { GoogleFormComponent } from './google-form/google-form.component'
+import { SharedModule } from '../../shared/shared.module'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
     declarations: [
@@ -24,7 +26,13 @@ import { GoogleFormComponent } from './google-form/google-form.component';
         PaymentCompletedComponent,
         GoogleFormComponent,
     ],
-    imports: [CommonModule, FormsModule, RouterModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        SharedModule,
+        BrowserAnimationsModule,
+    ],
     exports: [
         SupplyStatusComponent,
         SupplyDetailsComponent,

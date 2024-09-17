@@ -2,92 +2,94 @@
     class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-slate-100 to-black"
 >
     <div
-        *ngIf="Foods.length > 0 || Drinks.length > 0"
-        class="flex max-h-[50vh] w-7/12 flex-col items-center overflow-auto rounded-lg bg-white bg-opacity-20 p-6 shadow-lg"
+        *ngIf="!showRegions"
+        class="mb-3 mt-16"
+        (mouseenter)="showRegions = true"
+        (mouseleave)="showRegions = false"
+    >
+        <button
+            class="cstmbtn flex items-center rounded-md bg-slate-500 px-4 py-2 text-white duration-300 hover:bg-slate-700"
+        >
+            <i class="bi bi-layout-sidebar-inset mr-2"></i>
+            View Regions
+        </button>
+    </div>
+    <div
+        class="mb-5 mt-28 flex h-32 w-7/12 flex-row items-center justify-center overflow-x-auto rounded-lg bg-white bg-opacity-20 p-6 shadow-lg"
+        *ngIf="showRegions"
+        (mouseleave)="showRegions = false"
+        [@fadeInOut]
+    >
+        <div *ngFor="let region of regions">
+            <button
+                (click)="showItemsFromRegion(region)"
+                class="mr-5 rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
+            >
+                {{ region.name }}
+            </button>
+        </div>
+        <button
+            (click)="showAllItems()"
+            class="rounded-md bg-slate-500 p-2 text-white duration-300 hover:bg-slate-700"
+        >
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+
+    <div
+        *ngIf="Items.length > 0"
+        class="flex max-h-[60vh] w-7/12 flex-col items-center overflow-auto rounded-lg bg-white bg-opacity-20 p-6 shadow-lg"
     >
         <div class="mb-8 w-full">
-            <h2 class="mb-3 text-center text-2xl text-zinc-200">Drinks</h2>
+            <h2 class="mb-3 text-center text-2xl text-zinc-200">Items</h2>
             <hr class="mb-5 w-full bg-black" />
+
+            <!-- Search Bar -->
+            <div class="col-span-2 flex w-full justify-center">
+                <input
+                    type="text"
+                    [(ngModel)]="searchTerm"
+                    placeholder="Search items..."
+                    class="mb-5 w-1/2 rounded-lg bg-white bg-opacity-25 p-2 text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-slate-500"
+                />
+            </div>
+
             <ul class="space-y-8">
                 <li
-                    *ngFor="let drink of Drinks"
+                    *ngFor="
+                        let item of filteredItems | filter: searchTerm : 'name'
+                    "
                     class="flex items-center justify-center space-x-8 rounded-lg bg-white bg-opacity-25 p-4 duration-300 hover:bg-opacity-50"
                 >
                     <img
                         [src]="
-                            'https://localhost:44333/resources' + drink.picture
+                            'https://localhost:44333/resources' + item.picture
                         "
-                        alt="{{ drink.name }}"
+                        alt="{{ item.name }}"
                         class="mr-24 h-36 w-36 rounded-lg object-cover"
                     />
                     <div
                         class="flex flex-col items-center justify-center space-y-2 text-center"
                     >
                         <h2 class="text-xl font-semibold text-gray-800">
-                            {{ drink.name }}
+                            {{ item.name }}
                         </h2>
-                        <p class="text-gray-600">{{ drink.description }}</p>
+                        <p class="text-gray-600">{{ item.description }}</p>
                         <p class="text-lg font-medium text-gray-700">
-                            {{ drink.price }}$
+                            {{ item.price }}$
                         </p>
                         <div class="mt-2 flex items-center space-x-4">
                             <button
-                                (click)="decrementQuantity(drink)"
+                                (click)="decrementQuantity(item)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 -
                             </button>
                             <p class="text-xl font-semibold">
-                                {{ drink.quantity }}
+                                {{ item.quantity }}
                             </p>
                             <button
-                                (click)="incrementQuantity(drink)"
-                                class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
-                            >
-                                +
-                            </button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="w-full">
-            <h2 class="mb-3 text-center text-2xl text-zinc-200">Food</h2>
-            <hr class="mb-5 w-full bg-black" />
-            <ul class="space-y-8">
-                <li
-                    *ngFor="let food of Foods"
-                    class="flex items-center justify-center space-x-8 rounded-lg bg-white bg-opacity-25 p-4 duration-300 hover:bg-opacity-50"
-                >
-                    <img
-                        [src]="
-                            'https://localhost:44333/resources' + food.picture
-                        "
-                        alt="{{ food.name }}"
-                        class="mr-24 h-36 w-36 rounded-lg object-cover"
-                    />
-                    <div
-                        class="flex flex-col items-center justify-center space-y-2 text-center"
-                    >
-                        <h2 class="text-xl font-semibold text-gray-800">
-                            {{ food.name }}
-                        </h2>
-                        <p class="text-gray-600">{{ food.description }}</p>
-                        <p class="text-lg font-medium text-gray-700">
-                            {{ food.price }}$
-                        </p>
-                        <div class="mt-2 flex items-center space-x-4">
-                            <button
-                                (click)="decrementQuantity(food)"
-                                class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
-                            >
-                                -
-                            </button>
-                            <p class="text-xl font-semibold">
-                                {{ food.quantity }}
-                            </p>
-                            <button
-                                (click)="incrementQuantity(food)"
+                                (click)="incrementQuantity(item)"
                                 class="h-10 w-10 rounded bg-slate-500 text-white duration-300 hover:bg-stone-400"
                             >
                                 +
@@ -98,10 +100,7 @@
             </ul>
         </div>
     </div>
-    <div
-        *ngIf="Foods.length === 0 && Drinks.length === 0"
-        class="text-center text-2xl text-white"
-    >
+    <div *ngIf="Items.length === 0" class="text-center text-2xl text-white">
         No items in the menu
     </div>
     <div
@@ -117,22 +116,24 @@
     </div>
     <div class="container mt-10 flex w-7/12 items-center justify-center">
         <button
+            (click)="order()"
+            class="mr-5 h-16 animate-fade-down rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
+        >
+            Order
+        </button>
+
+        <button
             (click)="callWaiter()"
             class="mr-5 h-16 animate-fade-down rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
         >
             Call Waiter
         </button>
+
         <button
             (click)="askForTheBill()"
-            class="mr-5 h-16 animate-fade-down rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
+            class="ml-32 h-16 animate-fade-down rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
         >
             Ask for the bill
-        </button>
-        <button
-            (click)="order()"
-            class="mr-5 h-16 animate-fade-down rounded-md bg-slate-500 p-5 text-white duration-300 hover:bg-slate-700"
-        >
-            Order
         </button>
     </div>
 </div>

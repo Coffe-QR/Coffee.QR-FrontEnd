@@ -7,22 +7,52 @@ import { MenuItemService } from '../menu-item.service'
 import { MenuService } from '../menu.service'
 import { OrderService } from '../order.service'
 import { OrderItemService } from '../order-item.service'
+import { RegionService } from '../../CofeeManager/region-service'
+import { RegionItemService } from '../../CofeeManager/region-item-service'
+import { trigger, state, style, transition, animate } from '@angular/animations'
 
 @Component({
     selector: 'app-menu-overview',
     templateUrl: './menu-overview.component.html',
     styleUrl: './menu-overview.component.scss',
+    animations: [
+        trigger('fadeInOut', [
+            state(
+                'void',
+                style({
+                    opacity: 0,
+                    height: 0, // consider adjusting height and opacity handling
+                    overflow: 'hidden',
+                })
+            ),
+            state(
+                '*',
+                style({
+                    opacity: 1,
+                    height: '*',
+                })
+            ),
+            transition(':enter', [animate('200ms ease-out')]), // Reduced time and smoother easing
+            transition(':leave', [animate('200ms ease-in')]),
+        ]),
+    ],
 })
 export class MenuOverviewComponent implements OnInit {
     localId: number = 0
     tableId: number = 0
     menuId: number = 0
     tableName: string = ''
-    Drinks: any[] = []
-    Foods: any[] = []
+
+    Items: any[] = []
     selectedItems: any[] = []
+    filteredItems: any[] = []
+
+    regions: any[] = []
 
     addedQuantity: number = 0
+
+    searchTerm: string = ''
+    showRegions: boolean = false
 
     // Properties
     orderPrice: number = 0
@@ -36,6 +66,9 @@ export class MenuOverviewComponent implements OnInit {
         private menuItemService: MenuItemService,
         private orderService: OrderService,
         private orderItemService: OrderItemService,
+        private regionService: RegionService,
+        private regionItemService: RegionItemService,
+        private menuService: MenuService,
         private route: ActivatedRoute,
         private toastr: ToastrService
     ) {}
@@ -55,47 +88,34 @@ export class MenuOverviewComponent implements OnInit {
             },
         })
 
-        this.menuItemService.getAllDrinksForMenu(this.menuId).subscribe({
+        this.regionService.getAllRegionsByMenuId(this.menuId).subscribe({
             next: (data) => {
-                this.Drinks = data
-
-                console.log('Drinks:', this.Drinks)
+                console.log('Regions:', data)
+                this.regions = data
             },
-            error: (err) => console.error('Failed to load drinks:', err),
+            error: (err) => console.error('Failed to load regions:', err),
         })
 
-        this.menuItemService.getAllFoodForMenu(this.menuId).subscribe({
+        this.menuService.getMenuItems(this.menuId).subscribe({
             next: (data) => {
-                this.Foods = data
+                console.log('Menu items:', data)
+                this.Items = data
+                this.filteredItems = data
             },
-            error: (err) => console.error('Failed to load food:', err),
+            error: (err) => console.error('Failed to load menu items:', err),
         })
     }
 
-    incrementQuantity(drink: any): void {
-        drink.quantity++
-        this.selectedItems.push(drink)
+    incrementQuantity(item: any): void {
+        item.quantity++
+        this.selectedItems.push(item)
     }
 
-    decrementQuantity(drink: any): void {
-        if (drink.quantity > 0) {
-            drink.quantity--
+    decrementQuantity(item: any): void {
+        if (item.quantity > 0) {
+            item.quantity--
         }
     }
-
-    //    addedItems: number[] = []
-
-    // addItemToOrder(itemId: number): void {
-    //     this.addedItems.push(itemId)
-    //     this.addedQuantity++
-    //     console.log('Added items:', this.addedItems)
-    // }
-
-    // removeItemFromOrder(itemId: number): void {
-    //     this.addedItems = this.addedItems.filter((id) => id !== itemId)
-    //     this.addedQuantity--
-    //     console.log('Added items after remove:', this.addedItems)
-    // }
 
     callWaiter() {
         const notificationData = {
@@ -176,5 +196,15 @@ export class MenuOverviewComponent implements OnInit {
             },
             error: (error) => console.error('GREDA:', error),
         })
+    }
+
+    showItemsFromRegion(region: any): void {
+        this.filteredItems = this.Items.filter(
+            (item) => item.regionId === region.id
+        )
+    }
+
+    showAllItems(): void {
+        this.filteredItems = this.Items
     }
 }
