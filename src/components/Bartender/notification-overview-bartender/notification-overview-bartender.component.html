@@ -12,7 +12,14 @@
                     *ngFor="let order of orders"
                     class="flex items-center justify-between py-4"
                 >
-                    <span class="text-gray-600">{{ order.description }}</span>
+                    <span class="text-gray-600">
+                        <b>{{ order.tableName }} -</b>
+                        {{
+                            order.orderDescription
+                                ? order.orderDescription
+                                : 'No order description'
+                        }}
+                    </span>
                     <button
                         (click)="seeOrder(order.id)"
                         class="ml-4 mr-10 rounded bg-slate-600 px-7 py-2 text-white transition duration-300 hover:bg-slate-800"

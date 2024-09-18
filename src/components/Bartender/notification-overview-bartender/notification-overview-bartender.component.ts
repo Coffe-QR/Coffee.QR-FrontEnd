@@ -6,6 +6,7 @@ import { LocalUserService } from '../../Xuniversal/local-user.service'
 import { ToastrService } from 'ngx-toastr'
 import { OrderService } from '../../Xuniversal/order.service'
 import { Router } from '@angular/router'
+import { TableService } from '../../Xuniversal/table.service'
 
 @Component({
     selector: 'app-notification-overview-bartender',
@@ -24,6 +25,7 @@ export class NotificationOverviewBartenderComponent {
         private authService: AuthService,
         private localuserService: LocalUserService,
         private orderService: OrderService,
+        private tableService: TableService,
         private toastr: ToastrService,
         private router: Router
     ) {}
@@ -58,11 +60,23 @@ export class NotificationOverviewBartenderComponent {
     loadOrdersByLocalIdAndIsActive(localId: number) {
         this.orderService.getOrdersByLocalIdAndIsActive(localId).subscribe({
             next: (data) => {
-                console.log('Orders:', data)
+                // Sort orders by `isTaken`, showing `false` first and `true` later
+                this.orders = data.sort((a: any, b: any) => {
+                    return a.isTaken === b.isTaken ? 0 : a.isTaken ? 1 : -1
+                })
+
+                this.orders.forEach((order) => {
+                    this.tableService
+                        .getTableById(order.tableId)
+                        .subscribe((table) => {
+                            order.tableName = table.name // Append table name to each order
+                        })
+                    console.log('Orders:', this.orders)
+                })
+
                 if (this.orders && data.length > this.orders.length) {
                     this.toastr.info('You have new orders')
                 }
-                this.orders = data
             },
             error: (error) => {
                 console.error('Failed to fetch orders:', error)

@@ -100,15 +100,20 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     loadOrdersByLocalIdAndIsActive(localId: number) {
         this.orderService.getOrdersByLocalIdAndIsActive(localId).subscribe({
             next: (data) => {
-                this.orders = data
+                // Sort orders by `isTaken`, showing `false` first and `true` later
+                this.orders = data.sort((a: any, b: any) => {
+                    return a.isTaken === b.isTaken ? 0 : a.isTaken ? 1 : -1
+                })
+
                 this.orders.forEach((order) => {
                     this.tableService
                         .getTableById(order.tableId)
                         .subscribe((table) => {
                             order.tableName = table.name // Append table name to each order
                         })
-                    console.log('Orders:', data)
+                    console.log('Orders:', this.orders)
                 })
+
                 if (this.orders && data.length > this.orders.length) {
                     this.toastr.info('You have new orders')
                 }
