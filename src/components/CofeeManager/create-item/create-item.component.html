@@ -2,6 +2,7 @@
     class="custom-bg-manager flex h-screen flex-col items-center justify-center bg-gradient-to-tr"
 >
     <form
+        #createItemForm="ngForm"
         class="mb-4 w-1/2 animate-fade-down rounded bg-white bg-opacity-25 px-16 py-8 text-center backdrop-blur-md"
         (ngSubmit)="onSubmit()"
     >
@@ -20,28 +21,11 @@
                 required
             />
         </div>
-        <!-- <div class="mb-4">
-            <label
-                class="mb-2 block text-2xl font-bold text-stone-50"
-                for="name"
-            >
-                Item Type:
-            </label>
-            <select
-                name="ticketEventId"
-                [(ngModel)]="itemType"
-                class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
-            >
-                <option [value]="0">Food</option>
-                <option [value]="1">Drink</option>
-                <option [value]="2">Ingredient</option>
-            </select>
-        </div> -->
 
         <div class="mb-4">
             <label
                 class="mb-2 block text-2xl font-bold text-stone-50"
-                for="datetime"
+                for="description"
             >
                 Item Description:
             </label>
@@ -49,7 +33,7 @@
                 class="focus:shadow-outline w-full appearance-none rounded border px-3 py-3 text-center leading-tight text-gray-700 shadow focus:outline-none"
                 type="text"
                 [(ngModel)]="itemDescription"
-                name="datetime"
+                name="description"
                 required
             />
         </div>
@@ -80,6 +64,7 @@
                 Item Picture:
             </label>
             <input
+                #fileInput
                 type="file"
                 (change)="onFileSelected($event)"
                 class="focus:shadow-outline file-input w-full appearance-none rounded border px-3 py-3 leading-tight text-gray-100 shadow focus:outline-none"
