@@ -31,4 +31,8 @@ export class NotificationService {
     deleteNotification(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`)
     }
+
+    deactivateAllForTable(id: number): Observable<any> {
+        return this.http.put(`${this.apiUrl}/deactivateForTable/${id}`, {})
+    }
 }

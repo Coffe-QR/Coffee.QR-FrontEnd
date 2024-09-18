@@ -222,4 +222,18 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
             },
         })
     }
+
+    clearNotifications(tableId: number) {
+        this.notificationService.deactivateAllForTable(tableId).subscribe({
+            next: (data) => {
+                this.toastr.success(
+                    'All notifications for the table have been cleared.'
+                )
+                this.loadActiveNotifications(this.notificationLocalId)
+            },
+            error: (error) => {
+                console.error('Failed to clear notifications:', error)
+            },
+        })
+    }
 }

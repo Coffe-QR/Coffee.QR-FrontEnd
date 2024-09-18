@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { AuthService } from '../../../auth/auth.service'
 import { User } from '../../../auth/model/user.model'
+import { OrderService } from '../order.service'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-navbar',
@@ -22,6 +24,7 @@ import { User } from '../../../auth/model/user.model'
 export class NavbarComponent implements OnInit {
     navbarOpen = false
     user: User | undefined
+    userId: number = 0
 
     dropdowns: { [key: string]: boolean } = {}
 
@@ -55,12 +58,17 @@ export class NavbarComponent implements OnInit {
         }
     }
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private orderService: OrderService,
+        private toastr: ToastrService
+    ) {}
 
     ngOnInit(): void {
         this.authService.user$.subscribe((user) => {
             this.user = user
         })
+        this.userId = this.authService.user$.getValue().id
         this.dropdowns = {
             supply: false,
             event: false,
@@ -106,5 +114,14 @@ export class NavbarComponent implements OnInit {
         } else {
             return '/home'
         }
+    }
+
+    getAllOrders(): void {
+        this.orderService.export(this.userId).subscribe({
+            next: (data) => {
+                this.toastr.info('Order information sent to your email')
+            },
+            error: (err) => console.error('Failed to export data:', err),
+        })
     }
 }
