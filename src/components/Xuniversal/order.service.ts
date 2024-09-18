@@ -43,4 +43,8 @@ export class OrderService {
     export(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/DataExport/${id}`)
     }
+
+    markOrderAsTaken(id: number): Observable<any> {
+        return this.http.put(`${this.apiUrl}/markOrderAsTaken/${id}`, {})
+    }
 }

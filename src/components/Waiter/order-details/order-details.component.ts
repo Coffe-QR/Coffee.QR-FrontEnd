@@ -5,6 +5,7 @@ import { OrderItemService } from '../../Xuniversal/order-item.service'
 import { ReceiptService } from '../receipt.service'
 import { AuthService } from '../../../auth/auth.service'
 import { User } from '../../../auth/model/user.model'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
     selector: 'app-order-details',
@@ -24,7 +25,8 @@ export class OrderDetailsComponent implements OnInit {
         private orderService: OrderService,
         private orderItemService: OrderItemService,
         private receiptService: ReceiptService,
-        private authService: AuthService
+        private authService: AuthService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -84,7 +86,17 @@ export class OrderDetailsComponent implements OnInit {
         })
     }
 
-    markAsDelivered(orderId: number) {}
+    markAsDelivered(orderId: number) {
+        this.orderService.markOrderAsTaken(orderId).subscribe({
+            next: (data) => {
+                this.router.navigate(['/notifications-overview'])
+                this.toastr.success('Order marked as delivered')
+            },
+            error: (error) => {
+                console.error(error)
+            },
+        })
+    }
 
     printReceipt(orderId: number) {
         const moneyReceived = prompt('Please enter the amount received:')
