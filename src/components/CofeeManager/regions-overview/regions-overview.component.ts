@@ -36,7 +36,9 @@ export class RegionsOverviewComponent implements OnInit {
 
     deleteRegion(regionId: number): void {
         this.regionService.deleteRegion(regionId).subscribe({
-            next: (response) => {},
+            next: (response) => {
+                this.fetchRegionsByMenuId()
+            },
             error: (error) => console.error('Error deleting region:', error),
         })
     }
