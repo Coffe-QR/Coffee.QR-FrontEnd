@@ -32,8 +32,17 @@ export class SupplyCreateComponent {
     ) {}
 
     performSearch() {
-        this.filteredProducts = this.filteredProducts.filter((o) =>
-            o.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        if (this.searchTerm === '') this.filteredProducts = this.products
+        this.filteredProducts = this.filteredProducts.filter(
+            (o) =>
+                o.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                o.companyName
+                    .toLowerCase()
+                    .includes(this.searchTerm.toLowerCase()) ||
+                o.daysDelivery
+                    .toString()
+                    .toLowerCase()
+                    .includes(this.searchTerm.toLowerCase())
         )
     }
 
