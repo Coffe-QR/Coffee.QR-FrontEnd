@@ -6,6 +6,10 @@ import { Supply } from '../../../auth/model/supply.model'
 import { SupplyService } from '../supply.service'
 import { SupplyItemService } from '../supply-item.service'
 import { SupplyItem } from '../../../auth/model/supply-item.model'
+import { Observable } from 'rxjs'
+import { SaleService } from './../sale.service'
+import { Sale } from '../../../auth/model/sale.model'
+import { MenuDetailsComponent } from './../menu-details/menu-details.component'
 
 @Component({
     selector: 'app-supply-create',
@@ -23,6 +27,7 @@ export class SupplyCreateComponent {
         private itemService: ItemService,
         private supplyService: SupplyService,
         private supplyItemService: SupplyItemService,
+        private saleService: SaleService,
         private router: Router
     ) {}
 
@@ -33,7 +38,7 @@ export class SupplyCreateComponent {
     }
 
     ngOnInit() {
-        this.itemService.getAllItems().subscribe({
+        this.itemService.getAllForBuy().subscribe({
             next: (response) => {
                 this.products = response
                 this.filteredProducts = response
@@ -76,6 +81,11 @@ export class SupplyCreateComponent {
         const existingItem = this.orderItems.find(
             (item) => item.product.id === product.id
         )
+        this.saleService.getAllCostForLocal(product.companyName).subscribe({
+            next: (res) => {
+                product.sales = res
+            },
+        })
         if (existingItem) {
             existingItem.quantity++
         } else {
@@ -150,5 +160,53 @@ export class SupplyCreateComponent {
         this.orderItems.forEach((item) => {
             //    this.total += item.product.price * item.quantity
         })
+    }
+
+    getCompanyName(id: any): any {
+        console.log(id)
+        const name = this.itemService.getName(id).subscribe({
+            next: () =>
+                console.log('You have successfully completed the purchase.'),
+        })
+        return name
+    }
+
+    selectedProduct: any = null
+    sales: Sale[] = []
+
+    openModal(product: any) {
+        this.saleService.getAllCostForLocal(product.companyName).subscribe({
+            next: (res) => {
+                this.sales = res
+                console.log(res)
+            },
+        })
+        this.selectedProduct = product
+        const modal = document.getElementById('detailsModal')
+        if (modal) {
+            modal.classList.remove('hidden')
+        }
+    }
+
+    closeModal() {
+        const modal = document.getElementById('detailsModal')
+        if (modal) {
+            modal.classList.add('hidden')
+        }
+        this.selectedProduct = null
+    }
+
+    getDiscount(guantity: any, sales: any): any {
+        for (let i = 1; i < sales.length; i++) {
+            if (sales[i].pieces > guantity && guantity > sales[i - 1].pieces) {
+                return 1 - sales[i - 1].discount / 100
+            }
+        }
+        return 1
+    }
+
+    getPrice(item: any): any {
+        let discount = this.getDiscount(item.quantity, item.product.sales)
+        return (item.product.price * item.quantity * discount).toFixed(2)
     }
 }

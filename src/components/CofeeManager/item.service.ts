@@ -34,4 +34,12 @@ export class ItemService {
     getAllItemForStorage(storageId: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAllStorage/` + storageId)
     }
+
+    getName(itemId: number): any {
+        return this.http.get(`${this.apiUrl}/get-name/` + itemId)
+    }
+
+    getAllForBuy(): Observable<any> {
+        return this.http.get(`${this.apiUrl}/getAllForBuy/`)
+    }
 }

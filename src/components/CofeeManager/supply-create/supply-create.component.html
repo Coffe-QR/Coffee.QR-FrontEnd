@@ -2,7 +2,7 @@
     class="custom-bg-manager flex h-screen items-center justify-center bg-gradient-to-tr"
 >
     <div
-        class="mb-4 flex h-3/4 w-3/4 animate-fade-right rounded bg-white bg-opacity-0 px-16 py-8 text-center"
+        class="mb-4 flex h-4/5 w-4/5 animate-fade-right rounded bg-white bg-opacity-0 px-16 py-8 text-center"
     >
         <!-- New Category Buttons Column -->
         <div
@@ -86,6 +86,9 @@
                                 <p class="text-sm">
                                     Description: {{ product.description }}
                                 </p>
+                                <p class="text-sm">
+                                    Company: {{ product.companyName }}
+                                </p>
                             </div>
                             <div class="... flex w-1/3 flex-col">
                                 <div>Recommended</div>
@@ -93,6 +96,12 @@
                                 <p class="text-sm outline-4">
                                     ${{ product.price.toFixed(2) }}
                                 </p>
+                                <button
+                                    class="rounded bg-blue-500 font-bold text-white outline-4 hover:bg-blue-700"
+                                    (click)="openModal(product)"
+                                >
+                                    Offer
+                                </button>
                                 <button
                                     class="rounded bg-blue-500 font-bold text-white outline-4 hover:bg-blue-700"
                                     (click)="addToOrder(product)"
@@ -134,9 +143,7 @@
                             </button>
                         </div>
                     </div>
-                    <p>
-                        ${{ (item.product.price * item.quantity).toFixed(2) }}
-                    </p>
+                    <p>${{ getPrice(item) }}</p>
                 </div>
             </div>
             <div class="mt-4">
@@ -145,9 +152,42 @@
                     class="mt-2 w-full rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                     (click)="checkout()"
                 >
-                    Checkout
+                    Order
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div
+        id="detailsModal"
+        class="fixed left-0 top-0 z-50 flex hidden h-full w-full items-center justify-center bg-black bg-opacity-50"
+    >
+        <div class="max-w-lg rounded bg-white p-8 shadow-lg">
+            <!-- Modal Title -->
+            <h2 class="mb-4 text-2xl font-bold">Sales List</h2>
+
+            <!-- Check if there are any sales in the list -->
+            <ul *ngIf="sales?.length; else noSalesMessage">
+                <!-- Loop over each SaleDto object in salesList and display its properties -->
+                <li *ngFor="let sale of sales" class="mb-4 border-b pb-2">
+                    <p><strong>Pieces:</strong> {{ sale.pieces }}</p>
+                    <p><strong>Discount:</strong> {{ sale.discount }}%</p>
+                    <p><strong>Company ID:</strong> {{ sale.companyId }}</p>
+                </li>
+            </ul>
+
+            <!-- Fallback if no sales are available -->
+            <ng-template #noSalesMessage>
+                <p>No sales available.</p>
+            </ng-template>
+
+            <!-- Close button -->
+            <button
+                class="mt-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
+                (click)="closeModal()"
+            >
+                Close
+            </button>
         </div>
     </div>
 </div>

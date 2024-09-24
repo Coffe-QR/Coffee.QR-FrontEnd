@@ -1,3 +1,5 @@
+import { Sale } from './sale.model'
+
 export interface Item {
     id: number
     type: number // food = 0, drink = 1, INGREDIENT = 2
@@ -6,4 +8,6 @@ export interface Item {
     price: number
     picture: string
     quantity: number
+    companyName: string
+    sales: Sale[]
 }
