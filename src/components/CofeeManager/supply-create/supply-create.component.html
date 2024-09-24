@@ -89,6 +89,9 @@
                                 <p class="text-sm">
                                     Company: {{ product.companyName }}
                                 </p>
+                                <p class="text-sm">
+                                    Deliver day: {{ product.daysDelivery }}
+                                </p>
                             </div>
                             <div class="... flex w-1/3 flex-col">
                                 <div>Recommended</div>
@@ -172,7 +175,6 @@
                 <li *ngFor="let sale of sales" class="mb-4 border-b pb-2">
                     <p><strong>Pieces:</strong> {{ sale.pieces }}</p>
                     <p><strong>Discount:</strong> {{ sale.discount }}%</p>
-                    <p><strong>Company ID:</strong> {{ sale.companyId }}</p>
                 </li>
             </ul>
 

@@ -9,5 +9,6 @@ export interface Item {
     picture: string
     quantity: number
     companyName: string
+    daysDelivery: number
     sales: Sale[]
 }
