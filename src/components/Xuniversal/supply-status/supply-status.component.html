@@ -2,50 +2,54 @@
     class="flex h-screen items-center justify-center bg-gradient-to-tr from-green-300 to-black"
 >
     <div
-        class="mb-4 h-3/4 w-3/4 flex-col rounded bg-white bg-opacity-25 px-16 py-8 text-center"
+        class="flex w-3/4 flex-col rounded-lg bg-white bg-opacity-25 px-8 py-8 text-center shadow-lg"
     >
         <h1 class="mb-4 text-3xl font-bold">Supply list</h1>
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr class="w-full bg-gray-800 text-white">
-                    <th class="border-b border-gray-200 px-4 py-2">ID</th>
-                    <th class="border-b border-gray-200 px-4 py-2">
-                        Company ID
-                    </th>
-                    <th class="border-b border-gray-200 px-4 py-2">
-                        Total Price
-                    </th>
-                    <th class="border-b border-gray-200 px-4 py-2">Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    *ngFor="let item of suppliesDisplaying"
-                    class="hover:bg-gray-100"
-                >
-                    <td class="border-b border-gray-200 px-4 py-2">
-                        {{ item.id }}
-                    </td>
-                    <td class="border-b border-gray-200 px-4 py-2">
-                        {{ item.companyId }}
-                    </td>
-                    <td class="border-b border-gray-200 px-4 py-2">
-                        ${{ item.totalPrice.toFixed(2) }}
-                    </td>
-                    <td class="border-b border-gray-200 px-4 py-2">
-                        {{ getStatusText(item.status) }}
-                    </td>
-                    <td class="border-b border-gray-200 px-4 py-2">
-                        <button
-                            (click)="details(item)"
-                            class="btn-custom-color rounded px-3 py-2"
-                        >
-                            Details
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="max-h-96 flex-1 overflow-y-auto">
+            <table class="min-w-full bg-white">
+                <thead class="sticky top-0 bg-gray-800 text-white">
+                    <tr>
+                        <th class="border-b border-gray-200 px-4 py-2">ID</th>
+                        <th class="border-b border-gray-200 px-4 py-2">
+                            Company ID
+                        </th>
+                        <th class="border-b border-gray-200 px-4 py-2">
+                            Total Price
+                        </th>
+                        <th class="border-b border-gray-200 px-4 py-2">
+                            Status
+                        </th>
+                        <th class="border-b border-gray-200 px-4 py-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of suppliesDisplaying"
+                        class="hover:bg-gray-100"
+                    >
+                        <td class="border-b border-gray-200 px-4 py-2">
+                            {{ item.id }}
+                        </td>
+                        <td class="border-b border-gray-200 px-4 py-2">
+                            {{ item.companyId }}
+                        </td>
+                        <td class="border-b border-gray-200 px-4 py-2">
+                            ${{ item.totalPrice.toFixed(2) }}
+                        </td>
+                        <td class="border-b border-gray-200 px-4 py-2">
+                            {{ getStatusText(item.status) }}
+                        </td>
+                        <td class="border-b border-gray-200 px-4 py-2">
+                            <button
+                                (click)="details(item)"
+                                class="rounded bg-blue-500 px-3 py-2 text-white hover:bg-blue-700"
+                            >
+                                Details
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

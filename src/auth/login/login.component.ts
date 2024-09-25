@@ -71,6 +71,10 @@ export class LoginComponent {
                         this.router.navigate(['/it-support'])
                     } else if (this.authService.user$.value.role === 'waiter') {
                         this.router.navigate(['/waiter'])
+                    } else if (
+                        this.authService.user$.value.role === 'warehouseman'
+                    ) {
+                        this.router.navigate(['/warehouseman'])
                     } else if (this.authService.user$.value.role === '') {
                         this.router.navigate(['/'])
                     }

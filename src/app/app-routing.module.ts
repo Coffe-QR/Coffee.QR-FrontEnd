@@ -41,6 +41,8 @@ import { ContractListComponent } from '../components/CofeeManager/contract-list/
 import { ContractCreateComponent } from '../components/CofeeManager/contract-create/contract-create.component'
 import { ContractItemComponent } from '../components/CofeeManager/contract-item/contract-item.component'
 import { CostReportListComponent } from '../components/CofeeManager/cost-report-list/cost-report-list.component'
+import { WarehousemanLandingPageComponent } from '../components/Warehouseman/warehouseman-landing-page/warehouseman-landing-page.component'
+import { WarehousemanGuard } from '../auth/warehouseman.guard'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -217,6 +219,11 @@ const routes: Routes = [
         path: 'cost-report-list',
         component: CostReportListComponent,
         canActivate: [ManagerGuard],
+    },
+    {
+        path: 'warehouseman',
+        component: WarehousemanLandingPageComponent,
+        canActivate: [WarehousemanGuard],
     },
 ]
 
