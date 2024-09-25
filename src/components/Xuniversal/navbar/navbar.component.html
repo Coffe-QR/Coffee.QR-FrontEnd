@@ -198,6 +198,33 @@
                         </div>
                     </div>
 
+                    <div
+                        *ngIf="user && user.role === 'warehouseman'"
+                        class="relative"
+                    >
+                        <button
+                            class="custom-color px-3 py-5"
+                            (mouseenter)="openDropdown('supply')"
+                            (mouseleave)="startChecking('supply')"
+                        >
+                            Supply
+                        </button>
+                        <div
+                            *ngIf="dropdowns['supply']"
+                            class="absolute left-4 top-12 z-10 w-48 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('supply')"
+                            @dropdown
+                        >
+                            <a
+                                *ngIf="user && user.role === 'warehouseman'"
+                                [routerLink]="['/supply-status']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Supply status</a
+                            >
+                        </div>
+                    </div>
+
                     <a
                         *ngIf="user && user.role === 'itsupport'"
                         [routerLink]="['/create-local']"

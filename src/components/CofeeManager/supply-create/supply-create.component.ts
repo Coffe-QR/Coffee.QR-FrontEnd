@@ -117,6 +117,7 @@ export class SupplyCreateComponent {
             companyId: 0,
             totalPrice: this.total,
             status: 2,
+            companyName: '',
         }
         this.supplyService.createSupply(supply).subscribe({
             next: (response) => {
