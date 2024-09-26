@@ -18,7 +18,6 @@ import { BartenderGuard } from '../auth/bartender.guard'
 import { ContactComponent } from '../components/Xuniversal/contact/contact.component'
 import { CreateEventComponent } from '../components/CofeeManager/create-event/create-event.component'
 import { SupplyCreateComponent } from '../components/CofeeManager/supply-create/supply-create.component'
-import { SupplyStatusComponent } from '../components/Xuniversal/supply-status/supply-status.component'
 import { SupplyDetailsComponent } from '../components/Xuniversal/supply-details/supply-details.component'
 import { JobApplicationFormComponent } from '../components/Xuniversal/job-application-form/job-application-form.component'
 import { EventsOverviewComponent } from '../components/CofeeManager/events-overview/events-overview.component'
@@ -125,11 +124,6 @@ const routes: Routes = [
     {
         path: 'supply-create',
         component: SupplyCreateComponent,
-        canActivate: [ManagerGuard],
-    },
-    {
-        path: 'supply-status',
-        component: SupplyStatusComponent,
         canActivate: [ManagerGuard],
     },
     {

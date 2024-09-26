@@ -98,7 +98,7 @@ export class WarehousemanLandingPageComponent implements OnInit {
         }
     }
 
-    selectedProduct: any = null // Trenutno izabrani proizvod za prikaz detalja
+    selectedProduct: any = null
     items: Item[] = []
     openItemModal(product: any) {
         this.itemService.getAllForSupply(product.id).subscribe({
@@ -119,6 +119,10 @@ export class WarehousemanLandingPageComponent implements OnInit {
     }
 
     // Funkcija za zatvaranje modal-a
+    error(item: Supply): void {
+        this.openItemModal1(item)
+    }
+
     closeItemModal() {
         const modal = document.getElementById('itemModal')
         if (modal) {
@@ -126,5 +130,34 @@ export class WarehousemanLandingPageComponent implements OnInit {
         }
         this.selectedProduct = null
         this.items = []
+    }
+
+    //================================================================
+    items1: Item[] = []
+    openItemModal1(product: any) {
+        this.itemService.getAllForSupply(product.id).subscribe({
+            next: (res) => {
+                this.items1 = res
+            },
+            error: (err) => {
+                console.error('Error fetching items:', err)
+                this.items1 = []
+            },
+        })
+        this.selectedProduct = product
+        const modal = document.getElementById('itemModal1')
+        if (modal) {
+            modal.classList.remove('hidden')
+        }
+    }
+
+    // Funkcija za zatvaranje modal-a
+    closeItemModal1() {
+        const modal = document.getElementById('itemModal1')
+        if (modal) {
+            modal.classList.add('hidden')
+        }
+        this.selectedProduct = null
+        this.items1 = []
     }
 }
