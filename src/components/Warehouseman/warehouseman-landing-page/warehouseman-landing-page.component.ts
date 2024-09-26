@@ -74,6 +74,15 @@ export class WarehousemanLandingPageComponent implements OnInit {
         return this.selectedStatus
     }
 
+    action(supply: Supply): any {
+        switch (supply.status) {
+            case 0:
+                this.supplyService.taken(supply.id, supply).subscribe()
+                location.reload()
+                break
+        }
+    }
+
     getButtonName(item: Supply): string {
         switch (item.status) {
             case 0:

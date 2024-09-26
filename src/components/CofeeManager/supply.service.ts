@@ -21,4 +21,8 @@ export class SupplyService {
     getById(supplyId: number): Observable<any> {
         return this.http.get(this.apiUrl + '/getById/' + supplyId)
     }
+
+    taken(supplyId: number, updatedData: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/taken`, updatedData)
+    }
 }

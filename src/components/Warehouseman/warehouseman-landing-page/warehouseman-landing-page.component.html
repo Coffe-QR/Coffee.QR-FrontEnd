@@ -73,12 +73,6 @@
                                     <th
                                         class="border-b border-gray-200 px-4 py-2"
                                     ></th>
-                                    <th
-                                        class="border-b border-gray-200 px-4 py-2"
-                                    ></th>
-                                    <th
-                                        class="border-b border-gray-200 px-4 py-2"
-                                    ></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,32 +105,28 @@
                                     >
                                         <button
                                             (click)="openItemModal(item)"
-                                            class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
+                                            class="border-x-6 mr-2 rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
                                         >
                                             Details
                                         </button>
-                                    </td>
-                                    <td class="border-b border-gray-200 py-2">
                                         <button
-                                            (click)="details(item)"
+                                            (click)="action(item)"
                                             *ngIf="selectedStatus !== 3"
-                                            class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
+                                            class="border-x-6 mr-2 rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
                                         >
                                             {{ getButtonName(item) }}
                                         </button>
-                                    </td>
-                                    <td class="border-b border-gray-200 py-2">
                                         <button
                                             (click)="details(item)"
                                             *ngIf="selectedStatus === 0"
-                                            class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
+                                            class="border-x-6 mr-2 rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
                                         >
                                             Error
                                         </button>
                                         <button
                                             (click)="details(item)"
                                             *ngIf="selectedStatus === 2"
-                                            class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
+                                            class="border-x-6 mr-2 rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
                                         >
                                             See error
                                         </button>
