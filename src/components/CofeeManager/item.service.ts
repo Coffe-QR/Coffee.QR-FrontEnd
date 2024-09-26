@@ -42,4 +42,8 @@ export class ItemService {
     getAllForBuy(): Observable<any> {
         return this.http.get(`${this.apiUrl}/getAllForBuy/`)
     }
+
+    getAllForSupply(supplyId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/get-for-supply/` + supplyId)
+    }
 }

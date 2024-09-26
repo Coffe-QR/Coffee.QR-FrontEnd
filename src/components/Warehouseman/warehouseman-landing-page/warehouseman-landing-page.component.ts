@@ -4,6 +4,8 @@ import { AuthService } from '../../../auth/auth.service'
 import { Supply } from '../../../auth/model/supply.model'
 import { SupplyService } from '../../CofeeManager/supply.service'
 import { Router } from '@angular/router'
+import { Item } from '../../../auth/model/item.model'
+import { ItemService } from './../../CofeeManager/item.service'
 
 @Component({
     selector: 'app-warehouseman-landing-page',
@@ -18,6 +20,7 @@ export class WarehousemanLandingPageComponent implements OnInit {
     selectedStatus: number = 0
 
     constructor(
+        private itemService: ItemService,
         private supplyService: SupplyService,
         private router: Router,
         private authService: AuthService
@@ -74,7 +77,7 @@ export class WarehousemanLandingPageComponent implements OnInit {
     getButtonName(item: Supply): string {
         switch (item.status) {
             case 0:
-                return 'Details'
+                return 'Taken'
             case 1:
                 return 'Confirmed'
             case 2:
@@ -84,5 +87,35 @@ export class WarehousemanLandingPageComponent implements OnInit {
             default:
                 return 'Default'
         }
+    }
+
+    selectedProduct: any = null // Trenutno izabrani proizvod za prikaz detalja
+    items: Item[] = []
+    openItemModal(product: any) {
+        this.itemService.getAllForSupply(product.id).subscribe({
+            next: (res) => {
+                this.items = res
+                console.log(res)
+            },
+            error: (err) => {
+                console.error('Error fetching items:', err)
+                this.items = []
+            },
+        })
+        this.selectedProduct = product
+        const modal = document.getElementById('itemModal')
+        if (modal) {
+            modal.classList.remove('hidden')
+        }
+    }
+
+    // Funkcija za zatvaranje modal-a
+    closeItemModal() {
+        const modal = document.getElementById('itemModal')
+        if (modal) {
+            modal.classList.add('hidden')
+        }
+        this.selectedProduct = null
+        this.items = []
     }
 }

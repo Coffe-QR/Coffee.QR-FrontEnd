@@ -110,7 +110,7 @@
                                         class="border-b border-gray-200 px-4 py-2"
                                     >
                                         <button
-                                            (click)="details(item)"
+                                            (click)="openItemModal(item)"
                                             class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
                                         >
                                             Details
@@ -133,6 +133,13 @@
                                         >
                                             Error
                                         </button>
+                                        <button
+                                            (click)="details(item)"
+                                            *ngIf="selectedStatus === 2"
+                                            class="rounded bg-stone-700 px-3 py-2 text-white hover:bg-stone-400 hover:text-black"
+                                        >
+                                            See error
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -142,6 +149,45 @@
             </div>
 
             <!-- KRAJ-->
+        </div>
+    </div>
+
+    <!-- Item Modal -->
+    <div
+        id="itemModal"
+        class="fixed left-0 top-0 z-50 flex hidden h-full w-full items-center justify-center bg-black bg-opacity-50"
+    >
+        <div class="max-w-lg rounded bg-white p-8 shadow-lg">
+            <!-- Modal Title -->
+            <h2 class="mb-4 text-2xl font-bold">Item List</h2>
+
+            <!-- Check if there are any items in the list -->
+            <ul *ngIf="items?.length; else noItemsMessage">
+                <!-- Loop over each Item object in items and display its properties -->
+                <li *ngFor="let item of items" class="mb-4 border-b pb-2">
+                    <p><strong>Name:</strong> {{ item.name }}</p>
+                    <p><strong>Description:</strong> {{ item.description }}</p>
+                    <p><strong>Price:</strong> ${{ item.price.toFixed(2) }}</p>
+                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                    <p><strong>Company Name:</strong> {{ item.companyName }}</p>
+                    <p>
+                        <strong>Days Delivery:</strong> {{ item.daysDelivery }}
+                    </p>
+                </li>
+            </ul>
+
+            <!-- Fallback if no items are available -->
+            <ng-template #noItemsMessage>
+                <p>No items available.</p>
+            </ng-template>
+
+            <!-- Close button -->
+            <button
+                class="mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-500"
+                (click)="closeItemModal()"
+            >
+                Close
+            </button>
         </div>
     </div>
 </div>
