@@ -1,1 +1,49 @@
-<p>worehouse-manager works!</p>
+<div class="flex h-screen w-full items-center justify-center to-black">
+    <div
+        class="mt-16 flex w-11/12 max-w-screen-lg flex-col items-center justify-center p-4"
+    >
+        <div class="sticky top-0 z-10">
+            <div class="flex items-center justify-center space-x-2">
+                <input
+                    type="text"
+                    placeholder="Pretraži stavke..."
+                    class="w-full rounded border p-2 text-black sm:w-1/3"
+                    (input)="onSearchChange($event)"
+                />
+                <select class="rounded border p-2 text-black">
+                    <option value="">Sve kategorije</option>
+                    <option value="0">Food</option>
+                    <option value="1">Drink</option>
+                    <option value="2">Ingrident</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-16 max-h-[80vh] w-full overflow-y-auto">
+            <div
+                class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            >
+                <div
+                    *ngFor="let item of filteredItems"
+                    class="rounded-lg border p-4"
+                >
+                    <img
+                        [src]="item.picture"
+                        alt="{{ item.name }}"
+                        class="h-32 w-full rounded object-cover"
+                    />
+                    <h2 class="mt-2 text-lg font-bold text-white">
+                        {{ item.name }}
+                    </h2>
+                    <p class="text-white">{{ item.description }}</p>
+                    <p class="text-xl font-semibold text-white">
+                        {{ item.price | currency }}
+                    </p>
+                    <p class="text-sm text-gray-300">
+                        Dostava: {{ item.daysDelivery }} dana
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
