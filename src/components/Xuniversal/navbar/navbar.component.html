@@ -195,9 +195,15 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Cost report</a
                             >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/warehouse-manager']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Warehouse</a
+                            >
                         </div>
                     </div>
-
+                    <!-- MAGACIONER -->
                     <div
                         *ngIf="user && user.role === 'warehouseman'"
                         class="relative"
@@ -221,6 +227,26 @@
                                 [routerLink]="['/supply-status']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Supply status</a
+                            >
+                        </div>
+                        <button
+                            class="custom-color px-3 py-5"
+                            (mouseenter)="openDropdown('warehouse')"
+                            (mouseleave)="startChecking('warehouse')"
+                        >
+                            Warehouse
+                        </button>
+                        <div
+                            *ngIf="dropdowns['warehouse']"
+                            class="absolute left-4 top-12 z-10 w-48 bg-white bg-opacity-70 shadow-lg"
+                            (mouseenter)="stopChecking()"
+                            (mouseleave)="closeDropdown('warehouse')"
+                            @dropdown
+                        >
+                            <a
+                                [routerLink]="['/warehouse']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Warehouse</a
                             >
                         </div>
                     </div>

@@ -64,6 +64,7 @@ export class NavbarComponent implements OnInit {
         this.dropdowns = {
             supply: false,
             event: false,
+            warehouse: false,
             others: false,
         }
     }
@@ -74,6 +75,8 @@ export class NavbarComponent implements OnInit {
         } else if (this.user && this.user.role === 'itsupport') {
             return 'inherit'
         } else if (this.user && this.user.role === 'waiter') {
+            return 'inherit'
+        } else if (this.user && this.user.role === 'warehouseman') {
             return 'inherit'
         } else {
             return 'inherit'
@@ -101,6 +104,8 @@ export class NavbarComponent implements OnInit {
                     return '/it-support'
                 case 'waiter':
                     return '/waiter'
+                case 'warehouseman':
+                    return '/warehouseman'
                 default:
                     return '/home'
             }

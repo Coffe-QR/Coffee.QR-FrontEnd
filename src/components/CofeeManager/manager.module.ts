@@ -19,6 +19,7 @@ import { ContractListComponent } from './contract-list/contract-list.component'
 import { ContractCreateComponent } from './contract-create/contract-create.component'
 import { ContractItemComponent } from './contract-item/contract-item.component'
 import { CostReportListComponent } from './cost-report-list/cost-report-list.component'
+import { WorehouseManagerComponent } from './worehouse-manager/worehouse-manager.component'
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { CostReportListComponent } from './cost-report-list/cost-report-list.com
         ContractCreateComponent,
         ContractItemComponent,
         CostReportListComponent,
+        WorehouseManagerComponent,
     ],
     imports: [
         CommonModule,
@@ -55,6 +57,7 @@ import { CostReportListComponent } from './cost-report-list/cost-report-list.com
         ContractCreateComponent,
         ContractItemComponent,
         CostReportListComponent,
+        WorehouseManagerComponent,
     ],
 })
 export class ManagerModule {}

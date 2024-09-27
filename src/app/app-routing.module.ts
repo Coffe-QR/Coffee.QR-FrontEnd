@@ -42,6 +42,8 @@ import { ContractItemComponent } from '../components/CofeeManager/contract-item/
 import { CostReportListComponent } from '../components/CofeeManager/cost-report-list/cost-report-list.component'
 import { WarehousemanLandingPageComponent } from '../components/Warehouseman/warehouseman-landing-page/warehouseman-landing-page.component'
 import { WarehousemanGuard } from '../auth/warehouseman.guard'
+import { WarehouseComponent } from '../components/Warehouseman/warehouse/warehouse.component'
+import { WorehouseManagerComponent } from '../components/CofeeManager/worehouse-manager/worehouse-manager.component'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -219,6 +221,21 @@ const routes: Routes = [
         component: WarehousemanLandingPageComponent,
         canActivate: [WarehousemanGuard],
     },
+    {
+        path: 'warehouse',
+        component: WarehouseComponent,
+        canActivate: [WarehousemanGuard],
+    },
+    {
+        path: 'warehouse-manager',
+        component: WorehouseManagerComponent,
+        canActivate: [ManagerGuard],
+    },
+    // {
+    //     path: 'warehouse-manager',
+    //     component: WorehouseManagerComponent,
+    //     canActivate: [ManagerGuard],
+    // },
 ]
 
 @NgModule({

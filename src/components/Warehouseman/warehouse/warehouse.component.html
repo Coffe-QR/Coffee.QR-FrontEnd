@@ -1,0 +1,64 @@
+<div
+    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-orange-500 to-black p-4"
+>
+    <div class="container mx-auto px-4 py-8">
+        <form class="mb-8 flex flex-col gap-4 sm:flex-row">
+            <input
+                type="text"
+                formControlName="search"
+                placeholder="Pretraži artikle..."
+                class="flex-grow rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <select
+                formControlName="type"
+                class="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                <option value="all">Svi tipovi</option>
+                <option value="0">Hrana</option>
+                <option value="1">Piće</option>
+                <option value="2">Sastojak</option>
+            </select>
+        </form>
+
+        <div
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
+            <div
+                *ngFor="let item of filteredItems"
+                class="overflow-hidden rounded-lg bg-white shadow-md"
+            >
+                <img
+                    [src]="item.picture"
+                    [alt]="item.name"
+                    class="h-48 w-full object-cover"
+                />
+                <div class="p-4">
+                    <h3 class="mb-2 text-lg font-semibold">{{ item.name }}</h3>
+                    <p class="mb-2 text-sm text-gray-600">
+                        {{ item.description }}
+                    </p>
+                    <p class="text-sm">
+                        <span class="font-medium">Tip:</span>
+                        {{ getTypeLabel(item.type) }}
+                    </p>
+                    <p class="text-sm">
+                        <span class="font-medium">Cena:</span>
+                        {{ item.price | currency }}
+                    </p>
+                    <p class="text-sm">
+                        <span class="font-medium">Kompanija:</span>
+                        {{ item.companyName }}
+                    </p>
+                    <p class="text-sm">
+                        <span class="font-medium">Dostava za:</span>
+                        {{ item.daysDelivery }} dana
+                    </p>
+                    <p class="text-sm">
+                        <span class="font-medium">Količina:</span>
+                        {{ item.quantity }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
