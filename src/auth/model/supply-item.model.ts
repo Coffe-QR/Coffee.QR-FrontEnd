@@ -4,4 +4,5 @@ export interface SupplyItem {
     itemId: number
     quantity: number
     price: number
+    companyName: string
 }

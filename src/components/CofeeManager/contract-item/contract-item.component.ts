@@ -84,6 +84,7 @@ export class ContractItemComponent {
             totalPrice: this.total,
             status: 2,
             companyName: '',
+            ordered: null,
         }
         let contractItems: ContractItem[] = []
         this.orderItems.forEach((oi) => {

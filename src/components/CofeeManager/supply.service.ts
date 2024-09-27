@@ -25,4 +25,8 @@ export class SupplyService {
     taken(supplyId: number, updatedData: any): Observable<any> {
         return this.http.put(`${this.apiUrl}/taken`, updatedData)
     }
+
+    confirm(supplyId: number, updatedData: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/confirm`, updatedData)
+    }
 }

@@ -118,35 +118,28 @@ export class SupplyCreateComponent {
             totalPrice: this.total,
             status: 2,
             companyName: '',
+            ordered: null,
         }
-        this.supplyService.createSupply(supply).subscribe({
+        let supplyItems: SupplyItem[] = []
+        this.orderItems.forEach((oi) => {
+            console.log(oi.product)
+            supplyItems.push({
+                id: -1,
+                supplyId: supply.id,
+                itemId: oi.product.id,
+                quantity: oi.quantity,
+                price: oi.product.price * oi.quantity,
+                companyName: oi.product.companyName,
+            })
+        })
+
+        this.supplyItemService.createSupplyItems(supplyItems).subscribe({
             next: (response) => {
-                supply = response
-                let supplyItems: SupplyItem[] = []
-                this.orderItems.forEach((oi) => {
-                    supplyItems.push({
-                        id: -1,
-                        supplyId: supply.id,
-                        itemId: oi.product.id,
-                        quantity: oi.quantity,
-                        price: oi.product.price * oi.quantity,
-                    })
-                })
-                this.supplyItemService
-                    .createSupplyItems(supplyItems)
-                    .subscribe({
-                        next: (response) =>
-                            alert(
-                                'You have successfully completed the purchase.'
-                            ),
-                        error: (error) =>
-                            console.error(
-                                'Error creating supply items:',
-                                error
-                            ),
-                    })
+                alert('You have successfully completed the purchase.')
+                this.orderItems = []
             },
-            error: (error) => console.error('Error creating supply:', error),
+            error: (error) =>
+                console.error('Error creating supply items:', error),
         })
     }
     increaseQuantity(item: any) {

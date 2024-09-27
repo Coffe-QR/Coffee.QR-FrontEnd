@@ -4,4 +4,5 @@ export interface Supply {
     totalPrice: number
     status: number // 0 -> inprogress, 1 -> end, 2 -> created
     companyName: string
+    ordered: Date | null
 }

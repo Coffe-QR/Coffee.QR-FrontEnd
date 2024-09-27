@@ -59,6 +59,7 @@ export class SupplyDetailsComponent {
             totalPrice: 0,
             status: 2,
             companyName: '',
+            ordered: null,
         }
         supply.totalPrice = this.getTotalPrice()
         this.supplyService.createSupply(supply).subscribe({

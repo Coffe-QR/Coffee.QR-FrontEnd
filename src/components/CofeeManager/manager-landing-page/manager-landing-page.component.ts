@@ -111,6 +111,14 @@ export class ManagerLandingPageComponent implements OnInit {
                 this.supplyService.taken(supply.id, supply).subscribe()
                 location.reload()
                 break
+            case 1:
+                this.supplyService.confirm(supply.id, supply).subscribe()
+                location.reload()
+                break
+            case 2:
+                this.supplyService.confirm(supply.id, supply).subscribe()
+                location.reload()
+                break
         }
     }
 
