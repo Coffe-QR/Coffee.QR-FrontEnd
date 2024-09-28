@@ -42,6 +42,26 @@
                     <p class="text-sm text-gray-300">
                         Dostava: {{ item.daysDelivery }} dana
                     </p>
+                    <p
+                        *ngIf="item.reccomended"
+                        class="text-sm font-bold text-gray-300"
+                    >
+                        Preporuka za nabavljanje
+                    </p>
+                    <button
+                        *ngIf="item.reccomended === false"
+                        class="mt-4 w-full rounded bg-stone-700 p-2 text-white transition duration-200 hover:bg-stone-500"
+                        (click)="recomend(item.id)"
+                    >
+                        Nepreporuci
+                    </button>
+                    <button
+                        *ngIf="item.reccomended === true"
+                        class="mt-4 w-full rounded bg-stone-700 p-2 text-white transition duration-200 hover:bg-stone-500"
+                        (click)="recomend(item.id)"
+                    >
+                        Preporuci
+                    </button>
                 </div>
             </div>
         </div>

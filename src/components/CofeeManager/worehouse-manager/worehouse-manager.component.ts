@@ -16,7 +16,7 @@ export class WorehouseManagerComponent {
 
     ngOnInit(): void {
         // Ovde biste obično učitali podatke iz servisa
-        this.itemService.getAllItems().subscribe({
+        this.itemService.getAllItemForStorage(1).subscribe({
             next: (response) => {
                 this.items = response
                 this.filteredItems = response
@@ -45,5 +45,12 @@ export class WorehouseManagerComponent {
     onTypeChange(type: number) {
         this.selectedType = type
         this.filterItems()
+    }
+
+    orderedItems: Item[] = []
+
+    recomend(itemId: any) {
+        this.itemService.reccomend(itemId).subscribe()
+        location.reload()
     }
 }
