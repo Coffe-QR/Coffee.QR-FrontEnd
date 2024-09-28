@@ -1,62 +1,64 @@
-<div
-    class="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-orange-500 to-black p-4"
->
-    <div class="container mx-auto px-4 py-8">
-        <form class="mb-8 flex flex-col gap-4 sm:flex-row">
-            <input
-                type="text"
-                formControlName="search"
-                placeholder="Pretraži artikle..."
-                class="flex-grow rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <select
-                formControlName="type"
-                class="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-                <option value="all">Svi tipovi</option>
-                <option value="0">Hrana</option>
-                <option value="1">Piće</option>
-                <option value="2">Sastojak</option>
-            </select>
-        </form>
-
-        <div
-            class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        >
-            <div
-                *ngFor="let item of filteredItems"
-                class="overflow-hidden rounded-lg bg-white shadow-md"
-            >
-                <img
-                    [src]="item.picture"
-                    [alt]="item.name"
-                    class="h-48 w-full object-cover"
+<div class="flex h-screen w-full items-center justify-center to-black">
+    <div
+        class="mt-16 flex w-11/12 max-w-screen-lg flex-col items-center justify-center p-4"
+    >
+        <div class="sticky top-0 z-10">
+            <div class="flex items-center justify-center space-x-2">
+                <input
+                    type="text"
+                    placeholder="Pretraži stavke..."
+                    class="w-full rounded border p-2 text-black sm:w-1/3"
+                    (input)="onSearchChange($event)"
                 />
-                <div class="p-4">
-                    <h3 class="mb-2 text-lg font-semibold">{{ item.name }}</h3>
-                    <p class="mb-2 text-sm text-gray-600">
-                        {{ item.description }}
-                    </p>
-                    <p class="text-sm">
-                        <span class="font-medium">Tip:</span>
-                        {{ getTypeLabel(item.type) }}
-                    </p>
-                    <p class="text-sm">
-                        <span class="font-medium">Cena:</span>
+                <select class="rounded border p-2 text-black">
+                    <option value="">Sve kategorije</option>
+                    <option value="0">Food</option>
+                    <option value="1">Drink</option>
+                    <option value="2">Ingrident</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-16 max-h-[80vh] w-full overflow-y-auto">
+            <div
+                class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            >
+                <div
+                    *ngFor="let item of filteredItems"
+                    class="rounded-lg border p-4"
+                >
+                    <img
+                        [src]="item.picture"
+                        alt="{{ item.name }}"
+                        class="h-32 w-full rounded object-cover"
+                    />
+                    <h2 class="mt-2 text-lg font-bold text-white">
+                        {{ item.name }}
+                    </h2>
+                    <p class="text-white">{{ item.description }}</p>
+                    <p class="text-xl font-semibold text-white">
                         {{ item.price | currency }}
                     </p>
-                    <p class="text-sm">
-                        <span class="font-medium">Kompanija:</span>
-                        {{ item.companyName }}
+                    <p class="text-sm text-gray-300">
+                        Dostava: {{ item.daysDelivery }} dana
                     </p>
-                    <p class="text-sm">
-                        <span class="font-medium">Dostava za:</span>
-                        {{ item.daysDelivery }} dana
+                    <p *ngIf="item.reccomended" class="text-sm text-gray-300">
+                        Preporuka za nabavljanje
                     </p>
-                    <p class="text-sm">
-                        <span class="font-medium">Količina:</span>
-                        {{ item.quantity }}
-                    </p>
+                    <button
+                        *ngIf="item.reccomended === false"
+                        class="mt-4 w-full rounded bg-stone-700 p-2 text-white transition duration-200 hover:bg-stone-500"
+                        (click)="recomend(item.id)"
+                    >
+                        Nepreporuci
+                    </button>
+                    <button
+                        *ngIf="item.reccomended === true"
+                        class="mt-4 w-full rounded bg-stone-700 p-2 text-white transition duration-200 hover:bg-stone-500"
+                        (click)="recomend(item.id)"
+                    >
+                        Preporuci
+                    </button>
                 </div>
             </div>
         </div>

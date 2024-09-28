@@ -46,4 +46,8 @@ export class ItemService {
     getAllForSupply(supplyId: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/get-for-supply/` + supplyId)
     }
+
+    reccomend(itemId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/reccomend/` + itemId)
+    }
 }

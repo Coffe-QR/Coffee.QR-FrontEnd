@@ -11,4 +11,5 @@ export interface Item {
     companyName: string
     daysDelivery: number
     sales: Sale[]
+    reccomended: boolean
 }
