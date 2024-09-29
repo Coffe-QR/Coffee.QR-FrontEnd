@@ -58,7 +58,8 @@ export class CreateTableComponent implements OnInit {
         }
 
         this.tableService.createTable(tableData).subscribe({
-            next: (response) => this.router.navigate(['/manager']),
+            next: ()=> location.reload(),
+            //next: (response) => this.router.navigate(['/manager']),
             error: (error) => console.error('Error creating table:', error),
         })
     }
