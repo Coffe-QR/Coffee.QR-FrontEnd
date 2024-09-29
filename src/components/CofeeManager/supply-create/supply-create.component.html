@@ -40,7 +40,6 @@
                 class="sticky top-0 z-10 mb-2 w-full rounded bg-stone-700 px-4 py-2 text-white"
             >
                 <h1 class="mb-2 text-3xl font-bold">Create supply</h1>
-
                 <div class="flex items-center justify-center p-4">
                     <div class="flex rounded border-2">
                         <input
@@ -134,16 +133,12 @@
             <!-- Scrollable Order Items -->
             <div class="flex-grow overflow-y-auto">
                 <div
-                    *ngFor="
-                        let item of orderItems | filter: searchTerm : 'name'
-                    "
+                    *ngFor="let item of orderItems"
                     class="border-b border-gray-300 p-2"
                 >
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="font-bold">
-                                {{ item.product.name }} - x{{ item.quantity }}
-                            </p>
+                            <p class="font-bold">{{ item.product.name }}</p>
                             <div class="flex items-center">
                                 <button
                                     class="mx-1 h-8 w-8 bg-stone-500 text-white duration-300 hover:bg-stone-600"
@@ -151,6 +146,13 @@
                                 >
                                     -
                                 </button>
+                                <input
+                                    type="number"
+                                    [(ngModel)]="item.quantity"
+                                    class="mx-1 w-16 rounded border border-gray-300 text-center"
+                                    min="1"
+                                    (change)="updateTotal()"
+                                />
                                 <button
                                     class="mx-1 h-8 w-8 bg-stone-500 text-white duration-300 hover:bg-stone-600"
                                     (click)="increaseQuantity(item)"
@@ -187,7 +189,6 @@
 
             <!-- Check if there are any sales in the list -->
             <ul *ngIf="sales?.length; else noSalesMessage">
-                <!-- Loop over each SaleDto object in salesList and display its properties -->
                 <li *ngFor="let sale of sales" class="mb-4 border-b pb-2">
                     <p><strong>Pieces:</strong> {{ sale.pieces }}</p>
                     <p><strong>Discount:</strong> {{ sale.discount }}%</p>

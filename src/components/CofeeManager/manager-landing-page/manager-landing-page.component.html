@@ -170,72 +170,85 @@
             </ng-template>
 
             <!-- Close button -->
-            <button
-                class="mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-500"
-                (click)="closeItemModal()"
-            >
-                Close
-            </button>
+            <div class="flex flex-row space-x-2">
+                <button
+                    class="mx-1 flex-1 rounded bg-stone-600 px-4 py-2 text-white hover:bg-stone-500"
+                    (click)="closeItemModal()"
+                >
+                    Close
+                </button>
+                <button
+                    class="mx-1 flex-1 rounded bg-stone-600 px-4 py-2 text-white hover:bg-stone-500"
+                    (click)="orderAgain()"
+                >
+                    Reorder
+                </button>
+                <button
+                    class="mx-1 flex-1 rounded bg-stone-600 px-4 py-2 text-white hover:bg-stone-500"
+                    (click)="edit()"
+                >
+                    Edit & reorder
+                </button>
+            </div>
         </div>
-    </div>
+        <!-- ERROR -->
+        <div
+            id="itemModal1"
+            class="fixed left-0 top-0 z-50 flex hidden h-full w-full items-center justify-center bg-black bg-opacity-50"
+        >
+            <div class="max-w-auto rounded bg-white p-8 shadow-lg">
+                <!-- Modal Title -->
+                <h2 class="mb-4 text-2xl font-bold">Item List</h2>
 
-    <!-- ERROR -->
-    <div
-        id="itemModal1"
-        class="fixed left-0 top-0 z-50 flex hidden h-full w-full items-center justify-center bg-black bg-opacity-50"
-    >
-        <div class="max-w-auto rounded bg-white p-8 shadow-lg">
-            <!-- Modal Title -->
-            <h2 class="mb-4 text-2xl font-bold">Item List</h2>
+                <!-- Check if there are any items in the list -->
+                <table class="table-striped table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Picture</th>
+                            <th>Quantity</th>
+                            <th>Company Name</th>
+                            <th>Days Delivery</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of items1">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>
+                                <img
+                                    src="{{ item.picture }}"
+                                    alt="{{ item.name }}"
+                                    width="100"
+                                />
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.companyName }}</td>
+                            <td>{{ item.daysDelivery }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- Check if there are any items in the list -->
-            <table class="table-striped table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Picture</th>
-                        <th>Quantity</th>
-                        <th>Company Name</th>
-                        <th>Days Delivery</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items1">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.type }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.description }}</td>
-                        <td>{{ item.price }}</td>
-                        <td>
-                            <img
-                                src="{{ item.picture }}"
-                                alt="{{ item.name }}"
-                                width="100"
-                            />
-                        </td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.companyName }}</td>
-                        <td>{{ item.daysDelivery }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                <!-- Fallback if no items are available -->
+                <ng-template #noItemsMessage>
+                    <p>No items available.</p>
+                </ng-template>
 
-            <!-- Fallback if no items are available -->
-            <ng-template #noItemsMessage>
-                <p>No items available.</p>
-            </ng-template>
-
-            <!-- Close button -->
-            <button
-                class="mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-500"
-                (click)="closeItemModal1()"
-            >
-                Close
-            </button>
+                <!-- Close button -->
+                <button
+                    class="mt-4 rounded bg-stone-700 px-4 py-2 text-white hover:bg-stone-500"
+                    (click)="closeItemModal1()"
+                >
+                    Close
+                </button>
+            </div>
         </div>
     </div>
 </div>

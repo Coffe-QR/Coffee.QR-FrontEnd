@@ -5,4 +5,5 @@ export interface SupplyItem {
     quantity: number
     price: number
     companyName: string
+    itemName: string | null
 }

@@ -29,4 +29,8 @@ export class SupplyService {
     confirm(supplyId: number, updatedData: any): Observable<any> {
         return this.http.put(`${this.apiUrl}/confirm`, updatedData)
     }
+
+    reorder(supplyId: number, updatedData: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/reorder/` + supplyId, updatedData)
+    }
 }

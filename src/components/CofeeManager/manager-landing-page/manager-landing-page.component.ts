@@ -7,6 +7,8 @@ import { SupplyService } from '../supply.service'
 import { Router } from '@angular/router'
 import { Supply } from '../../../auth/model/supply.model'
 import { Item } from '../../../auth/model/item.model'
+import { SupplyItemService } from '../supply-item.service'
+import { SupplyItem } from '../../../auth/model/supply-item.model'
 
 @Component({
     selector: 'app-manager-landing-page',
@@ -23,7 +25,8 @@ export class ManagerLandingPageComponent implements OnInit {
         private supplyService: SupplyService,
         private router: Router,
         private eventService: EventService,
-        private authService: AuthService
+        private authService: AuthService,
+        private supplyItemService: SupplyItemService
     ) {}
 
     ngOnInit(): void {
@@ -198,5 +201,26 @@ export class ManagerLandingPageComponent implements OnInit {
         }
         this.selectedProduct = null
         this.items1 = []
+    }
+
+    //=================================================================
+    orderAgain(): void {
+        let supply: Supply = {
+            id: 0,
+            companyId: 0,
+            totalPrice: 0,
+            status: 2,
+            companyName: '',
+            ordered: null,
+        }
+        let items21: SupplyItem[] = []
+        supply.totalPrice = this.selectedProduct.price
+        this.supplyService.reorder(this.selectedProduct.id, null).subscribe({})
+    }
+
+    edit(): void {
+        if (this.selectedProduct.id !== null)
+            localStorage.setItem('supply', this.selectedProduct.id?.toString())
+        this.router.navigate(['/supply-create'])
     }
 }

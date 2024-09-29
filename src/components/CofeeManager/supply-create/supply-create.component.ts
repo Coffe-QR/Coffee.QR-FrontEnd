@@ -9,12 +9,11 @@ import { SupplyItem } from '../../../auth/model/supply-item.model'
 import { Observable } from 'rxjs'
 import { SaleService } from './../sale.service'
 import { Sale } from '../../../auth/model/sale.model'
-import { MenuDetailsComponent } from './../menu-details/menu-details.component'
 
 @Component({
     selector: 'app-supply-create',
     templateUrl: './supply-create.component.html',
-    styleUrl: './supply-create.component.scss',
+    styleUrls: ['./supply-create.component.scss'],
 })
 export class SupplyCreateComponent {
     products: Item[] = []
@@ -56,7 +55,6 @@ export class SupplyCreateComponent {
         })
         const supplyId = localStorage.getItem('supply')
         if (supplyId !== null) {
-            //
             this.supplyItemService.getAllForSupply(Number(supplyId)).subscribe({
                 next: (response) => {
                     response.forEach((element: any) => {
@@ -67,9 +65,7 @@ export class SupplyCreateComponent {
                             quantity: element.quantity,
                         })
                     })
-
                     localStorage.removeItem('supply')
-                    console.log(this.orderItems)
                 },
                 error: (error) => console.error('Error creating event:', error),
             })
@@ -90,11 +86,6 @@ export class SupplyCreateComponent {
         const existingItem = this.orderItems.find(
             (item) => item.product.id === product.id
         )
-        this.saleService.getAllCostForLocal(product.companyName).subscribe({
-            next: (res) => {
-                product.sales = res
-            },
-        })
         if (existingItem) {
             existingItem.quantity++
         } else {
@@ -122,7 +113,6 @@ export class SupplyCreateComponent {
         }
         let supplyItems: SupplyItem[] = []
         this.orderItems.forEach((oi) => {
-            console.log(oi.product)
             supplyItems.push({
                 id: -1,
                 supplyId: supply.id,
@@ -130,6 +120,7 @@ export class SupplyCreateComponent {
                 quantity: oi.quantity,
                 price: oi.product.price * oi.quantity,
                 companyName: oi.product.companyName,
+                itemName: '',
             })
         })
 
@@ -142,6 +133,7 @@ export class SupplyCreateComponent {
                 console.error('Error creating supply items:', error),
         })
     }
+
     increaseQuantity(item: any) {
         item.quantity++
         this.updateTotal()
@@ -159,19 +151,7 @@ export class SupplyCreateComponent {
     }
 
     updateTotal() {
-        // this.total = 0
-        this.orderItems.forEach((item) => {
-            //    this.total += item.product.price * item.quantity
-        })
-    }
-
-    getCompanyName(id: any): any {
-        console.log(id)
-        const name = this.itemService.getName(id).subscribe({
-            next: () =>
-                console.log('You have successfully completed the purchase.'),
-        })
-        return name
+        // Recalculate total if necessary
     }
 
     selectedProduct: any = null
@@ -181,7 +161,6 @@ export class SupplyCreateComponent {
         this.saleService.getAllCostForLocal(product.companyName).subscribe({
             next: (res) => {
                 this.sales = res
-                console.log(res)
             },
         })
         this.selectedProduct = product
@@ -199,13 +178,14 @@ export class SupplyCreateComponent {
         this.selectedProduct = null
     }
 
-    getDiscount(guantity: any, sales: any): any {
+    getDiscount(quantity: any, sales: any): any {
+        if (!sales || !Array.isArray(sales)) return 1 // Check if sales is undefined or not an array
         for (let i = 1; i < sales.length; i++) {
-            if (sales[i].pieces > guantity && guantity > sales[i - 1].pieces) {
+            if (sales[i].pieces > quantity && quantity > sales[i - 1].pieces) {
                 return 1 - sales[i - 1].discount / 100
             }
         }
-        return 1
+        return 1 // Default value if no applicable discount
     }
 
     getPrice(item: any): any {
