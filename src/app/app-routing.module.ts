@@ -44,6 +44,8 @@ import { WarehousemanLandingPageComponent } from '../components/Warehouseman/war
 import { WarehousemanGuard } from '../auth/warehouseman.guard'
 import { WarehouseComponent } from '../components/Warehouseman/warehouse/warehouse.component'
 import { WorehouseManagerComponent } from '../components/CofeeManager/worehouse-manager/worehouse-manager.component'
+import { NewReportComponent } from '../components/CofeeManager/new-report/new-report.component'
+import { CreateNewReportComponent } from '../components/CofeeManager/create-new-report/create-new-report.component'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -229,6 +231,16 @@ const routes: Routes = [
     {
         path: 'warehouse-manager',
         component: WorehouseManagerComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'report-all',
+        component: NewReportComponent,
+        canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-new-report',
+        component: CreateNewReportComponent,
         canActivate: [ManagerGuard],
     },
     // {

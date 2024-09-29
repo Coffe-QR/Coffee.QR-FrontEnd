@@ -75,7 +75,7 @@
                             (mouseenter)="openDropdown('event')"
                             (mouseleave)="startChecking('event')"
                         >
-                            Event
+                            Report
                         </button>
                         <div
                             *ngIf="dropdowns['event']"
@@ -86,21 +86,15 @@
                         >
                             <a
                                 *ngIf="user && user.role === 'manager'"
-                                [routerLink]="['/create-event']"
+                                [routerLink]="['/create-new-report']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >Create Event</a
+                                >Create report</a
                             >
                             <a
                                 *ngIf="user && user.role === 'manager'"
-                                [routerLink]="['/events-overview']"
+                                [routerLink]="['/report-all']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >Events overview</a
-                            >
-                            <a
-                                *ngIf="user && user.role === 'manager'"
-                                [routerLink]="['/create-ticket']"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >Create ticket</a
+                                >Report</a
                             >
                         </div>
                     </div>
@@ -200,6 +194,12 @@
                                 [routerLink]="['/warehouse-manager']"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 >Warehouse</a
+                            >
+                            <a
+                                *ngIf="user && user.role === 'manager'"
+                                [routerLink]="['/report-all']"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >Report</a
                             >
                         </div>
                     </div>

@@ -11,11 +11,19 @@ export class ReportService {
 
     constructor(private http: HttpClient) {}
 
+    create(reportDto: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/new-report`, reportDto)
+    }
+
     getAllForLocal(localId: number): Observable<any> {
         return this.http.get(this.apiUrl + '/getAllForLocal/' + localId)
     }
 
     getAllCostForLocal(localId: number): Observable<any> {
         return this.http.get(this.apiUrl + '/getAllCoastForLocal/' + localId)
+    }
+
+    getNewReport(): Observable<any> {
+        return this.http.get(this.apiUrl + '/new-report')
     }
 }

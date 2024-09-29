@@ -1,0 +1,56 @@
+<div class="flex h-screen w-full items-center justify-center to-black">
+    <div
+        class="mt-16 flex w-11/12 max-w-screen-lg flex-col items-center justify-center p-4"
+    >
+        <div class="sticky top-0 z-10 w-3/5">
+            <div class="flex items-center justify-center space-x-2">
+                <input
+                    type="date"
+                    class="rounded border bg-stone-700 p-2 text-white"
+                    (change)="onDateChange($event)"
+                />
+                <select
+                    (change)="onSortChange($event)"
+                    class="rounded border bg-stone-700 p-2 text-white"
+                >
+                    <option value="asc">Sortiraj po datumu (rastuće)</option>
+                    <option value="desc">Sortiraj po datumu (opadajuće)</option>
+                </select>
+                <button
+                    class="rounded bg-stone-700 p-2 text-white"
+                    (click)="resetSearch()"
+                >
+                    Poništi pretragu
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-16 max-h-[80vh] w-full overflow-y-auto">
+            <div
+                class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            >
+                <div
+                    *ngFor="let item of filteredItems"
+                    class="hover:scale-101 transform rounded-lg border p-4 transition-transform"
+                >
+                    <h2 class="mt-2 text-lg font-bold text-white">
+                        Start: {{ item.start }}
+                    </h2>
+                    <p class="mt-2 text-lg font-bold text-white">
+                        End: {{ item.end }}
+                    </p>
+                    <div class="mt-4">
+                        <a
+                            class="mt-1 w-full rounded bg-stone-700 p-2 text-white transition duration-200 hover:bg-stone-500"
+                            [attr.href]="
+                                'https://localhost:44333/resources/' + item.path
+                            "
+                            target="_blank"
+                            >Open report</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

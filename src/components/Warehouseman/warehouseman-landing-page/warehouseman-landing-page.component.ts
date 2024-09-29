@@ -120,7 +120,7 @@ export class WarehousemanLandingPageComponent implements OnInit {
 
     // Funkcija za zatvaranje modal-a
     error(item: Supply): void {
-        this.openItemModal1(item)
+        // this.openItemModal1(item)
     }
 
     closeItemModal() {

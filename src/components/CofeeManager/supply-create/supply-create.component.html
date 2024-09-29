@@ -83,7 +83,10 @@
                             <div class="w-1/3">
                                 <img
                                     *ngIf="product.picture"
-                                    [src]="product.picture"
+                                    [src]="
+                                        'https://localhost:44333/resources' +
+                                        product.picture
+                                    "
                                     class="mb-4 h-40 w-full rounded-lg object-cover"
                                 />
                             </div>
