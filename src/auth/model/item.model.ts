@@ -12,4 +12,5 @@ export interface Item {
     daysDelivery: number
     sales: Sale[]
     reccomended: boolean
+    exceptedQuantity: number
 }

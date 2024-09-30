@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { User } from '../../../auth/model/user.model'
 import { AuthService } from '../../../auth/auth.service'
-import { Supply } from '../../../auth/model/supply.model'
 import { SupplyService } from '../../CofeeManager/supply.service'
 import { Router } from '@angular/router'
 import { Item } from '../../../auth/model/item.model'
 import { ItemService } from './../../CofeeManager/item.service'
+import { SupplyItem } from '../../../auth/model/supply-item.model'
+import { Supply } from './../../../auth/model/supply.model'
 
 @Component({
     selector: 'app-warehouseman-landing-page',
@@ -121,6 +122,8 @@ export class WarehousemanLandingPageComponent implements OnInit {
     // Funkcija za zatvaranje modal-a
     error(item: Supply): void {
         // this.openItemModal1(item)
+        localStorage.setItem('evoGa', item.id.toString())
+        this.router.navigate(['/create-mistake'])
     }
 
     closeItemModal() {
@@ -154,6 +157,35 @@ export class WarehousemanLandingPageComponent implements OnInit {
     // Funkcija za zatvaranje modal-a
     closeItemModal1() {
         const modal = document.getElementById('itemModal1')
+        if (modal) {
+            modal.classList.add('hidden')
+        }
+        this.selectedProduct = null
+        this.items1 = []
+    }
+
+    //================================================================
+    items2: Item[] = []
+    openItemModal2(product: any) {
+        this.itemService.getAllForError(product.id).subscribe({
+            next: (res) => {
+                this.items2 = res
+            },
+            error: (err) => {
+                console.error('Error fetching items:', err)
+                this.items2 = []
+            },
+        })
+        this.selectedProduct = product
+        const modal = document.getElementById('itemModal2')
+        if (modal) {
+            modal.classList.remove('hidden')
+        }
+    }
+
+    // Funkcija za zatvaranje modal-a
+    closeItemModal2() {
+        const modal = document.getElementById('itemModal2')
         if (modal) {
             modal.classList.add('hidden')
         }

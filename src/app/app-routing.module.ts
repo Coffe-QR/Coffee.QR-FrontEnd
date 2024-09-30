@@ -46,6 +46,7 @@ import { WarehouseComponent } from '../components/Warehouseman/warehouse/warehou
 import { WorehouseManagerComponent } from '../components/CofeeManager/worehouse-manager/worehouse-manager.component'
 import { NewReportComponent } from '../components/CofeeManager/new-report/new-report.component'
 import { CreateNewReportComponent } from '../components/CofeeManager/create-new-report/create-new-report.component'
+import { CreateErrorComponent } from '../components/Warehouseman/create-error/create-error.component'
 // Placeholder for the guard imports
 // import { BartenderGuard } from 'path-to-guard';
 // Similar imports for other guards...
@@ -242,6 +243,11 @@ const routes: Routes = [
         path: 'create-new-report',
         component: CreateNewReportComponent,
         canActivate: [ManagerGuard],
+    },
+    {
+        path: 'create-mistake',
+        component: CreateErrorComponent,
+        canActivate: [WarehousemanGuard],
     },
     // {
     //     path: 'warehouse-manager',

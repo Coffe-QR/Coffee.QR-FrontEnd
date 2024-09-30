@@ -50,4 +50,8 @@ export class ItemService {
     reccomend(itemId: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/reccomend/` + itemId)
     }
+
+    getAllForError(supplyId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/get-for-error/` + supplyId)
+    }
 }
